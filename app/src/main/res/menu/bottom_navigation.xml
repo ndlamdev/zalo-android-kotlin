@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_message"
+        android:enabled="true"
+        android:icon="@drawable/ic_message"
+        android:title="@string/message"/>
+    <item
+        android:id="@+id/nav_contact"
+        android:enabled="true"
+        android:icon="@drawable/ic_book_contacts"
+        android:title="@string/contact" />
+    <item
+        android:id="@+id/nav_discover"
+        android:enabled="true"
+        android:icon="@drawable/ic_application_add_solid"
+        android:title="@string/discover" />
+    <item
+        android:id="@+id/nav_history"
+        android:enabled="true"
+        android:icon="@drawable/ic_time"
+        android:title="@string/history" />
+    <item
+        android:id="@+id/nav_personal"
+        android:enabled="true"
+        android:icon="@drawable/ic_person"
+        android:title="@string/personal" />
+</menu>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Zalo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_icon">Seach Icon.png</string>
+    <string name="hint_search">Tìm kiếm</string>
+    <string name="qr_icon">Qr.svg</string>
+    <string name="plus_icon">plus.svg</string>
+    <string name="message">Tin nhắn</string>
+    <string name="contact">Nhật ký</string>
+    <string name="discover">Khám phá</string>
+    <string name="history">Lịch sử</string>
+    <string name="personal">Cá nhânn</string>
+    <string name="button_back_icon">Button Back</string>
+    <string name="filter">Lọc</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="option">Tùy chọn</string>
+    <string name="find">Tìm</string>
+    <string name="page">Trang</string>
+    <string name="change">Đổi</string>
+    <string name="background_image">Hình nền</string>
+    <string name="turn_off">Tắt</string>
+    <string name="notify">Thông báo</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources name="AppTheme">
+    <attr name="colorIcon" format="color" />
+    <attr name="colorIconTint" format="color" />
+    <attr name="backgroundHeader" format="reference" />
+    <attr name="backgroundComponentSearch" format="color" />
+</resources>

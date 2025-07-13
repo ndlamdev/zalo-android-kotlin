@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/icon_size"
+    android:background="?attr/backgroundHeader"
+    android:orientation="horizontal"
+    tools:context=".ui.search.headers.SearchHeaderFragment">
+
+    <ImageButton
+        android:id="@+id/image_button_back"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_back_icon"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@drawable/ic_white_arrow_left"
+        android:stateListAnimator="@animator/button_opacity_animator" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:backgroundTint="?attr/backgroundComponentSearch"
+        android:padding="15dp"
+        app:cardCornerRadius="@dimen/radius_component_search">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/icon_size_md"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/image_button_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/gap_item_in_linear_layout"
+                android:alpha="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/search_icon"
+                android:src="@drawable/ic_search"
+                android:stateListAnimator="@animator/button_opacity_animator" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/gap_item_in_linear_layout"
+                android:background="@android:color/transparent"
+                android:hint="@string/hint_search"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/image_button_qr"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/qr_icon"
+        android:src="@drawable/ic_white_qr"
+        android:stateListAnimator="@animator/button_opacity_animator" />
+</LinearLayout>
