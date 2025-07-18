@@ -4,4 +4,6 @@
     <attr name="colorIconTint" format="color" />
     <attr name="backgroundHeader" format="reference" />
     <attr name="backgroundComponentSearch" format="color" />
+    <attr name="backgroundButtonCreateNewAccount" format="color" />
+    <attr name="backgroundButtonCreateNewAccountPressed" format="color" />
 </resources>

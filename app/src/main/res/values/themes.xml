@@ -21,5 +21,7 @@
         <item name="colorIconTint">@color/white</item>
         <item name="backgroundHeader">@drawable/bg_header</item>
         <item name="backgroundComponentSearch">@color/white</item>
+        <item name="backgroundButtonCreateNewAccount">@color/gray_200</item>
+        <item name="backgroundButtonCreateNewAccountPressed">@color/gray_300</item>
     </style>
 </resources>

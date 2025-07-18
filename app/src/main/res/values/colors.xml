@@ -98,4 +98,16 @@
     <color name="blue_700">#1976D2</color>
     <color name="blue_800">#1565C0</color>
     <color name="blue_900">#0D47A1</color>
+
+    <!--GRAY-->
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color> <!-- Xám cơ bản -->
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color> <!-- Rất gần với đen -->
 </resources>

@@ -10,7 +10,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.roomchat.headers.OptionRoomChatHeaderFragment
 import com.lamnguyen.zalo.ui.roomchat.headers.RoomChatHeaderFragment

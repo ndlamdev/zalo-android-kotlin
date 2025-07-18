@@ -1,7 +1,6 @@
 package com.lamnguyen.zalo.ui.main.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.lamnguyen.zalo.R
-import com.lamnguyen.zalo.utils.adapters.MainFragmentStateAdapter
 import com.lamnguyen.zalo.ui.main.viewmodels.NavigationViewModel
+import com.lamnguyen.zalo.utils.adapters.MainFragmentStateAdapter
 
 class MainFragment : Fragment() {
     private val navigationViewModel: NavigationViewModel by activityViewModels()

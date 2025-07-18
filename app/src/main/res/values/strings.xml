@@ -22,4 +22,16 @@
     <string name="background_image">Hình nền</string>
     <string name="turn_off">Tắt</string>
     <string name="notify">Thông báo</string>
+
+    <!--Introduction-->
+    <string name="introduction_title_1">Gọi video ổn định</string>
+    <string name="introduction_description_1">Trò chuyện thật đã với chất lượng video ổn định mọi lúc, mọi nơi</string>
+    <string name="introduction_title_2">Chat nhóm tiện ích</string>
+    <string name="introduction_description_2">Nơi đổi hình ảnh chất lượng cao ới bạn vè và ngời thân thật nhanh và dễ dàng</string>
+    <string name="introduction_title_3">Gửi ảnh nhanh chóng</string>
+    <string name="introduction_description_3">Tro đổi hình ảnh chất lượng cao với bạn bè và người thân thật nhanh và dễ dàng</string>
+    <string name="introduction_title_4">Nhật ký bạ bè</string>
+    <string name="introduction_description_4">Nơi cập nhật hoạt động mới nhất của những người bạn quan tâm</string>
+    <string name="login">Đăng nhập</string>
+    <string name="create_new_account">Tạo tài khoản mới</string>
 </resources>

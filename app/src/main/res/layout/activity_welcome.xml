@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.welcome.WelcomeActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_introduction_view_pager"
+        android:name="com.lamnguyen.zalo.ui.welcome.fragments.IntroductionViewPagerMainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fragment_layout_dotted"
+        app:layout_constraintLeft_toLeftOf="@id/main"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_layout_dotted"
+        android:name="com.lamnguyen.zalo.ui.welcome.fragments.DotFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/button_login"
+        app:layout_constraintLeft_toLeftOf="@id/main" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginBottom="@dimen/small"
+        android:background="@drawable/bg_button_login"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@id/button_create_new_account"
+        app:layout_constraintLeft_toLeftOf="@id/main" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_create_new_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginBottom="@dimen/medium"
+        android:background="@drawable/bg_button_create_new_account"
+        android:text="@string/create_new_account"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/main"
+        app:layout_constraintLeft_toLeftOf="@id/main" />
+</androidx.constraintlayout.widget.ConstraintLayout>
