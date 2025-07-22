@@ -50,6 +50,7 @@
 
     <color name="dark_200">#121212</color>
     <color name="white">#FAFAFA</color>
+    <color name="super_white">#FFFFFF</color>
 
     <!-- RED -->
     <color name="red_50">#FFEBEE</color>
@@ -109,5 +110,7 @@
     <color name="gray_600">#757575</color>
     <color name="gray_700">#616161</color>
     <color name="gray_800">#424242</color>
-    <color name="gray_900">#212121</color> <!-- Rất gần với đen -->
+    <color name="gray_900">#212121</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color> <!-- Rất gần với đen -->
 </resources>

@@ -34,4 +34,5 @@
     <string name="introduction_description_4">Nơi cập nhật hoạt động mới nhất của những người bạn quan tâm</string>
     <string name="login">Đăng nhập</string>
     <string name="create_new_account">Tạo tài khoản mới</string>
+    <string name="please_choice_country">Chọn mã quốc gia/vùng lãng thổ</string>
 </resources>

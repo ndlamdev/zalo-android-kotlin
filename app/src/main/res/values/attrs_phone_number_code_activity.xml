@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="pncBackgroundHeader" format="color" />
+    <attr name="pncBackground" format="color" />
+    <attr name="pncBackground_pressed" format="color" />
+    <attr name="pncBorder" format="color" />
+    <attr name="pncBorderSearch" format="color" />
+    <attr name="backgroundCleanSearch" format="color" />
+    <attr name="colorIconCleanSearch" format="color" />
+</resources>

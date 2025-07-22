@@ -57,4 +57,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.firebase.bom)
     implementation(libs.firebase.firestore)
+    implementation(libs.jackson.databind)
 }

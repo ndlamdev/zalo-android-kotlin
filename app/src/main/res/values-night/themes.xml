@@ -23,6 +23,12 @@
         <item name="backgroundComponentSearch">@color/black_700</item>
         <item name="backgroundButtonCreateNewAccount">@color/gray_700</item>
         <item name="backgroundButtonCreateNewAccountPressed">@color/gray_800</item>
-
+        <item name="pncBackgroundHeader">@color/black_200</item>
+        <item name="pncBackground">@color/black_700</item>
+        <item name="pncBackground_pressed">@color/blue_800</item>
+        <item name="pncBorder">@color/gray_800</item>
+        <item name="pncBorderSearch">@color/gray_600</item>
+        <item name="backgroundCleanSearch">@color/gray_300</item>
+        <item name="colorIconCleanSearch">@color/black</item>
     </style>
 </resources>

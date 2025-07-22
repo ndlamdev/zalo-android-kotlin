@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/pncBackground"
+    android:padding="@dimen/small"
+    tools:context=".ui.phonenumbercode.fragments.PhoneNumberCountrySearchFragment">
+
+    <LinearLayout
+        android:id="@+id/sub_layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_pnca_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/xsmall">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_sm"
+            android:layout_height="@dimen/icon_size_sm"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/edit_country"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xsmall"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_search"
+            android:inputType="text" />
+
+        <FrameLayout
+            android:id="@+id/button_clean_search"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/bg_clean_search"
+            android:padding="2.5dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_clean_search" />
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>
