@@ -58,4 +58,5 @@ dependencies {
     implementation(libs.firebase.bom)
     implementation(libs.firebase.firestore)
     implementation(libs.jackson.databind)
+    implementation(libs.libphonenumber)
 }

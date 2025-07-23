@@ -49,4 +49,21 @@
         android:background="@android:color/transparent"
         android:inputType="phone"
         android:textSize="@dimen/text_large" />
+
+    <FrameLayout
+        android:id="@+id/layout_button_clean_search"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/bg_clean_search"
+        android:padding="2.5dp"
+        android:layout_marginStart="@dimen/xsmall"
+        android:layout_marginEnd="@dimen/small"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_clean_search" />
+    </FrameLayout>
 </LinearLayout>

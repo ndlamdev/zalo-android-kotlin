@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.login.LoginActivity">
+
+
+    <ImageButton
+        android:id="@+id/button_back"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginStart="@dimen/xsmall"
+        android:layout_marginTop="@dimen/xsmall"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_input_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large"
+        android:text="@string/input_phone_number"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_h2"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_back" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_input_phone_number"
+        android:name="com.lamnguyen.zalo.ui.phonenumbercode.fragments.InputPhoneNumberFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginHorizontal="@dimen/large"
+        app:layout_constraintTop_toBottomOf="@id/text_input_phone_number" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_continue"
+        android:textAllCaps="false"
+        android:layout_marginTop="@dimen/medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:enabled="false"
+        android:background="@drawable/bg_button_continue"
+        android:textColor="@color/gray_500"
+        android:layout_marginHorizontal="@dimen/large"
+        app:layout_constraintTop_toBottomOf="@id/fragment_input_phone_number" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/medium">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you_do_not_have_any_account"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_account"
+            android:layout_marginStart="1dp"
+            android:textColor="@color/blue_700"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

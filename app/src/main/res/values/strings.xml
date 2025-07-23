@@ -35,4 +35,8 @@
     <string name="login">Đăng nhập</string>
     <string name="create_new_account">Tạo tài khoản mới</string>
     <string name="please_choice_country">Chọn mã quốc gia/vùng lãng thổ</string>
+    <string name="input_phone_number">Nhập số điện thoại</string>
+    <string name="text_continue">Tiếp tục</string>
+    <string name="you_do_not_have_any_account">Bạn chưa có tài khoản?</string>
+    <string name="create_account">Tạo tài khoản</string>
 </resources>

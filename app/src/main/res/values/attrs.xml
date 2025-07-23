@@ -10,4 +10,7 @@
     <attr name="backgroundPhoneNumberCodePressed" format="color" />
     <attr name="borderPhoneNumberCode" format="color" />
     <attr name="borderPhoneNumberCodePressed" format="color" />
+
+    <attr name="backgroundButtonContinueEnable" format="color"/>
+    <attr name="backgroundButtonContinueDisable" format="color"/>
 </resources>

@@ -35,5 +35,8 @@
         <item name="borderPhoneNumberCode">@color/gray_700</item>
         <item name="backgroundPhoneNumberCodePressed">#04182C</item>
         <item name="borderPhoneNumberCodePressed">#0B3B68</item>
+
+        <item name="backgroundButtonContinueDisable">@color/gray_700</item>
+        <item name="backgroundButtonContinueEnable">@color/blue_800</item>
     </style>
 </resources>

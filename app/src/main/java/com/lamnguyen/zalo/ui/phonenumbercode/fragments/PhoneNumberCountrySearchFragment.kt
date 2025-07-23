@@ -32,7 +32,7 @@ class PhoneNumberCountrySearchFragment : Fragment() {
 
         layoutSearch = view.findViewById(R.id.sub_layout_search)
         editCountry = view.findViewById(R.id.edit_country)
-        layoutCleanSearch = view.findViewById(R.id.button_clean_search)
+        layoutCleanSearch = view.findViewById(R.id.layout_button_clean_search)
         layoutCleanSearch.setOnClickListener {
             editCountry.text.clear()
         }
@@ -44,7 +44,7 @@ class PhoneNumberCountrySearchFragment : Fragment() {
             onTextChanged = { text, _, _, _ ->
                 phoneNumberViewModel.textSearchLiveData.value = text.toString()
                 layoutCleanSearch.visibility =
-                    if (layoutSearch.isSelected && text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
+                    if (text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
             })
     }
 

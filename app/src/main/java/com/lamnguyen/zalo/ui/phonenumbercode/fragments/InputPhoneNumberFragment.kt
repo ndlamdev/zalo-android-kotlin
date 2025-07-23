@@ -1,11 +1,14 @@
 package com.lamnguyen.zalo.ui.phonenumbercode.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
@@ -14,13 +17,14 @@ import androidx.core.content.edit
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
 import com.lamnguyen.zalo.utils.enums.SharedPreferenceKeys
+import androidx.core.widget.addTextChangedListener
 
 class InputPhoneNumberFragment : Fragment() {
     private lateinit var textPhoneNumberCode: TextView
     private lateinit var editPhoneNumber: EditText
     private lateinit var layoutInputPhoneNumber: LinearLayout
     private lateinit var layoutPhoneNumberCode: ConstraintLayout
-    var onChoicePhoneNumberCode: View.OnClickListener? = null
+    var onClickChoicePhoneNumberCode: View.OnClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +48,33 @@ class InputPhoneNumberFragment : Fragment() {
             layoutPhoneNumberCode.isSelected = hasFocus
         }
 
-
         view.findViewById<ConstraintLayout>(R.id.layout_phone_number_code)
-            .setOnClickListener(onChoicePhoneNumberCode)
+            .setOnClickListener(onClickChoicePhoneNumberCode)
+
+
+        val layoutButtonClean = view.findViewById<FrameLayout>(R.id.layout_button_clean_search)
+
+        layoutButtonClean.setOnClickListener {
+            editPhoneNumber.text.clear()
+        }
+
+        editPhoneNumber.filters = arrayOf(
+            InputFilter { source, _, _, _, _, _ ->
+                source.replace(Regex("[\\D\\s]"), "")
+            },
+            InputFilter.LengthFilter(15)
+        )
+
+        editPhoneNumber.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            layoutButtonClean.visibility =
+                if (hasFocus && editPhoneNumber.text.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+        }
+        editPhoneNumber.addTextChangedListener(
+            onTextChanged = { text, _, _, _ ->
+                layoutButtonClean.visibility =
+                    if (text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
+            }
+        )
     }
 
     private fun getDialCode(): String {
@@ -82,5 +110,20 @@ class InputPhoneNumberFragment : Fragment() {
 
     fun setPhoneNumberCode(dialCode: String?) {
         textPhoneNumberCode.text = dialCode
+    }
+
+    fun addTextWatcher(
+        beforeTextChanged:
+            (text: CharSequence?, start: Int, count: Int, after: Int) -> Unit =
+            { _, _, _, _ -> },
+        onTextChanged: (text: CharSequence?, start: Int, before: Int, count: Int) -> Unit =
+            { _, _, _, _ -> },
+        afterTextChanged: (text: Editable?) -> Unit = {}
+    ) {
+        editPhoneNumber.addTextChangedListener(
+            beforeTextChanged,
+            onTextChanged,
+            afterTextChanged
+        )
     }
 }

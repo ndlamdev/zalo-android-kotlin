@@ -34,7 +34,7 @@
             android:inputType="text" />
 
         <FrameLayout
-            android:id="@+id/button_clean_search"
+            android:id="@+id/layout_button_clean_search"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@drawable/bg_clean_search"
@@ -48,5 +48,4 @@
                 android:src="@drawable/ic_clean_search" />
         </FrameLayout>
     </LinearLayout>
-
 </FrameLayout>

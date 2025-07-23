@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="?attr/backgroundButtonContinueDisable" />
+            <corners android:radius="@dimen/xxlarge" />
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape>
+            <solid android:color="?attr/backgroundButtonContinueEnable" />
+            <corners android:radius="@dimen/xxlarge" />
+        </shape>
+    </item>
+<!--    <item android:state_enabled="true">-->
+<!--        <shape>-->
+<!--            <solid android:color="@color/blue_600" />-->
+<!--            <corners android:radius="@dimen/xxlarge" />-->
+<!--        </shape>-->
+<!--    </item>-->
+</selector>
