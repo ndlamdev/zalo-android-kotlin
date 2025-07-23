@@ -30,5 +30,10 @@
         <item name="pncBorderSearch">@color/gray_600</item>
         <item name="backgroundCleanSearch">@color/gray_300</item>
         <item name="colorIconCleanSearch">@color/black</item>
+
+        <item name="backgroundPhoneNumberCode">@color/black_700</item>
+        <item name="borderPhoneNumberCode">@color/gray_700</item>
+        <item name="backgroundPhoneNumberCodePressed">#04182C</item>
+        <item name="borderPhoneNumberCodePressed">#0B3B68</item>
     </style>
 </resources>

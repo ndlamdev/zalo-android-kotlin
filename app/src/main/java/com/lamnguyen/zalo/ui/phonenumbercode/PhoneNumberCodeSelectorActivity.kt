@@ -53,6 +53,9 @@ class PhoneNumberCodeSelectorActivity : AppCompatActivity() {
         const val PARAM_ARG_PHONE_NUMBER_CODE = "code"
         const val PARAM_ARG_PHONE_NUMBER_COUNTRY = "country"
         const val PARAM_ARG_PHONE_NUMBER_DIAL_CODE = "dial_code"
+        const val DEFAULT_PHONE_NUMBER_CODE = "VN"
+        const val DEFAULT_PHONE_NUMBER_COUNTRY = "Vietnam"
+        const val DEFAULT_PHONE_NUMBER_DIAL_CODE = "+84"
 
         fun registerForActivityResult(
             activity: AppCompatActivity,
@@ -73,8 +76,6 @@ class PhoneNumberCodeSelectorActivity : AppCompatActivity() {
                         }
 
                         onResult.accept(data)
-                    } else {
-                        onResult.accept(null)
                     }
                 }
 

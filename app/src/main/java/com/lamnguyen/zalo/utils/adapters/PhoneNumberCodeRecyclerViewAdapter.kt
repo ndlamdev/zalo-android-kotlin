@@ -53,8 +53,10 @@ class PhoneNumberCodeRecyclerViewAdapter(
             .getString(PARAM_ARG_PHONE_NUMBER_CODE, null)
 
         phoneNumberViewModel.textSearchLiveData.observe(activity) { textSearch ->
-            if(textSearch.isEmpty())formatData(originData)
-            else formatData(originData.filter { it.name.lowercase().contains(textSearch.lowercase()) })
+            if (textSearch.isEmpty()) formatData(originData)
+            else formatData(originData.filter {
+                it.name.lowercase().contains(textSearch.lowercase())
+            })
             notifyDataSetChanged()
         }
     }
@@ -84,8 +86,10 @@ class PhoneNumberCodeRecyclerViewAdapter(
 
             is PhoneNumberCodeViewHoler -> {
                 val data = showingData[position]
-                val checked = (currentPhoneNumberCode == null && data.dialCode == "+84") ||
-                        (currentPhoneNumberCode == data.code)
+                val checked =
+                    (currentPhoneNumberCode == null
+                            && data.dialCode == PhoneNumberCodeSelectorActivity.DEFAULT_PHONE_NUMBER_DIAL_CODE) ||
+                            (currentPhoneNumberCode == data.code)
                 holder.binding(data, checked, onPhoneNumberCodeSelected)
             }
         }
