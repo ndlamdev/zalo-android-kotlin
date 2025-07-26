@@ -59,4 +59,10 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.jackson.databind)
     implementation(libs.libphonenumber)
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation(libs.retrofit)
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-moshi
+    implementation(libs.converter.moshi)
+    // https://mvnrepository.com/artifact/com.squareup.moshi/moshi-kotlin
+    implementation(libs.moshi.kotlin)
 }

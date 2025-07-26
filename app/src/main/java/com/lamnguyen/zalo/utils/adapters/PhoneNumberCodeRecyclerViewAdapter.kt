@@ -1,16 +1,13 @@
 package com.lamnguyen.zalo.utils.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.core.content.edit
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -22,7 +19,7 @@ import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Com
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_COUNTRY
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_DIAL_CODE
 import com.lamnguyen.zalo.ui.phonenumbercode.viewmodels.PhoneNumberViewModel
-import com.lamnguyen.zalo.utils.enums.SharedPreferenceKeys
+import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
 import java.util.function.Consumer
 
 @SuppressLint("NotifyDataSetChanged")
@@ -46,8 +43,8 @@ class PhoneNumberCodeRecyclerViewAdapter(
         formatData(originData)
 
         val shared = activity.getSharedPreferences(
-            SharedPreferenceKeys.AUTHENTICATION.name,
-            Context.MODE_PRIVATE
+            SharedPreferenceNames.AUTHENTICATION.name,
+            MODE_PRIVATE
         )
         currentPhoneNumberCode = shared
             .getString(PARAM_ARG_PHONE_NUMBER_CODE, null)
@@ -134,7 +131,7 @@ class PhoneNumberCodeRecyclerViewAdapter(
 
         private fun savePhoneNumberCodeSelected(phoneNumberCode: PhoneNumberCode) {
             val shared = itemView.context.getSharedPreferences(
-                SharedPreferenceKeys.AUTHENTICATION.name,
+                SharedPreferenceNames.AUTHENTICATION.name,
                 MODE_PRIVATE
             )
             shared?.edit {

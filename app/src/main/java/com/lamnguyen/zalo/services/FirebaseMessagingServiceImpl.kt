@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Icon
 import androidx.core.app.ActivityCompat
@@ -13,18 +12,19 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.lamnguyen.zalo.R
 
 const val CHANNEL_ID = "1305"
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        sendTokenToServer(token)
         createNotificationChannel()
     }
+
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Handle incoming messages
@@ -40,21 +40,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         println(notification)
 
-        showNotification(12345789, builder.build())
-    }
-
-    private fun sendTokenToServer(token: String?) {
-        // If you're running your own server, call API to send token and today's date for the user
-
-        // Example shown below with Firestore
-        // Add token and timestamp to Firestore for this user
-        val deviceToken = hashMapOf(
-            "token" to token,
-            "timestamp" to FieldValue.serverTimestamp(),
-        )
-        // Get user ID from Firebase Auth or your own server
-        Firebase.firestore.collection("fcmTokens").document("tokens")
-            .set(deviceToken)
+        showNotification(data.getOrDefault("id", "1").toInt(), builder.build())
     }
 
     private fun createNotificationChannel() {
@@ -67,7 +53,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             description = descriptionText
         }
         val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -75,15 +61,58 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun showNotification(id: Int, notification: Notification) {
         with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(
-                    this@MyFirebaseMessagingService,
+                    this@FirebaseMessagingServiceImpl,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 return@with
             }
             val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(id, notification)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun sendTokenToServer(documentId: String, token: String?) {
+            // If you're running your own server, call API to send token and today's date for the user
+
+            // Example shown below with Firestore
+            // Add token and timestamp to Firestore for this user
+            val deviceToken = hashMapOf(
+                "token" to token,
+                "timestamp" to FieldValue.serverTimestamp(),
+            )
+            // Get user ID from Firebase Auth or your own server
+            Firebase.firestore
+                .collection("fcmTokens")
+                .document(documentId)
+                .set(deviceToken)
+        }
+
+        @JvmStatic
+        fun loginSuccess(documentId: String) {
+            FirebaseMessaging.getInstance().token
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val token = task.result
+                        sendTokenToServer(documentId, token)
+                    }
+                }
+        }
+
+        @JvmStatic
+        fun logoutSuccess(documentId: String) {
+            FirebaseMessaging.getInstance().deleteToken()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Firebase.firestore
+                            .collection("fcmTokens")
+                            .document(documentId)
+                            .delete()
+                    }
+                }
         }
     }
 }

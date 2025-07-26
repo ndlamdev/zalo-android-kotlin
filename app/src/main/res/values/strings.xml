@@ -39,4 +39,7 @@
     <string name="text_continue">Tiếp tục</string>
     <string name="you_do_not_have_any_account">Bạn chưa có tài khoản?</string>
     <string name="create_account">Tạo tài khoản</string>
+    <string name="input_password_for_this_phone_number">Nhập mật khẩu của tài khoản gán với số điện thoại</string>
+    <string name="input_password">Nhập mật khẩu</string>
+    <string name="forget_password">Quên mật khẩu?</string>
 </resources>

@@ -2,6 +2,7 @@ package com.lamnguyen.zalo.utils.helpers
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
+import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper.Companion.phoneNumber
 
 class PhoneNumberValidatorHelper {
     companion object {
@@ -17,6 +18,16 @@ class PhoneNumberValidatorHelper {
                 phoneNumber,
                 PhoneNumberUtil.PhoneNumberType.MOBILE
             )
+        }
+
+        @JvmStatic
+        fun formatPhoneNumberToNational(countryCode: String, nationalNumber: String): String? {
+            val nationalNumberFormat = nationalNumber.replace(Regex("\\D"), "")
+            if (nationalNumberFormat.isEmpty() || countryCode.isEmpty()) return null
+            phoneNumber.countryCode = countryCode.substring(1).toInt()
+            phoneNumber.nationalNumber = nationalNumberFormat.toLong()
+            return PhoneNumberUtil.getInstance()
+                .format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL)
         }
     }
 }

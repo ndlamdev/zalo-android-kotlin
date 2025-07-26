@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_pnca_search"
-    android:orientation="horizontal"
     android:gravity="center_vertical"
-    tools:context=".ui.phonenumbercode.fragments.InputPhoneNumberFragment"
-    android:padding="1dp">
+    android:orientation="horizontal"
+    android:padding="1dp"
+    tools:context=".ui.phonenumbercode.fragments.InputPhoneNumberFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_phone_number_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_phone_number_code"
         android:labelFor="@id/edit_phone_number"
-        android:padding="@dimen/small"
-        android:background="@drawable/bg_phone_number_code">
+        android:padding="@dimen/small">
 
         <TextView
             android:id="@+id/text_phone_number_code"
@@ -47,6 +47,7 @@
         android:layout_weight="1"
         android:autofillHints=""
         android:background="@android:color/transparent"
+        android:hint="@string/input_phone_number"
         android:inputType="phone"
         android:textSize="@dimen/text_large" />
 
@@ -54,10 +55,10 @@
         android:id="@+id/layout_button_clean_search"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:background="@drawable/bg_clean_search"
-        android:padding="2.5dp"
         android:layout_marginStart="@dimen/xsmall"
         android:layout_marginEnd="@dimen/small"
+        android:background="@drawable/bg_clean_search"
+        android:padding="2.5dp"
         android:visibility="invisible">
 
         <ImageView

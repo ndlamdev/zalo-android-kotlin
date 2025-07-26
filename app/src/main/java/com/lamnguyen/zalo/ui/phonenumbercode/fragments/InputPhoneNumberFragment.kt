@@ -16,7 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.edit
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
-import com.lamnguyen.zalo.utils.enums.SharedPreferenceKeys
+import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
 import androidx.core.widget.addTextChangedListener
 
 class InputPhoneNumberFragment : Fragment() {
@@ -43,10 +43,6 @@ class InputPhoneNumberFragment : Fragment() {
         textPhoneNumberCode.text = getDialCode()
 
         editPhoneNumber = view.findViewById(R.id.edit_phone_number)
-        editPhoneNumber.setOnFocusChangeListener { v, hasFocus ->
-            layoutInputPhoneNumber.isSelected = hasFocus
-            layoutPhoneNumberCode.isSelected = hasFocus
-        }
 
         view.findViewById<ConstraintLayout>(R.id.layout_phone_number_code)
             .setOnClickListener(onClickChoicePhoneNumberCode)
@@ -65,21 +61,27 @@ class InputPhoneNumberFragment : Fragment() {
             InputFilter.LengthFilter(15)
         )
 
-        editPhoneNumber.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+        editPhoneNumber.setOnFocusChangeListener { v, hasFocus ->
+            layoutInputPhoneNumber.isSelected = hasFocus
+            layoutPhoneNumberCode.isSelected = hasFocus
             layoutButtonClean.visibility =
                 if (hasFocus && editPhoneNumber.text.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         }
+
         editPhoneNumber.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
                 layoutButtonClean.visibility =
                     if (text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
             }
         )
+        layoutInputPhoneNumber.setOnClickListener {
+            editPhoneNumber.requestFocus()
+        }
     }
 
     private fun getDialCode(): String {
         val shared = view?.context?.getSharedPreferences(
-            SharedPreferenceKeys.AUTHENTICATION.name,
+            SharedPreferenceNames.AUTHENTICATION.name,
             MODE_PRIVATE
         )
         val dialCode =
