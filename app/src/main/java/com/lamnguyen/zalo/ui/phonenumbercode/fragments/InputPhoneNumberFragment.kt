@@ -3,7 +3,6 @@ package com.lamnguyen.zalo.ui.phonenumbercode.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.edit
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
 import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
-import androidx.core.widget.addTextChangedListener
 
 class InputPhoneNumberFragment : Fragment() {
     private lateinit var textPhoneNumberCode: TextView

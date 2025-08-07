@@ -45,6 +45,7 @@
                 android:stateListAnimator="@animator/button_opacity_animator" />
 
             <EditText
+                android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/gap_item_in_linear_layout"

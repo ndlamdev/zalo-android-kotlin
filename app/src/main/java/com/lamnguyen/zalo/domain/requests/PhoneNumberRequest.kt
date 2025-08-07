@@ -1,4 +1,4 @@
-package com.lamnguyen.zalo.dtos.requests
+package com.lamnguyen.zalo.domain.requests
 
 import com.squareup.moshi.Json
 

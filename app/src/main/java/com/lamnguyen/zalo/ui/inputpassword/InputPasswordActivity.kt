@@ -10,17 +10,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.edit
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient
-import com.lamnguyen.zalo.dtos.requests.LoginRequest
-import com.lamnguyen.zalo.dtos.responses.LoginResponse
+import com.lamnguyen.zalo.domain.requests.LoginRequest
 import com.lamnguyen.zalo.ui.inputpassword.viewmodels.LoginViewModel
 import com.lamnguyen.zalo.ui.main.MainActivity
-import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
 import com.lamnguyen.zalo.utils.helpers.LogHelper
 import com.lamnguyen.zalo.utils.helpers.TokenHelper
 import kotlinx.coroutines.launch
@@ -111,10 +108,17 @@ class InputPasswordActivity : AppCompatActivity() {
                 loginViewModel.passwordLiveData.value.toString()
             )
             try {
-                val result = RetrofitClient.authService.login(request)
-                result.data?.let { saveDataLogin(it) }
+                val result = RetrofitClient.authService(this@InputPasswordActivity).login(request)
+                result.data?.let {
+                    TokenHelper.saveAccessToken(
+                        it.accessToken,
+                        this@InputPasswordActivity
+                    )
+                }
 
-                startActivity(Intent(this@InputPasswordActivity, MainActivity::class.java))
+                startActivity(Intent(this@InputPasswordActivity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
                 finish()
             } catch (e: Exception) {
                 LogHelper.errorWithClassName(
@@ -123,32 +127,6 @@ class InputPasswordActivity : AppCompatActivity() {
                     e
                 )
             }
-        }
-    }
-
-
-    private fun saveDataLogin(response: LoginResponse) {
-        TokenHelper.saveAccessToken(
-            response.accessToken,
-            this@InputPasswordActivity
-        )
-
-        getSharedPreferences(
-            SharedPreferenceNames.AUTHENTICATION.name,
-            MODE_PRIVATE
-        ).edit(true) {
-            putString(
-                SharedPreferenceNames.SharedPreferenceKeys.AUTHENTICATION_PHONE_NUMBER_CODE.name,
-                response.phoneNumberCode
-            )
-            putString(
-                SharedPreferenceNames.SharedPreferenceKeys.AUTHENTICATION_PHONE_NUMBER.name,
-                response.phoneNumber
-            )
-            putString(
-                SharedPreferenceNames.SharedPreferenceKeys.AUTHENTICATION_PHONE_NUMBER_AND_CODE.name,
-                "${response.phoneNumberCode}/${response.phoneNumber}"
-            )
         }
     }
 

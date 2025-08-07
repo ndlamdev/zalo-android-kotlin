@@ -2,7 +2,6 @@ package com.lamnguyen.zalo.utils.helpers
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
-import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper.Companion.phoneNumber
 
 class PhoneNumberValidatorHelper {
     companion object {

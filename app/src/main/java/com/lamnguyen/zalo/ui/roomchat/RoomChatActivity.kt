@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout

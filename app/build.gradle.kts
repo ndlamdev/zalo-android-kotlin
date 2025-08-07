@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -64,5 +65,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-moshi
     implementation(libs.converter.moshi)
     // https://mvnrepository.com/artifact/com.squareup.moshi/moshi-kotlin
+    ksp(libs.androidx.room.compiler)
     implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.adapters)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.zalo.dtos.responses
+package com.lamnguyen.zalo.domain.responses
 
 class ApiResponseSuccess<T : Any> : ApiResponse<T>() {
     lateinit var message: String

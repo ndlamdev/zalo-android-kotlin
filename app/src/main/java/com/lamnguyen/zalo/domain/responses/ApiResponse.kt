@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.zalo.dtos.responses
+package com.lamnguyen.zalo.domain.responses
 
 open class ApiResponse<T : Any> {
     var code: Int = 0

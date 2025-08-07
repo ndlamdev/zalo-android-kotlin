@@ -89,8 +89,12 @@ object TokenHelper {
         return secretKey as SecretKey
     }
 
-    fun saveAccessToken(token: String, context: Context) {
-        encrypt(JWT_ALIAS, token)
+    fun saveAccessToken(token: String?, context: Context) {
+        if (token == null) {
+            cleanAccessToken(context)
+            return
+        }
+
         context.getSharedPreferences(
             SharedPreferenceNames.AUTHENTICATION.name,
             Context.MODE_PRIVATE
@@ -109,7 +113,7 @@ object TokenHelper {
         return decrypt(JWT_ALIAS, tokenEncrypt)
     }
 
-    fun getCleanAccessToken(context: Context) {
+    fun cleanAccessToken(context: Context) {
         context.getSharedPreferences(
             SharedPreferenceNames.AUTHENTICATION.name,
             Context.MODE_PRIVATE

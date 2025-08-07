@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient
-import com.lamnguyen.zalo.dtos.requests.PhoneNumberRequest
-import com.lamnguyen.zalo.dtos.responses.ApiResponseSuccess
+import com.lamnguyen.zalo.domain.requests.PhoneNumberRequest
 import com.lamnguyen.zalo.ui.inputpassword.InputPasswordActivity
 import com.lamnguyen.zalo.ui.login.viewmodels.PhoneNumberViewModel
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
@@ -21,10 +20,6 @@ import com.lamnguyen.zalo.utils.helpers.LogHelper
 import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper
 import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper.Companion.formatPhoneNumberToNational
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
