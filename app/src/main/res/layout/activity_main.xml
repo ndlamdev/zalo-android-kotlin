@@ -12,12 +12,12 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_header"
-            android:name="com.lamnguyen.zalo.ui.main.headers.MainHeaderFragment"
+            android:name="com.lamnguyen.zalo.ui.message.headers.MessageHeaderFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <FrameLayout
-            android:id="@+id/layout_main"
+            android:id="@+id/frame_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

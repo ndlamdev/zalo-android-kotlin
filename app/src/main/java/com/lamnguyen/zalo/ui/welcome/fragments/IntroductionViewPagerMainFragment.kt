@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.welcome.viewmodels.ViewPagerViewModel
-import com.lamnguyen.zalo.utils.adapters.IntroductionMainFragmentStateAdapter
+import com.lamnguyen.zalo.ui.welcome.adapters.IntroductionMainFragmentStateAdapter
 
 /**
  * A simple [Fragment] subclass.

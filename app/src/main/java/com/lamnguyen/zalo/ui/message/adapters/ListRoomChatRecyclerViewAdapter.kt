@@ -1,4 +1,4 @@
-package com.lamnguyen.zalo.utils.adapters
+package com.lamnguyen.zalo.ui.message.adapters
 
 import android.text.Html
 import android.view.LayoutInflater
@@ -9,29 +9,30 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lamnguyen.zalo.R
+import com.lamnguyen.zalo.entities.Message
 import com.lamnguyen.zalo.utils.enums.ContentMessageType
 import java.io.Serializable
 
 class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
     RecyclerView.Adapter<ListRoomChatRecyclerViewAdapter.RoomChatHolder>() {
 
-    class RoomChatHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val imgAvatar: ImageView = view.findViewById(R.id.image_avatar_room_chat)
-        private val txtRoomChatTitle: TextView = view.findViewById(R.id.text_rom_chat_title)
+    class RoomChatHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val imgAvatar: ImageView = itemView.findViewById(R.id.image_avatar_room_chat)
+        private val txtRoomChatTitle: TextView = itemView.findViewById(R.id.text_rom_chat_title)
         private val txtLastMessage: TextView =
-            view.findViewById(R.id.text_last_message_in_room_chat)
-        private val imgPinRoomChat: ImageView = view.findViewById(R.id.image_pin_room_chat)
-        private val txtTimeLastAction: TextView = view.findViewById(R.id.text_time_last_action)
+            itemView.findViewById(R.id.text_last_message_in_room_chat)
+        private val imgPinRoomChat: ImageView = itemView.findViewById(R.id.image_pin_room_chat)
+        private val txtTimeLastAction: TextView = itemView.findViewById(R.id.text_time_last_action)
         private val txtTotalMessageUnread: TextView =
-            view.findViewById(R.id.text_total_message_unread)
+            itemView.findViewById(R.id.text_total_message_unread)
 
         fun bindData(data: RoomChatInfo) {
-            Glide.with(this.itemView)
-                .load(data.image)
+            Glide.with(itemView)
+                .load(data.avatar)
                 .into(imgAvatar)
             txtRoomChatTitle.text = data.title
             """
-            ${data.lastMessage.sender}: ${data.lastMessage.content} [${
+            ${data.lastMessage.senderDisplayName}: ${data.lastMessage.content} [${
                 when (data.lastMessage.type) {
                     ContentMessageType.AUDIO -> "Âm thanh"
                     ContentMessageType.VIDEO -> "Video"
@@ -52,7 +53,7 @@ class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
                 ) else data.totalMessageUnread.toString()
             }
 
-            this.view.setOnClickListener { v ->
+            itemView.setOnClickListener { v ->
                 data.onClickListener.onClick(v, data)
             }
         }
@@ -75,17 +76,14 @@ class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
 
     data class RoomChatInfo(
         var id: Long,
-        var image: String,
+        var avatar: String,
         var title: String,
-        var lastMessage: LastMessage,
+        var lastMessage: Message,
         var timeLastAction: String,
         var totalMessageUnread: Int,
         var pin: Boolean,
-        var onClickListener: OnClickListener
+        var onClickListener: OnClickListener,
     ) : Serializable {
-        data class LastMessage(
-            val sender: String, val content: String, val type: ContentMessageType
-        ) : Serializable
     }
 
     interface OnClickListener : Serializable {

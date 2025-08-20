@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 android {
@@ -60,15 +65,15 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.jackson.databind)
     implementation(libs.libphonenumber)
-    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
     implementation(libs.retrofit)
-    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-moshi
     implementation(libs.converter.moshi)
-    // https://mvnrepository.com/artifact/com.squareup.moshi/moshi-kotlin
     ksp(libs.androidx.room.compiler)
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi.adapters)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.stompprotocolandroid)
+    implementation(libs.rxjava)
+    implementation(libs.support.annotations)
 }

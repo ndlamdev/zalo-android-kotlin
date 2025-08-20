@@ -1,4 +1,4 @@
-package com.lamnguyen.zalo.utils.adapters
+package com.lamnguyen.zalo.ui.main.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

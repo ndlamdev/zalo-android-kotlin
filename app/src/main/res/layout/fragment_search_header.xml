@@ -57,7 +57,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageButton
-        android:id="@+id/image_button_qr"
+        android:id="@+id/image_button_"
         android:layout_width="@dimen/icon_size"
         android:layout_height="match_parent"
         android:alpha="1"

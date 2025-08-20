@@ -11,12 +11,16 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient
 import com.lamnguyen.zalo.ui.main.MainActivity
+import com.lamnguyen.zalo.ui.search.viewmodels.SearchViewModel
 import com.lamnguyen.zalo.utils.helpers.Debouncer
 
 class SearchHeaderFragment : Fragment() {
+    private val searchViewModel: SearchViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,14 +47,12 @@ class SearchHeaderFragment : Fragment() {
                         var phoneNumber = text.toString()
                         if (!phoneNumber.startsWith("+"))
                             phoneNumber = "+84${phoneNumber}"
-                        val response = userService.searchUser(phoneNumber)
-                        if (response.isSuccessful) {
-                            val body = response.body()
-                            println(body)
-                        }
-
-                        if (response.code() >= 400) {
-                            val errorBody = response.errorBody()
+                        try {
+                            val response = userService.searchUser(phoneNumber)
+                            searchViewModel.searchUserByPhoneNumberResultLiveData.value =
+                                response.data
+                        } catch (_: Exception) {
+                            searchViewModel.searchUserByPhoneNumberResultLiveData.value = null
                         }
                     }
                 }

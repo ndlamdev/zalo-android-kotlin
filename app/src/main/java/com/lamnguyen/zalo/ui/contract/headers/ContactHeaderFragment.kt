@@ -1,4 +1,4 @@
-package com.lamnguyen.zalo.ui.main.headers
+package com.lamnguyen.zalo.ui.contract.headers
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,12 @@ import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.search.SearchActivity
 
 
-class MainHeaderFragment : Fragment() {
+class ContactHeaderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main_header, container, false)
+        return inflater.inflate(R.layout.fragment_contact_header, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

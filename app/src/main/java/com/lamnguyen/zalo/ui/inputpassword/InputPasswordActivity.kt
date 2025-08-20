@@ -108,7 +108,8 @@ class InputPasswordActivity : AppCompatActivity() {
                 loginViewModel.passwordLiveData.value.toString()
             )
             try {
-                val result = RetrofitClient.authService(this@InputPasswordActivity).login(request)
+                val result =
+                    RetrofitClient.authService(this@InputPasswordActivity, false).login(request)
                 result.data?.let {
                     TokenHelper.saveAccessToken(
                         it.accessToken,
@@ -123,7 +124,6 @@ class InputPasswordActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 LogHelper.errorWithClassName(
                     this@InputPasswordActivity,
-                    e.message.toString(),
                     e
                 )
             }

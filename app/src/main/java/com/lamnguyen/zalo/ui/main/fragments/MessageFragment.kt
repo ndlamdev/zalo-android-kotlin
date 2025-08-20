@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.main.viewmodels.MainViewModel
-import com.lamnguyen.zalo.utils.adapters.MessageFragmentStateAdapter
+import com.lamnguyen.zalo.ui.main.adapters.MessageFragmentStateAdapter
 
 class MessageFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()

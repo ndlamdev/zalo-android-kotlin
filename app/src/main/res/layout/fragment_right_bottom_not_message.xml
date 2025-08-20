@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".ui.roomchat.footers.RightBottomNotMessageFragment">
+
+    <ImageView
+        android:layout_width="@dimen/icon_size_md"
+        android:layout_height="@dimen/icon_size_md"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_menu_dots" />
+
+    <ImageView
+        android:layout_width="@dimen/icon_size_md"
+        android:layout_height="@dimen/icon_size_md"
+        android:layout_marginHorizontal="@dimen/xsmall"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_mic" />
+
+    <ImageView
+        android:layout_width="@dimen/icon_size_md"
+        android:layout_height="@dimen/icon_size_md"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_gallery" />
+
+</LinearLayout>

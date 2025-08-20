@@ -3,15 +3,20 @@ package com.lamnguyen.zalo.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.marginTop
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient
 import com.lamnguyen.zalo.domain.requests.PhoneNumberRequest
+import com.lamnguyen.zalo.domain.responses.ApiResponseError
 import com.lamnguyen.zalo.ui.inputpassword.InputPasswordActivity
 import com.lamnguyen.zalo.ui.login.viewmodels.PhoneNumberViewModel
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
@@ -20,17 +25,19 @@ import com.lamnguyen.zalo.utils.helpers.LogHelper
 import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper
 import com.lamnguyen.zalo.utils.helpers.PhoneNumberValidatorHelper.Companion.formatPhoneNumberToNational
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var fgInputPhoneNumber: InputPhoneNumberFragment
     private lateinit var btnContinue: AppCompatButton
     private lateinit var phoneNumberViewModel: PhoneNumberViewModel
+    private lateinit var txtErrorMessage: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        txtErrorMessage = findViewById(R.id.text_error_message)
         phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
         phoneNumberViewModel.phoneNumberCodeLiveData.value =
             PhoneNumberCodeSelectorActivity.DEFAULT_PHONE_NUMBER_DIAL_CODE
@@ -49,10 +56,16 @@ class LoginActivity : AppCompatActivity() {
 
         fgInputPhoneNumber.onClickChoicePhoneNumberCode = View.OnClickListener {
             PhoneNumberCodeSelectorActivity.startActivityResult(this, activityResultLauncher)
+            txtErrorMessage.visibility = View.INVISIBLE
         }
 
-        findViewById<ImageButton>(R.id.button_back).setOnClickListener {
-            finish()
+        findViewById<ImageButton>(R.id.button_back).apply {
+            setOnClickListener {
+                finish()
+            }
+            if (intent.extras?.getBoolean(ARG_HIDDEN_BUTTON_BACK, false) ?: false) {
+                visibility = View.INVISIBLE
+            }
         }
 
         btnContinue.setOnClickListener {
@@ -75,6 +88,8 @@ class LoginActivity : AppCompatActivity() {
         fgInputPhoneNumber.addTextWatcher(
             onTextChanged = { text, _, _, _ ->
                 phoneNumberViewModel.phoneNumberLiveData.value = text.toString()
+                txtErrorMessage.visibility = View.INVISIBLE
+                updateMarginButtonContinue(R.dimen.medium)
             }
         )
         super.onResume()
@@ -89,10 +104,14 @@ class LoginActivity : AppCompatActivity() {
                 RetrofitClient.authService
                     .checkPhoneNumber(body)
                 checkPhoneNumberSuccess(phoneNumberCode, phoneNumber)
+            } catch (e: HttpException) {
+                val apiResponseError = RetrofitClient.convertToResponseError(e)
+                txtErrorMessage.visibility = View.VISIBLE
+                txtErrorMessage.text = apiResponseError.error
+                updateMarginButtonContinue(R.dimen.large)
             } catch (e: Exception) {
                 LogHelper.errorWithClassName(
                     this@LoginActivity,
-                    e.message.toString(),
                     e
                 )
             }
@@ -125,5 +144,15 @@ class LoginActivity : AppCompatActivity() {
             if (valid) resources.getColor(R.color.white, null)
             else resources.getColor(R.color.gray_500, null)
         )
+    }
+
+    private fun updateMarginButtonContinue(id: Int) {
+        val params = btnContinue.layoutParams as MarginLayoutParams
+        params.topMargin = resources.getDimension(id).toInt()
+        btnContinue.layoutParams = params
+    }
+
+    companion object {
+        const val ARG_HIDDEN_BUTTON_BACK = "hidden_button_back"
     }
 }

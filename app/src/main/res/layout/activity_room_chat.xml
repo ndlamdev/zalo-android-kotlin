@@ -14,13 +14,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_header"
+                android:id="@+id/frame_header"
                 android:name="com.lamnguyen.zalo.ui.roomchat.headers.RoomChatHeaderFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="@dimen/small"
+                android:paddingVertical="@dimen/xsmall">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/backgroundHeader"
+                android:paddingHorizontal="@dimen/xsmall"
+                android:paddingVertical="@dimen/small">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/frame_footer"
+                    android:name="com.lamnguyen.zalo.ui.roomchat.footers.RoomChatFooterFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout

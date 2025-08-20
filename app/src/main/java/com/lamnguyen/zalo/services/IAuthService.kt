@@ -17,4 +17,10 @@ interface IAuthService {
 
     @POST("/auth/v1/resign")
     fun resign(): Call<ApiResponseSuccess<LoginResponse>>
+
+    @POST("/auth/v1/resign")
+    suspend fun resignSuspend(): ApiResponseSuccess<LoginResponse>
+
+    @POST("/auth/v1/logout")
+    suspend fun logout(): ApiResponseSuccess<*>
 }

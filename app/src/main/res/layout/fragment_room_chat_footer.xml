@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal"
+    tools:context=".ui.roomchat.footers.RoomChatFooterFragment">
+
+    <ImageView
+        android:layout_width="@dimen/icon_size_md"
+        android:layout_height="@dimen/icon_size_md"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_emoji" />
+
+    <EditText
+        android:id="@+id/edit_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small"
+        android:layout_weight="1"
+        android:autofillHints="No"
+        android:background="@android:color/transparent"
+        android:hint="@string/message"
+        android:inputType="text"
+        android:layout_gravity="center_vertical"
+        android:lines="3"
+        android:textSize="@dimen/medium"
+        tools:ignore="LabelFor" />
+
+    <FrameLayout
+        android:id="@+id/frame_right_room_chat_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

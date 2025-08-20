@@ -38,42 +38,55 @@
         android:name="com.lamnguyen.zalo.ui.phonenumbercode.fragments.InputPhoneNumberFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large"
         android:layout_marginTop="@dimen/medium"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginHorizontal="@dimen/large"
         app:layout_constraintTop_toBottomOf="@id/text_input_phone_number" />
+
+    <TextView
+        android:id="@+id/text_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large"
+        android:layout_marginTop="@dimen/xsmall"
+        android:textColor="@color/red_500"
+        android:textSize="@dimen/text_small"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_input_phone_number" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large"
+        android:layout_marginTop="@dimen/medium"
+        android:background="@drawable/bg_button_continue"
+        android:enabled="false"
         android:text="@string/text_continue"
         android:textAllCaps="false"
-        android:layout_marginTop="@dimen/medium"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:enabled="false"
-        android:background="@drawable/bg_button_continue"
         android:textColor="@color/gray_500"
-        android:layout_marginHorizontal="@dimen/large"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_input_phone_number" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="@dimen/medium">
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/you_do_not_have_any_account"/>
+            android:text="@string/you_do_not_have_any_account" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_account"
             android:layout_marginStart="1dp"
-            android:textColor="@color/blue_700"/>
+            android:text="@string/create_account"
+            android:textColor="@color/blue_700" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,4 +42,16 @@
     <string name="input_password_for_this_phone_number">Nhập mật khẩu của tài khoản gán với số điện thoại</string>
     <string name="input_password">Nhập mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
+    <string name="phone_number">Số điện thoại:</string>
+    <string name="search_friend_by_phone_number">Tìm bạn qua số điện thoại</string>
+    <string name="add_friend">Kết bạn</string>
+    <string name="sent">Đã gửi</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="friend">Bạn bè</string>
+    <string name="group">Nhóm</string>
+    <string name="o_a">OA</string>
+    <string name="friend_invitation">Lời mời kết bạn</string>
+    <string name="birthday">Sinh nhật</string>
+    <string name="contact_using_zalo">Các liên hệ có dùng zalo</string>
+    <string name="machine_directory">Danh bạ máy</string>
 </resources>

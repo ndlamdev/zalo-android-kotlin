@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lamnguyen.zalo.R
+import com.lamnguyen.zalo.entities.Message
 import com.lamnguyen.zalo.ui.roomchat.RoomChatActivity
-import com.lamnguyen.zalo.utils.adapters.ListRoomChatRecyclerViewAdapter
-import com.lamnguyen.zalo.utils.adapters.ListRoomChatRecyclerViewAdapter.RoomChatInfo
+import com.lamnguyen.zalo.ui.message.adapters.ListRoomChatRecyclerViewAdapter
+import com.lamnguyen.zalo.ui.message.adapters.ListRoomChatRecyclerViewAdapter.RoomChatInfo
 import com.lamnguyen.zalo.utils.enums.ContentMessageType
+import java.time.Instant
 
 class ListRoomChatFragment : Fragment() {
     private val onClickCardRoomChat = object : ListRoomChatRecyclerViewAdapter.OnClickListener {
@@ -25,7 +27,7 @@ class ListRoomChatFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_list_room_chat, container, false)
     }
@@ -38,7 +40,19 @@ class ListRoomChatFragment : Fragment() {
                     1,
                     "https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Your_Name_poster.png/250px-Your_Name_poster.png",
                     "Nguyễn Đình Lam",
-                    RoomChatInfo.LastMessage("Bạn", "", ContentMessageType.VIDEO),
+                    Message(
+                        0,
+                        "Bạn",
+                        "",
+                        "",
+                        "",
+                        0,
+                        " ",
+                        ContentMessageType.VIDEO,
+                        "",
+                        Instant.now(),
+                        true
+                    ),
                     "2 giờ",
                     1,
                     true,
@@ -47,7 +61,19 @@ class ListRoomChatFragment : Fragment() {
                     1,
                     "https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Your_Name_poster.png/250px-Your_Name_poster.png",
                     "Nguyễn Đình Lam",
-                    RoomChatInfo.LastMessage("Bạn", "", ContentMessageType.VIDEO),
+                    Message(
+                        0,
+                        "Bạn",
+                        "",
+                        "",
+                        "",
+                        0,
+                        "",
+                        ContentMessageType.VIDEO,
+                        "",
+                        Instant.now(),
+                        true
+                    ),
                     "2 giờ",
                     10,
                     false,

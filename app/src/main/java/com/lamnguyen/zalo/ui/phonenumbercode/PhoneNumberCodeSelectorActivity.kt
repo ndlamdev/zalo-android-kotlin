@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.phonenumbercode.viewmodels.PhoneNumberViewModel
-import com.lamnguyen.zalo.utils.adapters.PhoneNumberCodeRecyclerViewAdapter
-import com.lamnguyen.zalo.utils.adapters.PhoneNumberCodeRecyclerViewAdapter.PhoneNumberCode
+import com.lamnguyen.zalo.ui.phonenumbercode.adapters.PhoneNumberCodeRecyclerViewAdapter
+import com.lamnguyen.zalo.ui.phonenumbercode.adapters.PhoneNumberCodeRecyclerViewAdapter.PhoneNumberCode
 import java.util.function.Consumer
 
 class PhoneNumberCodeSelectorActivity : AppCompatActivity() {

@@ -9,6 +9,10 @@
 
     <dimen name="gap_item_in_linear_layout">5dp</dimen>
     <dimen name="icon_size">50dp</dimen>
+    <dimen name="icon_size_xll6">70dp</dimen>
+    <dimen name="icon_size_xll">60dp</dimen>
+    <dimen name="icon_size_xl">50dp</dimen>
+    <dimen name="icon_size_lg">40dp</dimen>
     <dimen name="icon_size_md">30dp</dimen>
     <dimen name="icon_size_sm">20dp</dimen>
     <dimen name="radius_component_search">5dp</dimen>
@@ -31,4 +35,5 @@
     <dimen name="text_button">14sp</dimen>
 
     <dimen name="_7dp">7dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
 </resources>

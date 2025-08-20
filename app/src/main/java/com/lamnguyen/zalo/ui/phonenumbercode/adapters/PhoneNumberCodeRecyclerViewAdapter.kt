@@ -1,12 +1,12 @@
-package com.lamnguyen.zalo.utils.adapters
+package com.lamnguyen.zalo.ui.phonenumbercode.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.core.content.edit
 import androidx.recyclerview.widget.RecyclerView
 import com.fasterxml.jackson.core.type.TypeReference
@@ -15,9 +15,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity
-import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_CODE
-import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_COUNTRY
-import com.lamnguyen.zalo.ui.phonenumbercode.PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_DIAL_CODE
 import com.lamnguyen.zalo.ui.phonenumbercode.viewmodels.PhoneNumberViewModel
 import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
 import java.util.function.Consumer
@@ -44,10 +41,10 @@ class PhoneNumberCodeRecyclerViewAdapter(
 
         val shared = activity.getSharedPreferences(
             SharedPreferenceNames.AUTHENTICATION.name,
-            MODE_PRIVATE
+            Context.MODE_PRIVATE
         )
         currentPhoneNumberCode = shared
-            .getString(PARAM_ARG_PHONE_NUMBER_CODE, null)
+            .getString(PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_CODE, null)
 
         phoneNumberViewModel.textSearchLiveData.observe(activity) { textSearch ->
             if (textSearch.isEmpty()) formatData(originData)
@@ -85,7 +82,7 @@ class PhoneNumberCodeRecyclerViewAdapter(
                 val data = showingData[position]
                 val checked =
                     (currentPhoneNumberCode == null
-                            && data.dialCode == PhoneNumberCodeSelectorActivity.DEFAULT_PHONE_NUMBER_DIAL_CODE) ||
+                            && data.dialCode == PhoneNumberCodeSelectorActivity.Companion.DEFAULT_PHONE_NUMBER_DIAL_CODE) ||
                             (currentPhoneNumberCode == data.code)
                 holder.binding(data, checked, onPhoneNumberCodeSelected)
             }
@@ -132,12 +129,12 @@ class PhoneNumberCodeRecyclerViewAdapter(
         private fun savePhoneNumberCodeSelected(phoneNumberCode: PhoneNumberCode) {
             val shared = itemView.context.getSharedPreferences(
                 SharedPreferenceNames.AUTHENTICATION.name,
-                MODE_PRIVATE
+                Context.MODE_PRIVATE
             )
             shared?.edit {
-                putString(PARAM_ARG_PHONE_NUMBER_CODE, phoneNumberCode.code)
-                putString(PARAM_ARG_PHONE_NUMBER_COUNTRY, phoneNumberCode.name)
-                putString(PARAM_ARG_PHONE_NUMBER_DIAL_CODE, phoneNumberCode.dialCode)
+                putString(PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_CODE, phoneNumberCode.code)
+                putString(PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_COUNTRY, phoneNumberCode.name)
+                putString(PhoneNumberCodeSelectorActivity.Companion.PARAM_ARG_PHONE_NUMBER_DIAL_CODE, phoneNumberCode.dialCode)
                 commit()
             }
         }

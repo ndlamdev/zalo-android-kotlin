@@ -1,28 +1,91 @@
 package com.lamnguyen.zalo.ui.main
 
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import com.lamnguyen.zalo.R
+import com.lamnguyen.zalo.services.StompSocketService
+import com.lamnguyen.zalo.ui.contract.headers.ContactHeaderFragment
 import com.lamnguyen.zalo.ui.main.fragments.MainFragment
+import com.lamnguyen.zalo.ui.main.viewmodels.NavigationViewModel
+import com.lamnguyen.zalo.ui.message.headers.MessageHeaderFragment
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navigationViewModel: NavigationViewModel
+    private lateinit var headers: List<Fragment>
+    private var oldPageIndex = 0
+
+    private var stompService: StompSocketService? = null
+    private var bound = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         askNotificationPermission()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.layout_main, MainFragment())
-            .commit()
+
+        navigationViewModel = ViewModelProvider(this)[NavigationViewModel::class.java]
+
+        setupHeader()
+
+        supportFragmentManager.commit {
+            replace(R.id.frame_main, MainFragment())
+        }
     }
+
+
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
+            val localBinder = binder as StompSocketService.LocalBinder
+            stompService = localBinder.getService()
+            bound = true
+
+            // Ví dụ subscribe room ngay khi bind
+            listOf("1", "2", "3").forEach { roomId ->
+                stompService?.subscribe(roomId) { message ->
+                    runOnUiThread {
+                        // cập nhật UI
+                    }
+                }
+            }
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            bound = false
+            stompService = null
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Intent(this, StompSocketService::class.java).also { intent ->
+            bindService(intent, connection, BIND_AUTO_CREATE)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (bound) {
+            unbindService(connection)
+            bound = false
+        }
+    }
+
 
     // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
@@ -58,6 +121,33 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // Directly ask for the permission
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun setupHeader() {
+        headers = listOf(
+            MessageHeaderFragment(),
+            ContactHeaderFragment(),
+            ContactHeaderFragment(),
+            ContactHeaderFragment(),
+            ContactHeaderFragment(),
+        )
+
+        headers.forEachIndexed { index, header ->
+            supportFragmentManager.commit {
+                add(R.id.fragment_header, header)
+                if (index != 0)
+                    hide(header)
+            }
+        }
+
+        navigationViewModel.pageIndexLiveData.observe(this) { pageIndex ->
+            supportFragmentManager.commit {
+                if (oldPageIndex == pageIndex) return@observe
+                hide(headers[oldPageIndex])
+                show(headers[pageIndex])
+                oldPageIndex = pageIndex
             }
         }
     }

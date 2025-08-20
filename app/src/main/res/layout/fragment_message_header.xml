@@ -6,7 +6,7 @@
     android:layout_height="@dimen/icon_size"
     android:background="?attr/backgroundHeader"
     app:flow_horizontalGap="20dp"
-    tools:context=".ui.main.headers.MainHeaderFragment">
+    tools:context=".ui.message.headers.MessageHeaderFragment">
 
     <ImageButton
         android:id="@+id/image_button_search"
@@ -30,7 +30,7 @@
         android:textColorHint="@color/white" />
 
     <ImageButton
-        android:id="@+id/image_button_qr"
+        android:id="@+id/image_button_"
         android:layout_width="@dimen/icon_size"
         android:layout_height="match_parent"
         android:alpha="1"

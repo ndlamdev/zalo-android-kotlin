@@ -20,7 +20,7 @@
         <item name="colorIcon">@color/white</item>
         <item name="colorIconTint">@color/white</item>
         <item name="backgroundHeader">@color/cardview_dark_background</item>
-        <item name="backgroundComponentSearch">@color/black_700</item>
+        <item name="backgroundComponentSearch">@color/black_50</item>
         <item name="backgroundButtonCreateNewAccount">@color/gray_700</item>
         <item name="backgroundButtonCreateNewAccountPressed">@color/gray_800</item>
         <item name="pncBackgroundHeader">@color/black_200</item>

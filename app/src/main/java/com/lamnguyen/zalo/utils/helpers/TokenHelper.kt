@@ -5,6 +5,8 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import androidx.core.content.edit
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.lamnguyen.zalo.domain.dtos.AccessTokenPayload
 import com.lamnguyen.zalo.utils.enums.SharedPreferenceNames
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -16,7 +18,6 @@ object TokenHelper {
     private const val ANDROID_KEYSTORE = "AndroidKeyStore"
     private const val ALGORITHM = "AES"
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
-    private const val IV_SIZE = 12 // Recommended IV size for GCM
     private const val TAG_LENGTH = 128 // GCM tag length
     private const val JWT_ALIAS = "JWT_ALIAS"
 
@@ -113,12 +114,20 @@ object TokenHelper {
         return decrypt(JWT_ALIAS, tokenEncrypt)
     }
 
-    fun cleanAccessToken(context: Context) {
-        context.getSharedPreferences(
+    fun cleanAccessToken(context: Context?) {
+        context?.getSharedPreferences(
             SharedPreferenceNames.AUTHENTICATION.name,
             Context.MODE_PRIVATE
-        ).edit(true) {
+        )?.edit(true) {
             remove("ACCESS_TOKEN")
+        }
+    }
+
+    fun getAccessTokenPayload(context: Context): AccessTokenPayload? {
+        return getAccessToken(context)?.let {
+            val bodyTokenEncode = it.split(".")[1]
+            val bodyTokenString = Base64.decode(bodyTokenEncode, Base64.NO_WRAP)
+            return ObjectMapper().convertValue(bodyTokenString, AccessTokenPayload::class.java)
         }
     }
 }

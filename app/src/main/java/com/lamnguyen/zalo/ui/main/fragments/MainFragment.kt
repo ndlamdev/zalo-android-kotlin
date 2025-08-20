@@ -10,7 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.main.viewmodels.NavigationViewModel
-import com.lamnguyen.zalo.utils.adapters.MainFragmentStateAdapter
+import com.lamnguyen.zalo.ui.main.adapters.MainFragmentStateAdapter
 
 class MainFragment : Fragment() {
     private val navigationViewModel: NavigationViewModel by activityViewModels()

@@ -17,6 +17,9 @@ class AppCookieJar : CookieJar {
 
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
         cookies.forEach {
+            cookeRepository.deleteAllByUrlAndName(
+                urlKey(url), it.name
+            )
             cookeRepository.insert(
                 com.lamnguyen.zalo.entities.Cookie.parse(
                     urlKey(url),
@@ -40,8 +43,7 @@ class AppCookieJar : CookieJar {
         return "${url.scheme}://${url.host}:${url.port}"
     }
 
-    companion
-    object {
+    companion object {
         @SuppressLint("StaticFieldLeak")
         private var INSTANCE: AppCookieJar? = null
 
