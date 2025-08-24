@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 const val MYSELF = 0
 const val OTHER_PERSON = 1
 
-class MessageAdapter(val messages: List<Message>, val isGroup: Boolean? = false) :
+class MessageAdapter(val messages: MutableList<Message>, val isGroup: Boolean? = false) :
     RecyclerView.Adapter<MessageAdapter.ContentMessage>() {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:MM")!!
     var preType: Int? = null

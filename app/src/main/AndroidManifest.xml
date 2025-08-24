@@ -3,8 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <!--    <application android:name=".utils.helpers.TokenHelper" />-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zalo">
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.inputpassword.InputPasswordActivity"
             android:exported="false" />
@@ -50,7 +53,7 @@
             android:name=".ui.search.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.start.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,8 +71,9 @@
         </service>
 
         <service
-            android:name=".utils.helpers.TokenHelper"
-            android:exported="false" />
+            android:name=".services.StompSocketService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
     </application>
 
 </manifest>

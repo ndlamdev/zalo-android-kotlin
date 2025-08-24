@@ -1,14 +1,10 @@
 package com.lamnguyen.zalo.ui.main
 
 import android.Manifest
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -21,17 +17,18 @@ import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.services.StompSocketService
 import com.lamnguyen.zalo.ui.contract.headers.ContactHeaderFragment
 import com.lamnguyen.zalo.ui.main.fragments.MainFragment
+import com.lamnguyen.zalo.ui.main.viewmodels.MessageFragmentViewModel
 import com.lamnguyen.zalo.ui.main.viewmodels.NavigationViewModel
 import com.lamnguyen.zalo.ui.message.headers.MessageHeaderFragment
+import com.lamnguyen.zalo.utils.helpers.TokenHelper
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navigationViewModel: NavigationViewModel
     private lateinit var headers: List<Fragment>
     private var oldPageIndex = 0
-
-    private var stompService: StompSocketService? = null
-    private var bound = false
+    private val stompServiceContext = StompSocketService.StompSocketServiceContext()
+    private lateinit var messageFragmentViewModel: MessageFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,28 +43,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace(R.id.frame_main, MainFragment())
         }
+
+        messageFragmentViewModel = ViewModelProvider(this)[MessageFragmentViewModel::class]
     }
 
 
-    private val connection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-            val localBinder = binder as StompSocketService.LocalBinder
-            stompService = localBinder.getService()
-            bound = true
-
-            // Ví dụ subscribe room ngay khi bind
-            listOf("1", "2", "3").forEach { roomId ->
-                stompService?.subscribe(roomId) { message ->
-                    runOnUiThread {
-                        // cập nhật UI
-                    }
-                }
-            }
-        }
-
-        override fun onServiceDisconnected(name: ComponentName?) {
-            bound = false
-            stompService = null
+    private val connection = StompSocketService.initConnection(stompServiceContext) {
+        it.subscribeDestinationMessage { message ->
+            messageFragmentViewModel.addMessage(message)
         }
     }
 
@@ -75,14 +58,15 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Intent(this, StompSocketService::class.java).also { intent ->
             bindService(intent, connection, BIND_AUTO_CREATE)
+            startService(intent)
         }
     }
 
     override fun onStop() {
         super.onStop()
-        if (bound) {
+        if (stompServiceContext.bound) {
             unbindService(connection)
-            bound = false
+            stompServiceContext.bound = false
         }
     }
 

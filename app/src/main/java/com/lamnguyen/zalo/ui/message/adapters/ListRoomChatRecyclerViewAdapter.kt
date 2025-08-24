@@ -9,12 +9,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lamnguyen.zalo.R
-import com.lamnguyen.zalo.entities.Message
+import com.lamnguyen.zalo.ui.main.viewmodels.MessageFragmentViewModel
 import com.lamnguyen.zalo.utils.enums.ContentMessageType
-import java.io.Serializable
+import java.util.function.Function
 
-class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
+class ListRoomChatRecyclerViewAdapter(
+    private val mapRoomChat: List<MessageFragmentViewModel.RoomChatDetail>,
+    val onClickListenerCallback: Function<MessageFragmentViewModel.RoomChatDetail, Unit>,
+) :
     RecyclerView.Adapter<ListRoomChatRecyclerViewAdapter.RoomChatHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomChatHolder {
+        return RoomChatHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.fragment_card_room_chat, parent, false)
+        )
+    }
+
+    override fun getItemCount(): Int = mapRoomChat.size
+
+    override fun onBindViewHolder(holder: RoomChatHolder, position: Int) {
+        holder.bindData(mapRoomChat[position], onClickListenerCallback)
+    }
 
     class RoomChatHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgAvatar: ImageView = itemView.findViewById(R.id.image_avatar_room_chat)
@@ -26,14 +42,18 @@ class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
         private val txtTotalMessageUnread: TextView =
             itemView.findViewById(R.id.text_total_message_unread)
 
-        fun bindData(data: RoomChatInfo) {
+        fun bindData(
+            data: MessageFragmentViewModel.RoomChatDetail,
+            onClickListenerCallback: Function<MessageFragmentViewModel.RoomChatDetail, Unit>,
+        ) {
+            val lastMessage = data.messages.last()
             Glide.with(itemView)
                 .load(data.avatar)
                 .into(imgAvatar)
             txtRoomChatTitle.text = data.title
             """
-            ${data.lastMessage.senderDisplayName}: ${data.lastMessage.content} [${
-                when (data.lastMessage.type) {
+            ${lastMessage.senderDisplayName}: ${lastMessage.content} [${
+                when (lastMessage.type) {
                     ContentMessageType.AUDIO -> "Âm thanh"
                     ContentMessageType.VIDEO -> "Video"
                     ContentMessageType.IMAGE -> "Hình ảnh"
@@ -42,7 +62,7 @@ class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
             }]
         """.trimIndent().also { txtLastMessage.text = it }
             imgPinRoomChat.visibility = if (data.pin) View.VISIBLE else View.INVISIBLE
-            txtTimeLastAction.text = data.timeLastAction
+            txtTimeLastAction.text = ""
             if (data.totalMessageUnread == 0) {
                 txtTotalMessageUnread.visibility = View.INVISIBLE
             } else {
@@ -54,39 +74,8 @@ class ListRoomChatRecyclerViewAdapter(private val dataSet: List<RoomChatInfo>) :
             }
 
             itemView.setOnClickListener { v ->
-                data.onClickListener.onClick(v, data)
+                onClickListenerCallback.apply(data)
             }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomChatHolder {
-        return RoomChatHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_card_room_chat, parent, false)
-        )
-    }
-
-    override fun getItemCount(): Int {
-        return dataSet.size
-    }
-
-    override fun onBindViewHolder(holder: RoomChatHolder, position: Int) {
-        holder.bindData(dataSet[position])
-    }
-
-    data class RoomChatInfo(
-        var id: Long,
-        var avatar: String,
-        var title: String,
-        var lastMessage: Message,
-        var timeLastAction: String,
-        var totalMessageUnread: Int,
-        var pin: Boolean,
-        var onClickListener: OnClickListener,
-    ) : Serializable {
-    }
-
-    interface OnClickListener : Serializable {
-        fun onClick(view: View?, data: RoomChatInfo?)
     }
 }

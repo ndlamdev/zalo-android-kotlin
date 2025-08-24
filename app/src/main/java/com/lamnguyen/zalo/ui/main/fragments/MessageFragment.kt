@@ -12,9 +12,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.ui.main.viewmodels.MainViewModel
 import com.lamnguyen.zalo.ui.main.adapters.MessageFragmentStateAdapter
+import com.lamnguyen.zalo.ui.main.viewmodels.MessageFragmentViewModel
 
 class MessageFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
+    private val messageFragmentViewModel: MessageFragmentViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -29,7 +31,7 @@ class MessageFragment : Fragment() {
         mainViewModel.totalMessageUnRead.value = 5
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout_message_pager)
         val pager = view.findViewById<ViewPager2>(R.id.pager_message)
-        pager.adapter = MessageFragmentStateAdapter(this)
+        pager.adapter = MessageFragmentStateAdapter(this, messageFragmentViewModel)
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             run {
                 val title = when (position) {

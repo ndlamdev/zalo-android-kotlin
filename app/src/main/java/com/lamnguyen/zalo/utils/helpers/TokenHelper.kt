@@ -127,7 +127,16 @@ object TokenHelper {
         return getAccessToken(context)?.let {
             val bodyTokenEncode = it.split(".")[1]
             val bodyTokenString = Base64.decode(bodyTokenEncode, Base64.NO_WRAP)
-            return ObjectMapper().convertValue(bodyTokenString, AccessTokenPayload::class.java)
+            return ObjectMapper().readValue(bodyTokenString, Jwt::class.java).payload
         }
+    }
+
+    class Jwt {
+        var iss: String? = null
+        var sub: String? = null
+        var exp: Long = 0
+        var payload: AccessTokenPayload? = null
+        var iat: Long = 0
+        var jti: String? = null
     }
 }

@@ -9,21 +9,26 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lamnguyen.zalo.R
-import com.lamnguyen.zalo.entities.Message
-import com.lamnguyen.zalo.ui.roomchat.RoomChatActivity
+import com.lamnguyen.zalo.ui.main.viewmodels.MessageFragmentViewModel
 import com.lamnguyen.zalo.ui.message.adapters.ListRoomChatRecyclerViewAdapter
-import com.lamnguyen.zalo.ui.message.adapters.ListRoomChatRecyclerViewAdapter.RoomChatInfo
-import com.lamnguyen.zalo.utils.enums.ContentMessageType
-import java.time.Instant
+import com.lamnguyen.zalo.ui.roomchat.RoomChatActivity
+import java.util.function.Function
 
-class ListRoomChatFragment : Fragment() {
-    private val onClickCardRoomChat = object : ListRoomChatRecyclerViewAdapter.OnClickListener {
-        override fun onClick(view: View?, data: RoomChatInfo?) {
-            val intent = Intent(context, RoomChatActivity::class.java)
-            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, data?.id)
-            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_TITLE, data?.title)
-            startActivity(intent)
+class ListRoomChatFragment(val messageFragmentViewModel: MessageFragmentViewModel) : Fragment() {
+//    private val onClickCardRoomChat = object : ListRoomChatRecyclerViewAdapter.OnClickListener {
+//        override fun onClick(view: View?, data: RoomChatInfo?) {
+//            val intent = Intent(context, RoomChatActivity::class.java)
+//            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, data?.id)
+//            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_TITLE, data?.title)
+//            startActivity(intent)
+//        }
+//    }
+
+    private val onClickCardRoomChat = Function<MessageFragmentViewModel.RoomChatDetail, Unit> {
+        val intent = Intent(context, RoomChatActivity::class.java).apply {
+            putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, it)
         }
+        this@ListRoomChatFragment.startActivity(intent)
     }
 
     override fun onCreateView(
@@ -34,54 +39,16 @@ class ListRoomChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val rclView = view.findViewById<RecyclerView>(R.id.recycler_list_room_chat)
-        val adapter = ListRoomChatRecyclerViewAdapter(
-            listOf(
-                RoomChatInfo(
-                    1,
-                    "https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Your_Name_poster.png/250px-Your_Name_poster.png",
-                    "Nguyễn Đình Lam",
-                    Message(
-                        0,
-                        "Bạn",
-                        "",
-                        "",
-                        "",
-                        0,
-                        " ",
-                        ContentMessageType.VIDEO,
-                        "",
-                        Instant.now(),
-                        true
-                    ),
-                    "2 giờ",
-                    1,
-                    true,
-                    onClickCardRoomChat
-                ), RoomChatInfo(
-                    1,
-                    "https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Your_Name_poster.png/250px-Your_Name_poster.png",
-                    "Nguyễn Đình Lam",
-                    Message(
-                        0,
-                        "Bạn",
-                        "",
-                        "",
-                        "",
-                        0,
-                        "",
-                        ContentMessageType.VIDEO,
-                        "",
-                        Instant.now(),
-                        true
-                    ),
-                    "2 giờ",
-                    10,
-                    false,
-                    onClickCardRoomChat
-                )
-            )
-        )
+
         rclView.layoutManager = LinearLayoutManager(context)
-        rclView.adapter = adapter
+
+        messageFragmentViewModel.roomChatLiveData.observe(viewLifecycleOwner) {
+            val adapter = ListRoomChatRecyclerViewAdapter(
+                it.values.toList(),
+                onClickCardRoomChat
+            )
+
+            rclView.adapter = adapter
+        }
     }
 }

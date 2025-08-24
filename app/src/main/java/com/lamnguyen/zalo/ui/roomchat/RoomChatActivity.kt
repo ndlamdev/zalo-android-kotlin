@@ -1,9 +1,8 @@
 package com.lamnguyen.zalo.ui.roomchat
 
+import android.content.Intent
 import android.content.res.Resources
-import android.graphics.Rect
 import android.os.Bundle
-import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -15,15 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.entities.Message
+import com.lamnguyen.zalo.services.StompSocketService
 import com.lamnguyen.zalo.ui.roomchat.adapters.MessageAdapter
 import com.lamnguyen.zalo.ui.roomchat.headers.OptionRoomChatHeaderFragment
 import com.lamnguyen.zalo.ui.roomchat.headers.RoomChatHeaderFragment
 import com.lamnguyen.zalo.ui.roomchat.viewmodels.RoomChatViewModel
 import com.lamnguyen.zalo.utils.enums.ContentMessageType
+import com.lamnguyen.zalo.utils.helpers.TokenHelper
 import java.time.Instant
 
 class RoomChatActivity : AppCompatActivity() {
     private lateinit var viewModel: RoomChatViewModel
+    private val stompServiceContext = StompSocketService.StompSocketServiceContext()
+    private var adapter: MessageAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +65,8 @@ class RoomChatActivity : AppCompatActivity() {
 
         val rclMessage = findViewById<RecyclerView>(R.id.recycler_message)
         rclMessage.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
-        rclMessage.adapter = MessageAdapter(
-            listOf(
+        adapter = MessageAdapter(
+            mutableListOf(
                 Message(
                     0,
                     "+84855354919",
@@ -169,8 +172,24 @@ class RoomChatActivity : AppCompatActivity() {
                     false
                 ),
             ),
-            true
+            false
         )
+        rclMessage.adapter = adapter
+    }
+
+    private val connection = StompSocketService.initConnection(stompServiceContext) {
+        it.subscribeDestinationMessage { message ->
+            adapter?.messages?.add(message)
+            adapter?.notifyItemInserted((adapter?.messages?.size ?: 1) - 1)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Intent(this, StompSocketService::class.java).also { intent ->
+            bindService(intent, connection, BIND_AUTO_CREATE)
+            startService(intent)
+        }
     }
 
     companion object {
