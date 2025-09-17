@@ -1,5 +1,6 @@
 package com.lamnguyen.zalo.ui.contract.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient
-import com.lamnguyen.zalo.domain.dtos.User
 import com.lamnguyen.zalo.ui.contract.adapter.FriendAdapter
+import com.lamnguyen.zalo.ui.roomchat.RoomChatActivity
 import com.lamnguyen.zalo.utils.helpers.LogHelper
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -48,7 +49,14 @@ class FriendFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val data = RetrofitClient.userService(context).getAllFriend().data ?: listOf()
-                recyclerFriend.adapter = FriendAdapter(data)
+                recyclerFriend.adapter = FriendAdapter(data) {
+                    val intent = Intent(requireActivity(), RoomChatActivity::class.java).apply {
+                        putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, it.phoneNumber)
+                        putExtra(RoomChatActivity.ARG_ROOM_CHAT_TITLE, it.displayName)
+                        putExtra(RoomChatActivity.ARG_ROOM_CHAT_IS_GROUP, false)
+                    }
+                    startActivity(intent)
+                }
             } catch (e: HttpException) {
                 LogHelper.showToastApiResponseError(context, e)
                 LogHelper.errorWithClassName(this@FriendFragment.javaClass, e)

@@ -1,5 +1,7 @@
 package com.lamnguyen.zalo.ui.contract.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.domain.dtos.User
 
-class FriendAdapter(users: List<User>) :
+class FriendAdapter(users: List<User>, val onClick: (user: User) -> Unit) :
     RecyclerView.Adapter<FriendAdapter.FriendViewHolder>() {
     private val data = mutableListOf<User>()
 
@@ -55,7 +57,7 @@ class FriendAdapter(users: List<User>) :
         val viewType = getItemViewType(position)
         if (viewType == TYPE_HEADER)
             holder.bindingTitle(data[position].displayName!!)
-        else holder.binding(data[position])
+        else holder.binding(data[position], onClick)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -67,7 +69,7 @@ class FriendAdapter(users: List<User>) :
 
     class FriendViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun binding(user: User) {
+        fun binding(user: User, onClick: (user: User) -> Unit) {
             val imgAvatar = itemView.findViewById<ImageView>(R.id.image_avatar)
             val txtName = itemView.findViewById<TextView>(R.id.text_name)
             Glide.with(itemView)
@@ -75,6 +77,9 @@ class FriendAdapter(users: List<User>) :
                 .into(imgAvatar)
 
             txtName.text = user.displayName
+            itemView.setOnClickListener {
+                onClick(user)
+            }
         }
 
         fun bindingTitle(title: String) {

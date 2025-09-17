@@ -15,15 +15,6 @@ import com.lamnguyen.zalo.ui.roomchat.RoomChatActivity
 import java.util.function.Function
 
 class ListRoomChatFragment(val messageFragmentViewModel: MessageFragmentViewModel) : Fragment() {
-//    private val onClickCardRoomChat = object : ListRoomChatRecyclerViewAdapter.OnClickListener {
-//        override fun onClick(view: View?, data: RoomChatInfo?) {
-//            val intent = Intent(context, RoomChatActivity::class.java)
-//            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, data?.id)
-//            intent.putExtra(RoomChatActivity.ARG_ROOM_CHAT_TITLE, data?.title)
-//            startActivity(intent)
-//        }
-//    }
-
     private val onClickCardRoomChat = Function<MessageFragmentViewModel.RoomChatDetail, Unit> {
         val intent = Intent(context, RoomChatActivity::class.java).apply {
             putExtra(RoomChatActivity.ARG_ROOM_CHAT_ID, it)

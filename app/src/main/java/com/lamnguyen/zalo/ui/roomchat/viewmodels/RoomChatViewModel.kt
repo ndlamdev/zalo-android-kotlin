@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class RoomChatViewModel : ViewModel() {
-    val id = MutableLiveData<Long>()
-    val title = MutableLiveData<String>()
+    val roomChatIdLiveData = MutableLiveData<String>()
+    val roomChatTitleLiveData = MutableLiveData<String>()
+    val roomChatIsGroupLiveData = MutableLiveData(false)
 }

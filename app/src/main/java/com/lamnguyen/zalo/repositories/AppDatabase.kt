@@ -9,7 +9,7 @@ import com.lamnguyen.zalo.entities.Cookie
 import com.lamnguyen.zalo.entities.Message
 import com.lamnguyen.zalo.utils.converters.DataTypeConverter
 
-@Database(entities = [Cookie::class, Message::class], version = 1)
+@Database(entities = [Cookie::class, Message::class], version = 2)
 @TypeConverters(DataTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cookieRepository(): CookieRepository

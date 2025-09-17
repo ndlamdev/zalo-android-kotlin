@@ -34,7 +34,7 @@ class RoomChatHeaderFragment : Fragment() {
             }
         }
 
-        viewModel.title.observe(viewLifecycleOwner) { titleLiveData ->
+        viewModel.roomChatTitleLiveData.observe(viewLifecycleOwner) { titleLiveData ->
             view.findViewById<TextView>(R.id.text_room_chat_title).text = titleLiveData
         }
 

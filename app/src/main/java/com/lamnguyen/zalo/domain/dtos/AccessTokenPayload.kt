@@ -8,11 +8,7 @@
 
 package com.lamnguyen.zalo.domain.dtos
 
-import com.fasterxml.jackson.annotation.JsonInclude
-
 class AccessTokenPayload : SimplePayload() {
     var refreshTokenId: String? = null
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    var roles: MutableSet<String?>? = null
+    var roles: MutableSet<String?>? = mutableSetOf()
 }

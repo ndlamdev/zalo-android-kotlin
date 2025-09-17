@@ -15,7 +15,7 @@ interface MessageRepository {
         AND room_chat_id = :roomId
     """
     )
-    fun findAllByOwnerPhoneNumberAndRoomId(ownerPhoneNumber: Long, roomId: String): List<Message>
+    fun findAllByOwnerPhoneNumberAndRoomId(ownerPhoneNumber: String, roomId: String): List<Message>
 
     @Insert
     fun insert(message: Message)
@@ -27,13 +27,13 @@ interface MessageRepository {
         """
         SELECT *
         FROM messages
-        WHERE owner_phone_number = :ownerId
+        WHERE owner_phone_number = :ownerPhoneNumber
         AND room_chat_id = :roomId
         ORDER BY id DESC
         LIMIT 1
     """
     )
-    fun findLastMessageByOwnerPhoneNumberAndRoomId(ownerId: Long, roomId: String): Message
+    fun findLastMessageByOwnerPhoneNumberAndRoomId(ownerPhoneNumber: String, roomId: String): Message
 
     @Query(
         """
@@ -45,7 +45,7 @@ interface MessageRepository {
     """
     )
     fun countMessageByOwnerPhoneNumberAndRoomIdAndReadIsFalse(
-        ownerPhoneNumber: Long,
+        ownerPhoneNumber: String,
         roomId: String,
-    ): Long
+    ): String
 }

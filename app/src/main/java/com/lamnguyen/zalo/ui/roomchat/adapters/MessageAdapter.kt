@@ -96,12 +96,12 @@ class MessageAdapter(val messages: MutableList<Message>, val isGroup: Boolean? =
         }
 
         override fun binding(message: Message, isSamePreMessageType: Boolean?) {
-            Glide.with(itemView).load(message.senderAvatar).into(imgAvatar)
-            if (isGroup == true) {
-                txtName.text = message.senderDisplayName
-            } else {
-                txtName.visibility = View.GONE
-            }
+//            Glide.with(itemView).load(message.senderAvatar).into(imgAvatar)
+//            if (isGroup == true) {
+//                txtName.text = message.senderDisplayName
+//            } else {
+//                txtName.visibility = View.GONE
+//            }
             super.binding(message, isSamePreMessageType)
         }
 

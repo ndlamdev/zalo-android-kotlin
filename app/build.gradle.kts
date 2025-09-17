@@ -76,4 +76,10 @@ dependencies {
     implementation(libs.stompprotocolandroid)
     implementation(libs.rxjava)
     implementation(libs.support.annotations)
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    implementation(libs.jackson.datatype.jsr310)
+    implementation(libs.kotlin.url.gen)
+    implementation(libs.cloudinary.android)
+    implementation(libs.cloudinary.android.download)
+    implementation(libs.cloudinary.android.preprocess)
 }

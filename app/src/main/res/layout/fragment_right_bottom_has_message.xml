@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/icon_size_lg"
-    android:layout_height="@dimen/icon_size_lg"
+    android:layout_width="@dimen/icon_size_md"
+    android:layout_height="@dimen/icon_size_md"
     android:contentDescription="@string/app_name"
     android:src="@drawable/ic_send"
+    android:scaleX="1.4"
+    android:scaleY="1.4"
     tools:context=".ui.roomchat.footers.RightBottomHasMessageFragment" />

@@ -52,7 +52,7 @@ class ListRoomChatRecyclerViewAdapter(
                 .into(imgAvatar)
             txtRoomChatTitle.text = data.title
             """
-            ${lastMessage.senderDisplayName}: ${lastMessage.content} [${
+            ${lastMessage.senderPhoneNumber}: ${lastMessage.content} [${
                 when (lastMessage.type) {
                     ContentMessageType.AUDIO -> "Âm thanh"
                     ContentMessageType.VIDEO -> "Video"

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.edit
 import androidx.lifecycle.lifecycleScope
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.configs.RetrofitClient

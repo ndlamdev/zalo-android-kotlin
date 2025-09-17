@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.time.Instant
 
 class MessageFragmentViewModel : ViewModel() {
-    val roomChatLiveData = MutableLiveData<Map<Long, RoomChatDetail>>()
+    val roomChatLiveData = MutableLiveData<Map<String, RoomChatDetail>>()
 
     class RoomChatDetail : RoomChat(), Serializable {
         val messages = mutableListOf<Message>()

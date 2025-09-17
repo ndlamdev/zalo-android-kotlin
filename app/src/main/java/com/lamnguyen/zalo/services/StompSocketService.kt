@@ -12,6 +12,9 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.lamnguyen.zalo.R
 import com.lamnguyen.zalo.entities.Message
 import com.lamnguyen.zalo.repositories.AppDatabase
@@ -32,6 +35,7 @@ class StompSocketService : Service() {
 
     private val binder = LocalBinder()
     private val objectMapper = ObjectMapper()
+        .registerModule(JavaTimeModule())
 
     private val listRoomChatId = mutableListOf<String>()
 
@@ -45,9 +49,9 @@ class StompSocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val token = TokenHelper.getAccessToken(baseContext)
+        val token = TokenHelper.getAccessToken(this)
         stompClient = Stomp.over(
-            Stomp.ConnectionProvider.OKHTTP, "ws://192.168.1.5:8005/chat-websocket",
+            Stomp.ConnectionProvider.OKHTTP, "https://zalo.ndlamdev.website/chat-ws/chat-websocket",
             mapOf("Authorization" to "Bearer $token")
         )
         createNotificationChannel()
@@ -75,7 +79,7 @@ class StompSocketService : Service() {
             .subscribe { event ->
                 when (event.type) {
                     LifecycleEvent.Type.OPENED -> Log.d(TAG, "Connected")
-                    LifecycleEvent.Type.CLOSED -> Log.d(TAG, "Closed")
+                    LifecycleEvent.Type.CLOSED -> stompClient.connect()
                     LifecycleEvent.Type.ERROR -> Log.e(TAG, "Error", event.exception)
                     else -> {}
                 }
@@ -84,11 +88,11 @@ class StompSocketService : Service() {
     }
 
     fun subscribeDestinationMessage(callback: (Message) -> Unit) {
-        val phoneNumber = TokenHelper.getAccessTokenPayload(baseContext)?.phoneNumber ?: ""
-        val disposable = stompClient.topic("/user/$phoneNumber")
+        val phoneNumber = TokenHelper.getAccessTokenPayload(this)?.phoneNumber ?: ""
+        val disposable = stompClient.topic("/user/queue/messages")
             .subscribe { msg: StompMessage ->
                 Log.d(TAG, "Message from $phoneNumber: ${msg.payload}")
-                val message = objectMapper.convertValue(msg.payload, Message::class.java)
+                val message = objectMapper.readValue(msg.payload, Message::class.java)
                 listRoomChatId.add(phoneNumber)
                 message.ownerPhoneNumber = phoneNumber
                 messageRepository.insert(message)
@@ -98,9 +102,6 @@ class StompSocketService : Service() {
     }
 
     fun subscribe(destinationPath: String, callback: (StompMessage) -> Unit) {
-        val ownerPhoneNumber = TokenHelper
-            .getAccessTokenPayload(this.baseContext)
-            ?.phoneNumber ?: ""
         val disposable = stompClient.topic(destinationPath)
             .subscribe { msg: StompMessage ->
                 Log.d(TAG, "Message from $destinationPath: ${msg.payload}")
@@ -111,7 +112,10 @@ class StompSocketService : Service() {
 
     fun sendText(roomChatId: String, message: String) {
         stompClient
-            .send(roomChatId, objectMapper.writeValueAsString(TextMessage(message)))
+            .send(
+                "/app/chat.text",
+                objectMapper.writeValueAsString(TextMessage(roomChatId, message))
+            )
             .subscribe()
     }
 
@@ -122,14 +126,21 @@ class StompSocketService : Service() {
         Log.d(TAG, "Service destroyed, socket closed")
     }
 
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
     class TextMessage(
-        val message: String,
-        val type: String = "TEXT",
+        var roomChatId: String,
+        var content: String,
     )
 
     class StompSocketServiceContext {
         var stompService: StompSocketService? = null
         var bound: Boolean = false
+
+        fun sendMessage(roomChatId: String, message: String) {
+            if (bound) {
+                stompService?.sendText(roomChatId, message)
+            }
+        }
     }
 
 
@@ -151,7 +162,7 @@ class StompSocketService : Service() {
         const val CHANNEL_ID = "123456"
         fun initConnection(
             field: StompSocketServiceContext,
-            callback: (service: StompSocketService) -> Unit,
+            callback: (service: StompSocketService) -> Unit = {},
         ): ServiceConnection {
             return object : ServiceConnection {
                 override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {

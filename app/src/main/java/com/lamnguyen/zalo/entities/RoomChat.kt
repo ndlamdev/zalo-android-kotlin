@@ -12,9 +12,15 @@ import androidx.room.Entity
 
 
 @Entity("room_chats")
-class RoomChat : BaseEntity() {
-    var id: Long? = null
+open class RoomChat : BaseEntity() {
+    var id: String? = null
     lateinit var title: String
     lateinit var avatar: String
     lateinit var theme: String
+    var type: RoomChatType = RoomChatType.SINGLE
+    var isQueue = false
+
+    enum class RoomChatType {
+        SINGLE, GROUP
+    }
 }
