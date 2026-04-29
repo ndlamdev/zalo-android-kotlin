@@ -24,7 +24,7 @@ import website.ndlam.zalo.ui.theme.LocalColorScheme
 import website.ndlam.zalo.ui.theme.White
 
 @Composable
-fun IntroductionCompose() {
+fun IntroductionScreen() {
     val subPager = rememberPagerState { 4 }
     val mainPager = rememberPagerState { 2 }
     val data = listOf(
@@ -93,10 +93,4 @@ fun IntroductionCompose() {
         }
         Spacer(modifier = Modifier.height(LocalAppDimens.current.sizing.medium))
     }
-}
-
-@Preview
-@Composable
-fun IntroductionComposePreview() {
-    IntroductionCompose()
 }
