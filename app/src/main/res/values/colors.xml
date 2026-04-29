@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Purple Color Shades -->
+   <!-- <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    &lt;!&ndash; Purple Color Shades &ndash;&gt;
     <color name="purple_50">#F3E5F5</color>
     <color name="purple_100">#E1BEE7</color>
     <color name="purple_200">#CE93D8</color>
@@ -10,7 +18,7 @@
     <color name="purple_600">#8E24AA</color>
     <color name="purple_700">#7B1FA2</color>
     <color name="purple_800">#6A1B9A</color>
-    <color name="purple_900">#4A148C</color>
+    <color name="purple_900">#4A148C</color>-->
 
     <!-- Purple Accent Colors -->
     <color name="purple_A100">#EA80FC</color>
@@ -50,6 +58,7 @@
 
     <color name="dark_200">#121212</color>
     <color name="white">#FAFAFA</color>
+    <color name="super_white">#FFFFFF</color>
 
     <!-- RED -->
     <color name="red_50">#FFEBEE</color>
@@ -98,4 +107,18 @@
     <color name="blue_700">#1976D2</color>
     <color name="blue_800">#1565C0</color>
     <color name="blue_900">#0D47A1</color>
+
+    <!--GRAY-->
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color> <!-- Xám cơ bản -->
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color> <!-- Rất gần với đen -->
 </resources>

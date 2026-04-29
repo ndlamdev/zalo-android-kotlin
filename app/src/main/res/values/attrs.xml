@@ -4,4 +4,13 @@
     <attr name="colorIconTint" format="color" />
     <attr name="backgroundHeader" format="reference" />
     <attr name="backgroundComponentSearch" format="color" />
+    <attr name="backgroundButtonCreateNewAccount" format="color" />
+    <attr name="backgroundButtonCreateNewAccountPressed" format="color" />
+    <attr name="backgroundPhoneNumberCode" format="color" />
+    <attr name="backgroundPhoneNumberCodePressed" format="color" />
+    <attr name="borderPhoneNumberCode" format="color" />
+    <attr name="borderPhoneNumberCodePressed" format="color" />
+
+    <attr name="backgroundButtonContinueEnable" format="color"/>
+    <attr name="backgroundButtonContinueDisable" format="color"/>
 </resources>

@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Zalo"
+rootProject.name = "Zola Application"
 include(":app")
+ 

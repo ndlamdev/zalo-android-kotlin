@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="xsmall">5sp</dimen>
+    <dimen name="small">10sp</dimen>
+    <dimen name="medium">20sp</dimen> <!-- body text -->
+    <dimen name="large">30dp</dimen> <!-- subtitle -->
+    <dimen name="xlarge">40dp</dimen> <!-- title -->
+    <dimen name="xxlarge">50dp</dimen> <!-- h3 -->
+
     <dimen name="gap_item_in_linear_layout">5dp</dimen>
     <dimen name="icon_size">50dp</dimen>
+    <dimen name="icon_size_xll6">70dp</dimen>
+    <dimen name="icon_size_xll">60dp</dimen>
+    <dimen name="icon_size_xl">50dp</dimen>
+    <dimen name="icon_size_lg">40dp</dimen>
     <dimen name="icon_size_md">30dp</dimen>
     <dimen name="icon_size_sm">20dp</dimen>
     <dimen name="radius_component_search">5dp</dimen>
@@ -22,4 +33,7 @@
     <!-- Caption, button -->
     <dimen name="text_caption">11sp</dimen>
     <dimen name="text_button">14sp</dimen>
+
+    <dimen name="_7dp">7dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
 </resources>

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Zalo</string>
+    <string name="app_name">Zola</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_icon">Seach Icon.png</string>
+    <string name="search_icon">Search Icon.png</string>
     <string name="hint_search">Tìm kiếm</string>
     <string name="qr_icon">Qr.svg</string>
     <string name="plus_icon">plus.svg</string>
@@ -22,4 +22,41 @@
     <string name="background_image">Hình nền</string>
     <string name="turn_off">Tắt</string>
     <string name="notify">Thông báo</string>
+
+    <!--Introduction-->
+    <string name="introduction_title_1">Gọi video ổn định</string>
+    <string name="introduction_description_1">Trò chuyện thật đã với chất lượng video ổn định mọi lúc, mọi nơi</string>
+    <string name="introduction_title_2">Chat nhóm tiện ích</string>
+    <string name="introduction_description_2">Nơi đổi hình ảnh chất lượng cao ới bạn vè và ngời thân thật nhanh và dễ dàng</string>
+    <string name="introduction_title_3">Gửi ảnh nhanh chóng</string>
+    <string name="introduction_description_3">Tro đổi hình ảnh chất lượng cao với bạn bè và người thân thật nhanh và dễ dàng</string>
+    <string name="introduction_title_4">Nhật ký bạ bè</string>
+    <string name="introduction_description_4">Nơi cập nhật hoạt động mới nhất của những người bạn quan tâm</string>
+    <string name="login">Đăng nhập</string>
+    <string name="create_new_account">Tạo tài khoản mới</string>
+    <string name="please_choice_country">Chọn mã quốc gia/vùng lãng thổ</string>
+    <string name="input_phone_number">Nhập số điện thoại</string>
+    <string name="text_continue">Tiếp tục</string>
+    <string name="you_do_not_have_any_account">Bạn chưa có tài khoản?</string>
+    <string name="create_account">Tạo tài khoản</string>
+    <string name="input_password_for_this_phone_number">Nhập mật khẩu của tài khoản gán với số điện thoại</string>
+    <string name="input_password">Nhập mật khẩu</string>
+    <string name="forget_password">Quên mật khẩu?</string>
+    <string name="phone_number">Số điện thoại:</string>
+    <string name="search_friend_by_phone_number">Tìm bạn qua số điện thoại</string>
+    <string name="add_friend">Kết bạn</string>
+    <string name="sent">Đã gửi</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="friend">Bạn bè</string>
+    <string name="group">Nhóm</string>
+    <string name="o_a">OA</string>
+    <string name="friend_invitation">Lời mời kết bạn</string>
+    <string name="birthday">Sinh nhật</string>
+    <string name="contact_using_zalo">Các liên hệ có dùng zalo</string>
+    <string name="machine_directory">Danh bạ máy</string>
+    <string name="start_capture">Quay phim</string>
+    <string name="take_photo">Chụp</string>
+    <string name="scan_any_qr">Quét mọi mã QR</string>
+    <string name="my_qr">Mã QR của tôi</string>
+    <string name="title_activity_main_compose">MainComposeActivity</string>
 </resources>
