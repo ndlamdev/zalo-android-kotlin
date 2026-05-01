@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.google.protobuf)
 }
 
 android {
@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.datastore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,6 +60,21 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
-    // JSON serialization library, works with the Kotlin serialization plugin
-    implementation(libs.kotlinx.serialization.json)
+    // Typed DataStore for custom data objects (for example, using Proto or JSON).
+    implementation(libs.protobuf.javalite)
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.3"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }

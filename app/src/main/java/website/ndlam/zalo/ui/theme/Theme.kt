@@ -1,9 +1,11 @@
 package website.ndlam.zalo.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
+import website.ndlam.zalo.ui.theme.Typography
 
 
 /*
@@ -49,8 +51,16 @@ private val LightColorScheme = lightColorScheme(
 )
 */
 
-val LocalAppDimens = staticCompositionLocalOf { Dimens() }
+val LocalDimens = staticCompositionLocalOf { Dimens() }
 val LocalColorScheme = staticCompositionLocalOf { ColorScheme() }
+val LocalTypography = staticCompositionLocalOf { Typography }
+
+
+val MaterialTheme.appDimens: Dimens
+    get() = Dimens()
+
+val MaterialTheme.appColor: Dimens
+    get() = Dimens()
 
 @Composable
 fun ZolaApplicationTheme(
@@ -70,8 +80,9 @@ fun ZolaApplicationTheme(
     }
 
     CompositionLocalProvider(
-        LocalAppDimens provides LocalAppDimens.current,
-        LocalColorScheme provides colorScheme
+        LocalDimens provides LocalDimens.current,
+        LocalColorScheme provides colorScheme,
+        LocalTypography provides Typography
     ) {
 //        MaterialTheme(
 //            colorScheme = colorScheme,

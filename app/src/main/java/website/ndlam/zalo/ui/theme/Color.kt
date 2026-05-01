@@ -94,30 +94,46 @@ val Yellow700 = Color(0xFFFBC02D)
 val Yellow800 = Color(0xFFF9A825)
 val Yellow900 = Color(0xFFF57F17)
 
+
+// LightBlue
+val LightBlue500 = Color(0xFFF0F7FF)
+
 // Blue
 val Blue50 = Color(0xFFE3F2FD)
+val Blue75 = Color(0xFFC8E0FC)
 val Blue100 = Color(0xFFBBDEFB)
 val Blue200 = Color(0xFF90CAF9)
 val Blue300 = Color(0xFF64B5F6)
+
 val Blue400 = Color(0xFF42A5F5)
 val Blue500 = Color(0xFF2196F3)
 val Blue600 = Color(0xFF1E88E5)
-val Blue700 = Color(0xFF1E1F22)
+val Blue700 = Color(0xFF3B7BDC)
 val Blue800 = Color(0xFF0068FF)
+val Blue810 = Color(0xFF0B66EB)
 val Blue900 = Color(0xFF0D47A1)
 
+//DarkBlue
+val DarkBlue500 = Color(0xFF053683)
+val DarkBlue900 = Color(0xFF001029)
+
 // Gray
-val Gray50 = Color(0xFFFAFAFA)
+val Gray50 = Color(0xFFF3F4F6)
 val Gray100 = Color(0xFFF5F5F5)
 val Gray200 = Color(0xFFECEDEF)
+val Gray250 = Color(0xFFD3D6DB)
 val Gray300 = Color(0xFFE0E0E0)
 val Gray400 = Color(0xFFBDBDBD)
+val Gray450 = Color(0xFFA9ACB1)
 val Gray500 = Color(0xFF9E9E9E)
 val Gray550 = Color(0xFF848D94)
 val Gray600 = Color(0xFF717880)
 val Gray700 = Color(0xFF616161)
+val Gray710 = Color(0xFF575757)
 val Gray800 = Color(0xFF3D3D3D)
 val Gray900 = Color(0xFF212121)
+
+val BlackGray = Color(0xFF2E2E2E)
 
 // Light Blue
 val LightBlue400 = Color(0xFF29B6F6)

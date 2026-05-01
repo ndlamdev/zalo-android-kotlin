@@ -1,5 +1,3 @@
-package website.ndlam.zalo.data
-
-import android.media.Image
+package website.ndlam.zalo.domains.dto
 
 data class Introduction(val image: Int, val title: String, val  description: String)

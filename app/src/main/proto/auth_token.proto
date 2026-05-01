@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "website.ndlam.zalo.domains.dto";
+option java_multiple_files = true;
+import "google/protobuf/wrappers.proto";
+
+message AuthToken {
+  google.protobuf.StringValue access_token = 1;
+  google.protobuf.StringValue refresh_token = 2;
+}

@@ -12,16 +12,16 @@ data class Dimens(
 )
 
 data class TextSize(
-    val xsmall: TextUnit = 10.sp,
-    val small: TextUnit = 12.sp,
-    val medium: TextUnit = 14.sp,
-    val large: TextUnit = 16.sp,
-    val xlarge: TextUnit = 18.sp,
-    val xxlarge: TextUnit = 22.sp,
-    val h2: TextUnit = 28.sp,
-    val h1: TextUnit = 36.sp,
+    val xsmall: TextUnit = 9.sp,
+    val small: TextUnit = 11.sp,
+    val medium: TextUnit = 15.sp,
+    val large: TextUnit = 17.sp,
+    val xlarge: TextUnit = 19.sp,
+    val xxlarge: TextUnit = 23.sp,
+    val h2: TextUnit = 29.sp,
+    val h1: TextUnit = 37.sp,
     val caption: TextUnit = 11.sp,
-    val button: TextUnit = 14.sp,
+    val button: TextUnit = 15.sp,
 )
 
 data class Sizing(

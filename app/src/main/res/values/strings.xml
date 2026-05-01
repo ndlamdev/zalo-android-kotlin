@@ -33,11 +33,13 @@
     <string name="introduction_title_4">Nhật ký bạ bè</string>
     <string name="introduction_description_4">Nơi cập nhật hoạt động mới nhất của những người bạn quan tâm</string>
     <string name="login">Đăng nhập</string>
+    <string name="login_now">Đăng nhập ngay</string>
     <string name="create_new_account">Tạo tài khoản mới</string>
     <string name="please_choice_country">Chọn mã quốc gia/vùng lãng thổ</string>
     <string name="input_phone_number">Nhập số điện thoại</string>
     <string name="text_continue">Tiếp tục</string>
     <string name="you_do_not_have_any_account">Bạn chưa có tài khoản?</string>
+    <string name="you_have_account">Bạn đã có tài khoản?</string>
     <string name="create_account">Tạo tài khoản</string>
     <string name="input_password_for_this_phone_number">Nhập mật khẩu của tài khoản gán với số điện thoại</string>
     <string name="input_password">Nhập mật khẩu</string>
@@ -59,4 +61,8 @@
     <string name="scan_any_qr">Quét mọi mã QR</string>
     <string name="my_qr">Mã QR của tôi</string>
     <string name="title_activity_main_compose">MainComposeActivity</string>
+    <string name="i_agree_with">Tôi đông ý với</string>
+    <string name="i_agree_with_these">Tôi đông ý với các</string>
+    <string name="terms_of_use_zola">điều khoản sử dụng zola</string>
+    <string name="zola_is_Social_network_terms">điều khoản Mạng xã hội của zola</string>
 </resources>

@@ -23,9 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import website.ndlam.zalo.R
-import website.ndlam.zalo.data.Introduction
+import website.ndlam.zalo.domains.dto.Introduction
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalAppDimens
+import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.LocalColorScheme
 
 @Composable
@@ -46,18 +46,18 @@ fun IntroductionViewPagerCompose(
             ) {
                 Text(
                     text = stringResource(R.string.app_name),
-                    fontSize = LocalAppDimens.current.textSize.h1,
+                    fontSize = LocalDimens.current.textSize.h1,
                     textAlign = TextAlign.Center,
                     color = Blue800,
                     modifier = Modifier.fillMaxWidth(),
                     fontWeight = Bold
                 )
-                Spacer(modifier = Modifier.height(LocalAppDimens.current.sizing.xxlarge))
+                Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xxlarge))
                 HorizontalPager(subPager) { localPage ->
                     IntroductionContentCompose(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(LocalAppDimens.current.sizing.medium),
+                            .padding(LocalDimens.current.sizing.medium),
                         data = data[localPage]
                     )
                 }
@@ -84,27 +84,27 @@ fun IntroductionContentCompose(modifier: Modifier = Modifier, data: Introduction
         Icon(
             painter = painterResource(data.image),
             contentDescription = data.title,
-            modifier = Modifier.size(LocalAppDimens.current.sizing.xxlarge * 3),
+            modifier = Modifier.size(LocalDimens.current.sizing.xxlarge * 3),
             tint = LocalColorScheme.current.introductionColorScheme.tintICon
         )
-        Spacer(modifier = Modifier.height(LocalAppDimens.current.sizing.large))
+        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
         Text(
             text = data.title,
             modifier = Modifier
                 .wrapContentWidth()
                 .align(Alignment.CenterHorizontally),
-            fontSize = LocalAppDimens.current.textSize.xlarge,
+            fontSize = LocalDimens.current.textSize.xlarge,
             fontWeight = Bold,
             color = LocalColorScheme.current.onPrimary
         )
-        Spacer(modifier = Modifier.height(LocalAppDimens.current.sizing.xsmall))
+        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xsmall))
         Text(
             text = data.description,
             modifier = Modifier
                 .wrapContentWidth()
                 .align(Alignment.CenterHorizontally),
             fontWeight = Bold,
-            fontSize = LocalAppDimens.current.textSize.medium,
+            fontSize = LocalDimens.current.textSize.medium,
             color = LocalColorScheme.current.introductionColorScheme.description,
             textAlign = TextAlign.Center
         )

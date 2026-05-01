@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import website.ndlam.zalo.data.UserInfo
+import website.ndlam.zalo.domains.dto.UserInfo
 import website.ndlam.zalo.utils.enums.ApiCallingStatus
 
 
