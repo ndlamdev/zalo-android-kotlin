@@ -5,18 +5,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 
 data class PhoneNumberTextFieldColorScheme(
-    val border: Color = Blue810,
-    val icon: Color = Blue810,
-    val borderText: Color = Blue75,
-    val surface: Color = LightBlue500,
-    val cursor: Brush = SolidColor(Blue100)
-) {
+    val borderFocus: Color = Blue810,
+    val iconFocus: Color = Blue810,
+    val borderCountryCodeFocus: Color = Blue75,
+    val surfaceFocus: Color = LightBlue500,
 
-}
+    val border: Color = Gray455,
+    val icon: Color = Black900,
+    val borderCountryCode: Color = Gray300,
+    val surface: Color = Blue50,
 
-data class SignInColorScheme(
-    val disableButton: Color = Gray250,
-    val onDisableButton: Color = Gray450,
+    val cursor: Brush = SolidColor(Blue810)
+)
+
+data class PasswordTextFieldColorScheme(
+    val borderFocus: Color = Blue810,
+    val border: Color = Gray455,
+
+    val cursor: Brush = SolidColor(Blue810)
+)
+
+data class PasswordScreenColorScheme(
+    val forgetPassword: Color = Blue850,
 )
 
 // default for light theme
@@ -32,9 +42,12 @@ data class ColorScheme(
     val primary: Color = Gray50,
     val onPrimary: Color = Black50,
     val surface: Color = SuperWhite,
+    val disableButton: Color = Gray250,
+    val onDisableButton: Color = Gray450,
     val introductionColorScheme: IntroductionColorScheme = IntroductionColorScheme(),
-    val signInColorScheme: SignInColorScheme = SignInColorScheme(),
-    val phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme = PhoneNumberTextFieldColorScheme()
+    val phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme = PhoneNumberTextFieldColorScheme(),
+    val passwordTextFieldColorScheme: PasswordTextFieldColorScheme = PasswordTextFieldColorScheme(),
+    val passwordScreenColorScheme: PasswordScreenColorScheme = PasswordScreenColorScheme()
 )
 
 val DarkColorScheme = ColorScheme(
@@ -47,16 +60,29 @@ val DarkColorScheme = ColorScheme(
         description = Gray600,
         tintICon = Gray300
     ),
-    signInColorScheme = SignInColorScheme(
-        disableButton = BlackGray,
-        onDisableButton = Gray710
-    ),
+    disableButton = BlackGray,
+    onDisableButton = Gray710,
     phoneNumberTextFieldColorScheme = PhoneNumberTextFieldColorScheme(
-        border = Blue700,
-        icon = Blue700,
-        borderText = DarkBlue500,
-        surface = DarkBlue900,
-        cursor = SolidColor(Blue600)
+        borderFocus = Blue700,
+        iconFocus = Blue700,
+        borderCountryCodeFocus = DarkBlue500,
+        surfaceFocus = DarkBlue900,
+
+        border = Gray690,
+        icon = SuperWhite,
+        borderCountryCode = Gray700,
+        surface = Gray800,
+
+        cursor = SolidColor(Blue700)
+    ),
+    passwordTextFieldColorScheme = PasswordTextFieldColorScheme(
+        borderFocus = Blue700,
+        border = Gray690,
+
+        cursor = SolidColor(Blue700)
+    ),
+    passwordScreenColorScheme = PasswordScreenColorScheme(
+        forgetPassword = Blue350
     )
 )
 

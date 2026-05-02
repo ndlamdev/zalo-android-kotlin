@@ -1,4 +1,4 @@
-package website.ndlam.zalo.compose.welcome
+package website.ndlam.zalo.compose.introduction
 
 import android.content.Context
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package website.ndlam.zalo.compose.signin
+package website.ndlam.zalo.compose.password
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,47 +27,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
-import website.ndlam.zalo.compose.textfield.PhoneNumberTextField
-import website.ndlam.zalo.ui.theme.Blue500
+import website.ndlam.zalo.compose.textfield.PasswordTextField
 import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.LocalColorScheme
 import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.SuperWhite
-import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
-
+import website.ndlam.zalo.viewmodels.PasswordTextFieldViewModel
 
 @Composable
-fun SignInScreen(
+fun PasswordScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
-    phoneNumberViewModel: PhoneNumberViewModel = viewModel(),
     onBackPress: () -> Unit = {},
-    navigateSignUpScreen: () -> Unit = {},
-    onContinuePress: () -> Unit = {},
-    terms: @Composable () -> Unit = {},
-    footer: @Composable () -> Unit = {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(R.string.you_do_not_have_any_account),
-                color = LocalColorScheme.current.onPrimary,
-                fontSize = LocalDimens.current.textSize.medium
-            )
-            Spacer(modifier = Modifier.width(LocalDimens.current.sizing.xsmall))
-            Text(
-                text = stringResource(R.string.create_account),
-                color = Blue500,
-                modifier = Modifier
-                    .padding(0.dp)
-                    .clickable(onClick = navigateSignUpScreen),
-                fontSize = LocalDimens.current.textSize.medium
-            )
-        }
-    }
+    phoneNumber: String
 ) {
-    val isValidPhoneNumber = phoneNumberViewModel.valid.collectAsState()
+    val viewModel = viewModel<PasswordTextFieldViewModel>()
 
     Column(
         modifier = Modifier
@@ -88,36 +60,53 @@ fun SignInScreen(
 
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
         Text(
-            text = stringResource(R.string.input_phone_number),
+            text = stringResource(R.string.input_password_for_this_phone_number),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
-            fontSize = LocalDimens.current.textSize.xxlarge,
-            fontWeight = Bold,
             color = LocalColorScheme.current.onPrimary
         )
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xlarge))
+        Text(
+            text = phoneNumber,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = LocalDimens.current.sizing.small,
+                    bottom = LocalDimens.current.sizing.large
+                ),
+            fontSize = LocalDimens.current.textSize.xxlarge,
+            color = LocalColorScheme.current.onPrimary,
+            fontWeight = Bold
+        )
 
-        PhoneNumberTextField(viewModel = phoneNumberViewModel)
-
-        terms()
+        PasswordTextField(viewModel)
 
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
 
         TextButton(
-            onClick = {
-                if (isValidPhoneNumber.value) onContinuePress()
-            },
-            modifier = Modifier
+            onClick = {}, modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
-                .background(if (isValidPhoneNumber.value) Blue800 else LocalColorScheme.current.disableButton),
+                .background(if (viewModel.password.collectAsState().value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
         ) {
             Text(
                 text = stringResource(R.string.text_continue),
-                color = if (isValidPhoneNumber.value) SuperWhite else LocalColorScheme.current.onDisableButton
+                color = if (viewModel.password.collectAsState().value.isEmpty()) LocalColorScheme.current.onDisableButton else SuperWhite
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        footer()
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = stringResource(R.string.forget_password),
+                color = LocalColorScheme.current.passwordScreenColorScheme.forgetPassword,
+                fontWeight = Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.clickable(
+                    onClick = {}
+                ),
+                fontSize = LocalDimens.current.textSize.large
+            )
+        }
     }
 }
+

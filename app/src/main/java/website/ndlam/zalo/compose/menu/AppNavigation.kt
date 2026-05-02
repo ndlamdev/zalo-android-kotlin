@@ -2,16 +2,19 @@ package website.ndlam.zalo.compose.menu
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import website.ndlam.zalo.compose.main.MainScreen
+import website.ndlam.zalo.compose.password.PasswordScreen
 import website.ndlam.zalo.compose.signin.SignInScreen
 import website.ndlam.zalo.compose.signup.SignUpScreen
 import website.ndlam.zalo.compose.splash.SplashScreen
-import website.ndlam.zalo.compose.welcome.IntroductionScreen
+import website.ndlam.zalo.compose.introduction.IntroductionScreen
+import website.ndlam.zalo.utils.formater.PhoneNumberFormater
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
 @Composable
@@ -70,6 +73,11 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                         launchSingleTop = true
                         restoreState = true
                     }
+                }, onContinuePress = {
+                    navController.navigate(Password::class.java.name) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 })
         }
 
@@ -86,7 +94,25 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                         launchSingleTop = true
                         restoreState = true
                     }
+                },
+                onContinuePress = {
+
                 })
+        }
+
+        composable(Password::class.java.name) { backStackEntry ->
+            PasswordScreen(
+                paddingValues = paddingValues,
+                onBackPress = {
+                    if (navController.previousBackStackEntry != null) {
+                        navController.popBackStack()
+                    }
+                },
+                phoneNumber = PhoneNumberFormater.nationalFormat(
+                    phoneNumberViewModel.phoneNumber.collectAsState().value.toLong(),
+                    phoneNumberViewModel.countryCode.collectAsState().value.replace("+", "").toInt()
+                )
+            )
         }
 
         composable(Main::class.java.name) { backStackEntry ->

@@ -38,11 +38,13 @@ fun SignUpScreen(
     phoneNumberViewModel: PhoneNumberViewModel = viewModel(),
     onBackPress: () -> Unit = {},
     navigateSignInScreen: () -> Unit = {},
+    onContinuePress: () -> Unit = {},
 ) {
     SignInScreen(
         paddingValues = paddingValues,
         phoneNumberViewModel = phoneNumberViewModel,
         onBackPress = onBackPress,
+        onContinuePress = onContinuePress,
         terms = {
             TermCheckBox(
                 title = stringResource(R.string.i_agree_with_these),

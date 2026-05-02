@@ -1,4 +1,4 @@
-package website.ndlam.zalo.compose.welcome
+package website.ndlam.zalo.compose.introduction
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

@@ -58,10 +58,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
-    // Typed DataStore for custom data objects (for example, using Proto or JSON).
     implementation(libs.protobuf.javalite)
+    implementation(libs.googlecode.libphonenumber)
 }
 
 protobuf {
