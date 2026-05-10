@@ -38,9 +38,13 @@ data class IntroductionColorScheme(
 )
 
 
-data class RegionCodeScreen(
+data class RegionCodeScreenColorScheme(
     val groupName: Color = Blue150
 )
+
+data class HeaderBarColorScheme(val background: Brush = HeaderGradient)
+
+data class MenuBarColorScheme(val background: Color = LightBlue500)
 
 
 // default for light theme
@@ -54,7 +58,9 @@ data class ColorScheme(
     val phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme = PhoneNumberTextFieldColorScheme(),
     val passwordScreenColorScheme: PasswordScreenColorScheme = PasswordScreenColorScheme(),
     val localTextFieldColorScheme: LocalTextFieldColorScheme = LocalTextFieldColorScheme(),
-    val regionCodeScreen: RegionCodeScreen = RegionCodeScreen()
+    val regionCodeScreenColorScheme: RegionCodeScreenColorScheme = RegionCodeScreenColorScheme(),
+    val headerBarColorScheme: HeaderBarColorScheme = HeaderBarColorScheme(),
+    val menuBarColorScheme: MenuBarColorScheme = MenuBarColorScheme(),
 )
 
 val DarkColorScheme = ColorScheme(
@@ -91,8 +97,14 @@ val DarkColorScheme = ColorScheme(
     passwordScreenColorScheme = PasswordScreenColorScheme(
         forgetPassword = Blue350
     ),
-    regionCodeScreen = RegionCodeScreen(
+    regionCodeScreenColorScheme = RegionCodeScreenColorScheme(
         groupName = Blue900
+    ),
+    headerBarColorScheme = HeaderBarColorScheme(
+        background = SolidColor(Gray900)
+    ),
+    menuBarColorScheme = MenuBarColorScheme(
+        background = Gray820
     )
 )
 

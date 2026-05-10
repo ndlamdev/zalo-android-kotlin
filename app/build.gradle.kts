@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.protobuf.javalite)
     implementation(libs.googlecode.libphonenumber)
     implementation(libs.gson)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }
 
 protobuf {

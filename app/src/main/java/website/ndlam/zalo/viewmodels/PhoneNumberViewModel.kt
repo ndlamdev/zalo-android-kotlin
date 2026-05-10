@@ -26,6 +26,15 @@ class PhoneNumberViewModel : LocalTextFieldViewModel() {
     }
 
     fun setRegionCode(regionCode: String) {
+        try {
+            _valid.value = PhoneNumberValidation.isValidPhoneNumber(
+                this.value.value.toLong(),
+                regionCode.replace("+", "").toInt()
+            )
+        } catch (_: Exception) {
+
+        }
+
         _regionCode.value = regionCode
     }
 }

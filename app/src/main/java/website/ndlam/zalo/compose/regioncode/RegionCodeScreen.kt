@@ -43,7 +43,7 @@ fun RegionCodeScreen(
     val viewModel = viewModel<RegionCodeViewModel>()
     val context = LocalContext.current
     val regionCodes = viewModel.regionCodes.collectAsState()
-    val colorScheme = LocalColorScheme.current.regionCodeScreen
+    val colorScheme = LocalColorScheme.current.regionCodeScreenColorScheme
 
     LaunchedEffect(Unit) {
         viewModel.loadRegionCode(context)

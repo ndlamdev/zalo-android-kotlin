@@ -4,7 +4,7 @@
         android:id="@+id/nav_message"
         android:enabled="true"
         android:icon="@drawable/ic_message"
-        android:title="@string/message"/>
+        android:title="@string/message" />
     <item
         android:id="@+id/nav_contact"
         android:enabled="true"
@@ -23,6 +23,6 @@
     <item
         android:id="@+id/nav_personal"
         android:enabled="true"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_user"
         android:title="@string/personal" />
 </menu>

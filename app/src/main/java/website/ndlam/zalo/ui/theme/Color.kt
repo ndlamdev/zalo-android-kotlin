@@ -1,5 +1,6 @@
 package website.ndlam.zalo.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -106,10 +107,11 @@ val Blue150 = Color(0XFF98BDF1)
 val Blue200 = Color(0xFF90CAF9)
 val Blue300 = Color(0xFF64B5F6)
 val Blue350 = Color(0xFF5AA0FF)
-val Blue400 = Color(0xFF42A5F5)
+val Blue400 = Color(0xFF01BAFA)
 val Blue500 = Color(0xFF2196F3)
 val Blue600 = Color(0xFF1E88E5)
 val Blue700 = Color(0xFF3B7BDC)
+val Blue750 = Color(0xFF267AFF)
 val Blue800 = Color(0xFF0068FF)
 val Blue840 = Color(0xFF0068FF)
 val Blue850 = Color(0xFF0B66EB)
@@ -135,7 +137,8 @@ val Gray690 = Color(0xFF696969)
 val Gray700 = Color(0xFF616161)
 val Gray710 = Color(0xFF575757)
 val Gray800 = Color(0xFF3D3D3D)
-val Gray900 = Color(0xFF212121)
+val Gray820 = Color(0xFF333333)
+val Gray900 = Color(0xFF242424)
 
 val BlackGray = Color(0xFF2E2E2E)
 
@@ -145,3 +148,5 @@ val LightBlue600 = Color(0xFF039BE5)
 
 val DotColor: Color = Color(0xFFD7D7D7)
 val DotSelectedColor: Color = Color(0xFF008CFF)
+
+val HeaderGradient: Brush = Brush.horizontalGradient(listOf(Blue750, Blue400))

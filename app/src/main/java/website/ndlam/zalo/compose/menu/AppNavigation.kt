@@ -47,7 +47,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             IntroductionScreen(
                 paddingValues,
                 navigateToSignInScreen = {
-                    navController.navigate(SignIn::class.java.name) {
+                    navController.navigate(Main::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
                     }

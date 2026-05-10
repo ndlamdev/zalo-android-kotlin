@@ -42,6 +42,7 @@ fun PasswordScreen(
     onContinuePress: () -> Unit = {}
 ) {
     val viewModel = viewModel<PasswordTextFieldViewModel>()
+    val password = viewModel.value.collectAsState()
 
     Column(
         modifier = Modifier
@@ -85,10 +86,14 @@ fun PasswordScreen(
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
 
         TextButton(
-            onClick = onContinuePress, modifier = Modifier
+            onClick = {
+                if (password.value.isNotEmpty()) {
+                    onContinuePress()
+                }
+            }, modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
-                .background(if (viewModel.value.collectAsState().value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
+                .background(if (password.value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
         ) {
             Text(
                 text = stringResource(R.string.text_continue),

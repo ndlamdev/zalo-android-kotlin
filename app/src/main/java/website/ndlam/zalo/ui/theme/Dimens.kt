@@ -41,6 +41,7 @@ data class IconSize(
     val lg: Dp = 40.dp,
     val md: Dp = 30.dp,
     val sm: Dp = 20.dp,
+    val xsm: Dp = 15.dp,
 )
 
 //data class Other(
