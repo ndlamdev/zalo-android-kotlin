@@ -4,9 +4,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 
+data class LocalTextFieldColorScheme(
+    val borderFocus: Color = Blue850,
+    val border: Color = Gray455,
+
+    val cursor: Brush = SolidColor(Blue850)
+)
+
 data class PhoneNumberTextFieldColorScheme(
-    val borderFocus: Color = Blue810,
-    val iconFocus: Color = Blue810,
+    val borderFocus: Color = Blue850,
+    val iconFocus: Color = Blue850,
     val borderCountryCodeFocus: Color = Blue75,
     val surfaceFocus: Color = LightBlue500,
 
@@ -15,18 +22,11 @@ data class PhoneNumberTextFieldColorScheme(
     val borderCountryCode: Color = Gray300,
     val surface: Color = Blue50,
 
-    val cursor: Brush = SolidColor(Blue810)
-)
-
-data class PasswordTextFieldColorScheme(
-    val borderFocus: Color = Blue810,
-    val border: Color = Gray455,
-
-    val cursor: Brush = SolidColor(Blue810)
+    val cursor: Brush = SolidColor(Blue850)
 )
 
 data class PasswordScreenColorScheme(
-    val forgetPassword: Color = Blue850,
+    val forgetPassword: Color = Blue840,
 )
 
 // default for light theme
@@ -37,6 +37,12 @@ data class IntroductionColorScheme(
     val tintICon: Color = Blue100
 )
 
+
+data class RegionCodeScreen(
+    val groupName: Color = Blue150
+)
+
+
 // default for light theme
 data class ColorScheme(
     val primary: Color = Gray50,
@@ -46,8 +52,9 @@ data class ColorScheme(
     val onDisableButton: Color = Gray450,
     val introductionColorScheme: IntroductionColorScheme = IntroductionColorScheme(),
     val phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme = PhoneNumberTextFieldColorScheme(),
-    val passwordTextFieldColorScheme: PasswordTextFieldColorScheme = PasswordTextFieldColorScheme(),
-    val passwordScreenColorScheme: PasswordScreenColorScheme = PasswordScreenColorScheme()
+    val passwordScreenColorScheme: PasswordScreenColorScheme = PasswordScreenColorScheme(),
+    val localTextFieldColorScheme: LocalTextFieldColorScheme = LocalTextFieldColorScheme(),
+    val regionCodeScreen: RegionCodeScreen = RegionCodeScreen()
 )
 
 val DarkColorScheme = ColorScheme(
@@ -75,7 +82,7 @@ val DarkColorScheme = ColorScheme(
 
         cursor = SolidColor(Blue700)
     ),
-    passwordTextFieldColorScheme = PasswordTextFieldColorScheme(
+    localTextFieldColorScheme = LocalTextFieldColorScheme(
         borderFocus = Blue700,
         border = Gray690,
 
@@ -83,6 +90,9 @@ val DarkColorScheme = ColorScheme(
     ),
     passwordScreenColorScheme = PasswordScreenColorScheme(
         forgetPassword = Blue350
+    ),
+    regionCodeScreen = RegionCodeScreen(
+        groupName = Blue900
     )
 )
 

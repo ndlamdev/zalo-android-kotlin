@@ -5,4 +5,5 @@ object Introduction
 object SignIn
 object SignUp
 object Password
+object RegionCode
 object Main

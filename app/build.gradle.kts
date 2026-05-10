@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.protobuf.javalite)
     implementation(libs.googlecode.libphonenumber)
+    implementation(libs.gson)
 }
 
 protobuf {

@@ -44,6 +44,7 @@ fun SignInScreen(
     onBackPress: () -> Unit = {},
     navigateSignUpScreen: () -> Unit = {},
     onContinuePress: () -> Unit = {},
+    navigateRegionCode: () -> Unit = {},
     terms: @Composable () -> Unit = {},
     footer: @Composable () -> Unit = {
         Row(
@@ -97,7 +98,7 @@ fun SignInScreen(
         )
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xlarge))
 
-        PhoneNumberTextField(viewModel = phoneNumberViewModel)
+        PhoneNumberTextField(viewModel = phoneNumberViewModel, navigateRegionCode = navigateRegionCode)
 
         terms()
 

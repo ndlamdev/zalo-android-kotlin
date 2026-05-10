@@ -14,6 +14,7 @@ import website.ndlam.zalo.compose.signin.SignInScreen
 import website.ndlam.zalo.compose.signup.SignUpScreen
 import website.ndlam.zalo.compose.splash.SplashScreen
 import website.ndlam.zalo.compose.introduction.IntroductionScreen
+import website.ndlam.zalo.compose.regioncode.RegionCodeScreen
 import website.ndlam.zalo.utils.formater.PhoneNumberFormater
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
@@ -78,6 +79,11 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                         launchSingleTop = true
                         restoreState = true
                     }
+                }, navigateRegionCode = {
+                    navController.navigate(RegionCode::class.java.name) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 })
         }
 
@@ -100,6 +106,19 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                 })
         }
 
+        composable(RegionCode::class.java.name) {
+            RegionCodeScreen(
+                paddingValues = paddingValues,
+                onBackPress = {
+                    navController.popBackStack()
+                },
+                onChangeRegionCode = { regionCode ->
+                    phoneNumberViewModel.setRegionCode(regionCode)
+                    navController.popBackStack()
+                }
+            )
+        }
+
         composable(Password::class.java.name) { backStackEntry ->
             PasswordScreen(
                 paddingValues = paddingValues,
@@ -109,14 +128,22 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     }
                 },
                 phoneNumber = PhoneNumberFormater.nationalFormat(
-                    phoneNumberViewModel.phoneNumber.collectAsState().value.toLong(),
-                    phoneNumberViewModel.countryCode.collectAsState().value.replace("+", "").toInt()
-                )
+                    phoneNumberViewModel.value.collectAsState().value.toLong(),
+                    phoneNumberViewModel.regionCode.collectAsState().value.replace("+", "").toInt()
+                ),
+                onContinuePress = {
+                    navController.navigate(Main::class.java.name) {
+                        popUpTo(0) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
         }
 
         composable(Main::class.java.name) { backStackEntry ->
-            MainScreen(paddingValues)
+            MainScreen(paddingValues = paddingValues)
         }
     }
 }

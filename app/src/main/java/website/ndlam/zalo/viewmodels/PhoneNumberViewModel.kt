@@ -1,38 +1,31 @@
 package website.ndlam.zalo.viewmodels
 
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import website.ndlam.zalo.utils.validation.PhoneNumberValidation
 
-class PhoneNumberViewModel : ViewModel() {
-    private val _phoneNumber = MutableStateFlow("")
+class PhoneNumberViewModel : LocalTextFieldViewModel() {
+    private val _regionCode = MutableStateFlow("+84")
 
-    val phoneNumber: StateFlow<String> = _phoneNumber.asStateFlow()
-    private val _countryCode = MutableStateFlow("+84")
-
-    val countryCode: StateFlow<String> = _countryCode.asStateFlow()
-    private val _focus = MutableStateFlow(false)
-
-    val focusState: StateFlow<Boolean> = _focus.asStateFlow()
+    val regionCode: StateFlow<String> = _regionCode.asStateFlow()
 
     private val _valid = MutableStateFlow(false)
     val valid: StateFlow<Boolean> = _valid.asStateFlow()
 
-    fun updatePhoneNumber(newPhoneNumber: String) {
+    override fun setValue(text: String) {
         try {
             _valid.value = PhoneNumberValidation.isValidPhoneNumber(
-                newPhoneNumber.toLong(),
-                _countryCode.value.replace("+", "").toInt()
+                text.toLong(),
+                _regionCode.value.replace("+", "").toInt()
             )
         } catch (_: Exception) {
 
         }
-        _phoneNumber.value = newPhoneNumber
+        super.setValue(text)
     }
 
-    fun updateFocus(focus: Boolean) {
-        _focus.value = focus
+    fun setRegionCode(regionCode: String) {
+        _regionCode.value = regionCode
     }
 }

@@ -38,7 +38,8 @@ import website.ndlam.zalo.viewmodels.PasswordTextFieldViewModel
 fun PasswordScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
     onBackPress: () -> Unit = {},
-    phoneNumber: String
+    phoneNumber: String,
+    onContinuePress: () -> Unit = {}
 ) {
     val viewModel = viewModel<PasswordTextFieldViewModel>()
 
@@ -84,14 +85,14 @@ fun PasswordScreen(
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
 
         TextButton(
-            onClick = {}, modifier = Modifier
+            onClick = onContinuePress, modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
-                .background(if (viewModel.password.collectAsState().value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
+                .background(if (viewModel.value.collectAsState().value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
         ) {
             Text(
                 text = stringResource(R.string.text_continue),
-                color = if (viewModel.password.collectAsState().value.isEmpty()) LocalColorScheme.current.onDisableButton else SuperWhite
+                color = if (viewModel.value.collectAsState().value.isEmpty()) LocalColorScheme.current.onDisableButton else SuperWhite
             )
         }
         Spacer(modifier = Modifier.weight(1f))
