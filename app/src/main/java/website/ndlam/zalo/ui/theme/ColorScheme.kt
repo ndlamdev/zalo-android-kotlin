@@ -46,6 +46,15 @@ data class HeaderBarColorScheme(val background: Brush = HeaderGradient)
 
 data class MenuBarColorScheme(val background: Color = LightBlue500)
 
+data class HeaderColorScheme(
+    val background: Brush = HeaderGradient,
+    val inputBackground: Color = SuperWhite,
+)
+
+data class MessageSearchItemColorScheme(
+    var border: Color = Gray300
+)
+
 
 // default for light theme
 data class ColorScheme(
@@ -61,12 +70,14 @@ data class ColorScheme(
     val regionCodeScreenColorScheme: RegionCodeScreenColorScheme = RegionCodeScreenColorScheme(),
     val headerBarColorScheme: HeaderBarColorScheme = HeaderBarColorScheme(),
     val menuBarColorScheme: MenuBarColorScheme = MenuBarColorScheme(),
+    val headerColorScheme: HeaderColorScheme = HeaderColorScheme(),
+    val messageSearchItemColorScheme: MessageSearchItemColorScheme = MessageSearchItemColorScheme()
 )
 
 val DarkColorScheme = ColorScheme(
     primary = Black900,
     onPrimary = SuperWhite,
-    surface = Black300,
+    surface = Black400,
     introductionColorScheme = IntroductionColorScheme(
         secondaryButton = Gray800,
         onSecondaryButton = SuperWhite,
@@ -105,6 +116,13 @@ val DarkColorScheme = ColorScheme(
     ),
     menuBarColorScheme = MenuBarColorScheme(
         background = Gray820
+    ),
+    headerColorScheme = HeaderColorScheme(
+        background = SolidColor(Black50),
+        inputBackground = Black900
+    ),
+    messageSearchItemColorScheme = MessageSearchItemColorScheme(
+        border = BlackGray
     )
 )
 

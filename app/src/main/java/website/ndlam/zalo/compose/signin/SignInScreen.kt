@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -98,24 +99,31 @@ fun SignInScreen(
         )
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xlarge))
 
-        PhoneNumberTextField(viewModel = phoneNumberViewModel, navigateRegionCode = navigateRegionCode)
+        PhoneNumberTextField(
+            viewModel = phoneNumberViewModel,
+            navigateRegionCode = navigateRegionCode
+        )
 
         terms()
 
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
 
         TextButton(
-            onClick = {
-                if (isValidPhoneNumber.value) onContinuePress()
-            },
+            enabled = isValidPhoneNumber.value,
+            onClick = onContinuePress,
+            contentPadding = PaddingValues(vertical = LocalDimens.current.sizing.textButtonVerticalPadding),
+            colors = ButtonDefaults.buttonColors().copy(
+                containerColor = Blue800,
+                disabledContainerColor = LocalColorScheme.current.disableButton,
+                contentColor = SuperWhite,
+                disabledContentColor = LocalColorScheme.current.onDisableButton
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
-                .background(if (isValidPhoneNumber.value) Blue800 else LocalColorScheme.current.disableButton),
         ) {
             Text(
                 text = stringResource(R.string.text_continue),
-                color = if (isValidPhoneNumber.value) SuperWhite else LocalColorScheme.current.onDisableButton
             )
         }
         Spacer(modifier = Modifier.weight(1f))

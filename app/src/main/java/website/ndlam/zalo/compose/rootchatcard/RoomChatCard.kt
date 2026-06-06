@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ fun RoomChatCard(
             contentDescription = null,
             modifier = Modifier
                 .clip(CircleShape)
-                .size(LocalDimens.current.iconSize.Xll)
+                .size(LocalDimens.current.iconSize.xll)
         )
 
         Spacer(modifier = Modifier.width(LocalDimens.current.sizing.medium))
@@ -87,7 +88,7 @@ fun RoomChatCard(
                         Icon(
                             painter = painterResource(R.drawable.ic_push_pin),
                             contentDescription = null, tint = LocalColorScheme.current.onPrimary,
-                            modifier = Modifier.size(LocalDimens.current.iconSize.xsm)
+                            modifier = Modifier.size(LocalDimens.current.iconSize.xsm).rotate(45f)
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                     }

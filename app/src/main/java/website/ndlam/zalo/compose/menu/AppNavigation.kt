@@ -15,6 +15,7 @@ import website.ndlam.zalo.compose.signup.SignUpScreen
 import website.ndlam.zalo.compose.splash.SplashScreen
 import website.ndlam.zalo.compose.introduction.IntroductionScreen
 import website.ndlam.zalo.compose.regioncode.RegionCodeScreen
+import website.ndlam.zalo.compose.search.SearchScreen
 import website.ndlam.zalo.utils.formater.PhoneNumberFormater
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
@@ -47,7 +48,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             IntroductionScreen(
                 paddingValues,
                 navigateToSignInScreen = {
-                    navController.navigate(Main::class.java.name) {
+                    navController.navigate(SignIn::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
@@ -143,7 +144,23 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         }
 
         composable(Main::class.java.name) { backStackEntry ->
-            MainScreen(paddingValues = paddingValues)
+            MainScreen(
+                paddingValues = paddingValues,
+                onSearchPress = {
+                    navController.navigate(Search::class.java.name) {
+                        launchSingleTop = true
+                    }
+                })
+        }
+
+        composable(Search::class.java.name) { backStackEntry ->
+            SearchScreen(
+                paddingValues = paddingValues,
+                onBackPress = {
+                    if (navController.previousBackStackEntry != null) {
+                        navController.popBackStack()
+                    }
+                })
         }
     }
 }

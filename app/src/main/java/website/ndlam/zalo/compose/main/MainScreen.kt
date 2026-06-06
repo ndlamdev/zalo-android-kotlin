@@ -21,7 +21,7 @@ import website.ndlam.zalo.compose.setting.SettingScreen
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen
 
 @Composable
-fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp)) {
+fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp), onSearchPress: () -> Unit = {}) {
     val pagerState = rememberPagerState { 5 }
     val coroutineScope = rememberCoroutineScope()
 
@@ -31,7 +31,8 @@ fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp)) {
     ) {
         SearchBarCompose(
             currentScreen = ScreenOnMainScreen.entries[pagerState.currentPage],
-            paddingValues = PaddingValues(top = paddingValues.calculateTopPadding())
+            paddingValues = PaddingValues(top = paddingValues.calculateTopPadding()),
+            onSearchPress = onSearchPress
         )
         HorizontalPager(pagerState, modifier = Modifier.weight(1f)) { page ->
             when (page) {

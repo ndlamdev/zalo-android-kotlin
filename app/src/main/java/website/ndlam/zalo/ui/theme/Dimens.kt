@@ -28,15 +28,20 @@ data class Sizing(
     // Global Spacing & Sizing
     val xsmall: Dp = 5.dp,
     val small: Dp = 10.dp,
+    val smallAddXSmall: Dp = 15.dp,
     val medium: Dp = 20.dp,
+    val mediumAddXSmall: Dp = 25.dp,
     val large: Dp = 30.dp,
+    val largeAddXSmall: Dp = 35.dp,
     val xlarge: Dp = 40.dp,
+    val xlargeAddXSmall: Dp = 45.dp,
     val xxlarge: Dp = 50.dp,
+    val textButtonVerticalPadding: Dp = 16.dp
 )
 
 data class IconSize(
     val xll6: Dp = 70.dp,
-    val Xll: Dp = 60.dp,
+    val xll: Dp = 60.dp,
     val xl: Dp = 50.dp,
     val lg: Dp = 40.dp,
     val md: Dp = 30.dp,

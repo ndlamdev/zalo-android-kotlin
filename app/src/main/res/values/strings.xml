@@ -45,7 +45,7 @@
     <string name="input_password_for_this_phone_number">Nhập mật khẩu của tài khoản gán với số điện thoại</string>
     <string name="input_password">Nhập mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
-    <string name="phone_number">Số điện thoại:</string>
+    <string name="phone_number">Số điện thoại: </string>
     <string name="search_friend_by_phone_number">Tìm bạn qua số điện thoại</string>
     <string name="add_friend">Kết bạn</string>
     <string name="sent">Đã gửi</string>
@@ -66,4 +66,9 @@
     <string name="i_agree_with_these">Tôi đông ý với các</string>
     <string name="terms_of_use_zola">điều khoản sử dụng zola</string>
     <string name="zola_is_Social_network_terms">điều khoản Mạng xã hội của zola</string>
+    <string name="tab_mine">Của tôi</string>
+    <string name="filter_link">Link</string>
+    <string name="filter_file">File</string>
+    <string name="messages_count">Tin nhắn (%1$d)</string>
+    <string name="find_friend_by_phone_number_count">Tìm bạn qua số điện thoại (%1$d)</string>
 </resources>

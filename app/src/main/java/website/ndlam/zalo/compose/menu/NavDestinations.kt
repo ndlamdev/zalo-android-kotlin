@@ -7,3 +7,4 @@ object SignUp
 object Password
 object RegionCode
 object Main
+object Search

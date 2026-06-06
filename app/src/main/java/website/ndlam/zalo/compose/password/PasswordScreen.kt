@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -86,19 +87,21 @@ fun PasswordScreen(
         Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
 
         TextButton(
-            onClick = {
-                if (password.value.isNotEmpty()) {
-                    onContinuePress()
-                }
-            }, modifier = Modifier
+            enabled = viewModel.value.collectAsState().value.isNotEmpty(),
+            contentPadding = PaddingValues(vertical = LocalDimens.current.sizing.textButtonVerticalPadding),
+            colors = ButtonDefaults.buttonColors().copy(
+                containerColor = Blue800,
+                disabledContainerColor = LocalColorScheme.current.disableButton,
+                contentColor = SuperWhite,
+                disabledContentColor = LocalColorScheme.current.onDisableButton
+            ),
+            onClick = onContinuePress,
+            modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
                 .background(if (password.value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
         ) {
-            Text(
-                text = stringResource(R.string.text_continue),
-                color = if (viewModel.value.collectAsState().value.isEmpty()) LocalColorScheme.current.onDisableButton else SuperWhite
-            )
+            Text(text = stringResource(R.string.text_continue))
         }
         Spacer(modifier = Modifier.weight(1f))
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {

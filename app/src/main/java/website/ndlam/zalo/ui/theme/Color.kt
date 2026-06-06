@@ -149,4 +149,4 @@ val LightBlue600 = Color(0xFF039BE5)
 val DotColor: Color = Color(0xFFD7D7D7)
 val DotSelectedColor: Color = Color(0xFF008CFF)
 
-val HeaderGradient: Brush = Brush.horizontalGradient(listOf(Blue750, Blue400))
+val HeaderGradient: Brush = Brush.horizontalGradient(listOf(Color(0xFF0085FE), Color(0xFF00ACF4)))
