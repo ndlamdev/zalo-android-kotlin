@@ -1,11 +1,13 @@
 package website.ndlam.zalo.compose.splash
 
+//import website.ndlam.zalo.repositories.AuthTokenRepository
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,10 +24,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
 import website.ndlam.zalo.R
 import website.ndlam.zalo.repositories.AuthTokenRepository
-//import website.ndlam.zalo.repositories.AuthTokenRepository
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.SuperWhite
+import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.utils.enums.ApiCallingStatus
 import website.ndlam.zalo.viewmodels.SplashViewModel
 
@@ -74,7 +75,7 @@ fun SplashScreen(
             text = stringResource(R.string.app_name),
             color = SuperWhite,
             fontWeight = Bold,
-            fontSize = LocalDimens.current.textSize.h1 * 2.5
+            fontSize = MaterialTheme.dimes.textSize.logo
         )
     }
 }

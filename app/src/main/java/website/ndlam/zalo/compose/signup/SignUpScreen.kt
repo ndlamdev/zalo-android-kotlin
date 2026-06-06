@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -26,9 +27,8 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.compose.signin.SignInScreen
 import website.ndlam.zalo.ui.theme.Blue500
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.SuperWhite
+import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
 
@@ -49,14 +49,14 @@ fun SignUpScreen(
             TermCheckBox(
                 title = stringResource(R.string.i_agree_with_these),
                 linkTitle = stringResource(R.string.terms_of_use_zola),
-                modifier = Modifier.padding(vertical = LocalDimens.current.sizing.small + LocalDimens.current.sizing.xsmall)
+                modifier = Modifier.padding(vertical = MaterialTheme.dimes.sizing.smallAddXSmall)
             )
             TermCheckBox(
                 checked = false,
                 title = stringResource(R.string.i_agree_with),
                 linkTitle = stringResource(R.string.zola_is_Social_network_terms)
             )
-            Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+            Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
         },
         footer = {
             Row(
@@ -66,17 +66,17 @@ fun SignUpScreen(
             ) {
                 Text(
                     text = stringResource(R.string.you_have_account),
-                    color = LocalColorScheme.current.onPrimary,
-                    fontSize = LocalDimens.current.textSize.medium
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = MaterialTheme.dimes.textSize.medium
                 )
-                Spacer(modifier = Modifier.width(LocalDimens.current.sizing.xsmall))
+                Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.xsmall))
                 Text(
                     text = stringResource(R.string.login_now),
                     color = Blue500,
                     modifier = Modifier
                         .padding(0.dp)
                         .clickable(onClick = navigateSignInScreen),
-                    fontSize = LocalDimens.current.textSize.medium
+                    fontSize = MaterialTheme.dimes.textSize.medium
                 )
             }
         }
@@ -96,7 +96,7 @@ fun TermCheckBox(
             Checkbox(
                 onCheckedChange = onCheckedChange,
                 checked = checked,
-                modifier = Modifier.clip(RoundedCornerShape(LocalDimens.current.sizing.medium)),
+                modifier = Modifier.clip(RoundedCornerShape(MaterialTheme.dimes.sizing.medium)),
                 colors = CheckboxDefaults.colors(
                     checkedColor = Blue800,
                     checkmarkColor = SuperWhite
@@ -105,14 +105,14 @@ fun TermCheckBox(
         }
         Text(
             text = title,
-            color = LocalColorScheme.current.onPrimary,
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.padding(
-                LocalDimens.current.sizing.small,
+                MaterialTheme.dimes.sizing.small,
                 0.dp,
-                LocalDimens.current.sizing.xsmall,
+                MaterialTheme.dimes.sizing.xsmall,
                 0.dp
-            ), fontSize = LocalDimens.current.textSize.medium
+            ), fontSize = MaterialTheme.dimes.textSize.medium
         )
-        Text(text = linkTitle, color = Blue500, fontSize = LocalDimens.current.textSize.medium)
+        Text(text = linkTitle, color = Blue500, fontSize = MaterialTheme.dimes.textSize.medium)
     }
 }

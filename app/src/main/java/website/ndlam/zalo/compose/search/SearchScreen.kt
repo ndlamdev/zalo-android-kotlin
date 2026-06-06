@@ -1,6 +1,5 @@
 package website.ndlam.zalo.compose.search
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,9 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.ZolaApplicationTheme
+import website.ndlam.zalo.ui.theme.dimes
 
 @Composable
 fun SearchScreen(
@@ -51,7 +50,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(LocalColorScheme.current.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(paddingValues)
     ) {
         SearchTopBar(
@@ -76,7 +75,7 @@ fun SearchScreen(
             }
 
             items(2) { index ->
-                Box(modifier = Modifier.background(LocalColorScheme.current.surface)) {
+                Box(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
                     FriendItem(
                         name = "Tuấn Vt Tuy Phong",
                         phoneNumber = "0949253545",
@@ -104,7 +103,7 @@ fun SearchScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(LocalColorScheme.current.surface)
+                        .background(MaterialTheme.colorScheme.surface)
                 ) {
                     Row(
                         modifier = Modifier
@@ -132,12 +131,12 @@ fun SectionHeader(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LocalColorScheme.current.surface)
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         Text(
             text = title,
-            color = LocalColorScheme.current.onPrimary,
-            fontSize = LocalDimens.current.textSize.medium,
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontSize = MaterialTheme.dimes.textSize.medium,
             fontWeight = FontWeight.Bold,
             modifier = modifier
         )
@@ -154,23 +153,23 @@ fun FilterChip(
             .border(
                 1.dp,
                 Color.Gray.copy(alpha = 0.5f),
-                RoundedCornerShape(LocalDimens.current.sizing.medium)
+                RoundedCornerShape(MaterialTheme.dimes.sizing.medium)
             )
             .padding(
-                horizontal = LocalDimens.current.sizing.smallAddXSmall,
-                vertical = LocalDimens.current.sizing.xsmall
+                horizontal = MaterialTheme.dimes.sizing.smallAddXSmall,
+                vertical = MaterialTheme.dimes.sizing.xsmall
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .size(LocalDimens.current.sizing.smallAddXSmall)
+                .size(MaterialTheme.dimes.sizing.smallAddXSmall)
                 .border(1.dp, Color.Gray, CircleShape)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = text,
-            color = LocalColorScheme.current.onPrimary,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = 14.sp
         )
     }

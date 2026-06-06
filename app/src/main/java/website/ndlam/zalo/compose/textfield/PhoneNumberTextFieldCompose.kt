@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -27,8 +28,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.phoneNumberTextFieldColorScheme
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
 @Composable
@@ -63,7 +64,7 @@ fun PhoneNumberTextField(
     onFocusChanged: (Boolean) -> Unit = {},
     navigateRegionCode: () -> Unit = {}
 ) {
-    val colorScheme = LocalColorScheme.current.phoneNumberTextFieldColorScheme
+    val colorScheme = MaterialTheme.colorScheme.phoneNumberTextFieldColorScheme
 
     LocalTextField(
         isFocus = isFocus,
@@ -73,7 +74,7 @@ fun PhoneNumberTextField(
             onPhoneNumberChange(value)
         },
         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Phone),
-        textFieldPadding = PaddingValues(start = LocalDimens.current.sizing.small),
+        textFieldPadding = PaddingValues(start = MaterialTheme.dimes.sizing.small),
         placeholder = stringResource(R.string.input_phone_number),
         leftSide = {
             TextButton(
@@ -81,10 +82,10 @@ fun PhoneNumberTextField(
                 modifier = Modifier
                     .clip(
                         RoundedCornerShape(
-                            LocalDimens.current.sizing.small,
+                            MaterialTheme.dimes.sizing.small,
                             0.dp,
                             0.dp,
-                            LocalDimens.current.sizing.small
+                            MaterialTheme.dimes.sizing.small
                         )
                     )
                     .background(if (isFocus) colorScheme.surfaceFocus else colorScheme.surface)
@@ -101,15 +102,15 @@ fun PhoneNumberTextField(
                 ) {
                     Text(
                         text = countryCode,
-                        fontSize = LocalDimens.current.textSize.xlarge,
-                        color = LocalColorScheme.current.onPrimary,
+                        fontSize = MaterialTheme.dimes.textSize.xlarge,
+                        color = MaterialTheme.colorScheme.onPrimary,
                     )
                     Spacer(modifier = Modifier.width(2.dp))
                     Icon(
                         painter = painterResource(R.drawable.ic_arrow_down),
                         contentDescription = null,
-                        tint = if (isFocus) colorScheme.iconFocus else LocalColorScheme.current.onPrimary,
-                        modifier = Modifier.size(LocalDimens.current.iconSize.sm)
+                        tint = if (isFocus) colorScheme.iconFocus else MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(MaterialTheme.dimes.iconSize.sm)
                     )
                 }
             }
@@ -122,9 +123,9 @@ fun PhoneNumberTextField(
                         contentDescription = null,
                         modifier = Modifier
                             .clip(CircleShape)
-                            .size(LocalDimens.current.iconSize.sm - LocalDimens.current.sizing.xsmall)
-                            .background(LocalColorScheme.current.onPrimary),
-                        tint = LocalColorScheme.current.primary
+                            .size(MaterialTheme.dimes.iconSize.sm - MaterialTheme.dimes.sizing.xsmall)
+                            .background(MaterialTheme.colorScheme.onPrimary),
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }

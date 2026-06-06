@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,11 +26,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.BlackGray
 import website.ndlam.zalo.ui.theme.Blue300
 import website.ndlam.zalo.ui.theme.Gray550
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.messageSearchItemColorScheme
 
 
 data class VisitCardInfo(
@@ -42,25 +42,25 @@ fun VisitCard(info: VisitCardInfo) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, LocalColorScheme.current.messageSearchItemColorScheme.border, RoundedCornerShape(LocalDimens.current.sizing.small))
-            .background(LocalColorScheme.current.surface)
-            .padding(LocalDimens.current.sizing.smallAddXSmall)
+            .border(1.dp, MaterialTheme.colorScheme.messageSearchItemColorScheme.border, RoundedCornerShape(MaterialTheme.dimes.sizing.small))
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(MaterialTheme.dimes.sizing.smallAddXSmall)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = ColorPainter(Color.Gray),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(LocalDimens.current.sizing.largeAddXSmall)
-                    .clip(RoundedCornerShape(LocalDimens.current.sizing.xsmall)),
+                    .size(MaterialTheme.dimes.sizing.largeAddXSmall)
+                    .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.xsmall)),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.width(LocalDimens.current.sizing.smallAddXSmall))
+            Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.smallAddXSmall))
             Column {
                 Text(
                     text = info.name,
                     color = Gray550,
-                    fontSize = LocalDimens.current.textSize.medium,
+                    fontSize = MaterialTheme.dimes.textSize.medium,
                     fontWeight = FontWeight.Medium
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -68,13 +68,13 @@ fun VisitCard(info: VisitCardInfo) {
                         painter = painterResource(id = R.drawable.ic_id_card),
                         contentDescription = null,
                         tint = Color.Gray,
-                        modifier = Modifier.size(LocalDimens.current.iconSize.sm)
+                        modifier = Modifier.size(MaterialTheme.dimes.iconSize.sm)
                     )
-                    Spacer(modifier = Modifier.width(LocalDimens.current.sizing.xsmall))
+                    Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.xsmall))
                     Text(
                         text = info.phoneNumber,
                         color = Blue300,
-                        fontSize = LocalDimens.current.textSize.medium,
+                        fontSize = MaterialTheme.dimes.textSize.medium,
                     )
                 }
             }

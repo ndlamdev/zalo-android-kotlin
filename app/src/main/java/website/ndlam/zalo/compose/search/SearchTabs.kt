@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.Blue300
 import website.ndlam.zalo.ui.theme.Blue700
-import website.ndlam.zalo.ui.theme.LocalColorScheme
 
 
 @Composable
@@ -36,7 +36,7 @@ fun SearchTabs(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LocalColorScheme.current.surface)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp)
     ) {
         TabItem(

@@ -14,6 +14,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,8 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.Gray900
-import website.ndlam.zalo.ui.theme.LocalColorScheme
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.headerColorScheme
 
 
 @Composable
@@ -39,8 +40,8 @@ fun SearchTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(LocalColorScheme.current.headerColorScheme.background)
-            .padding(horizontal = 8.dp),
+            .background(MaterialTheme.colorScheme.headerColorScheme.background)
+            .padding(horizontal = MaterialTheme.dimes.sizing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
@@ -59,8 +60,8 @@ fun SearchTopBar(
             modifier = Modifier
                 .weight(1f)
                 .height(40.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(LocalColorScheme.current.headerColorScheme.inputBackground)
+                .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
+                .background(MaterialTheme.colorScheme.headerColorScheme.inputBackground)
                 .padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -70,12 +71,12 @@ fun SearchTopBar(
                 tint = Color.Gray,
                 modifier = Modifier.size(20.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.small))
             BasicTextField(
                 value = searchText,
                 onValueChange = onSearchTextChange,
                 modifier = Modifier.weight(1f),
-                textStyle = TextStyle(color = LocalColorScheme.current.onPrimary),
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary),
                 decorationBox = { innerTextField ->
                     Box {
                         if (searchText.isNotEmpty()) {

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.menuBarColorScheme
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen
 
 data class MenuProp(
@@ -83,7 +84,7 @@ fun MenuBar(
 ) {
     Row(
         modifier = Modifier
-            .background(LocalColorScheme.current.menuBarColorScheme.background)
+            .background(MaterialTheme.colorScheme.menuBarColorScheme.background)
             .padding(paddingValues)
     ) {
         DATA.map { item ->
@@ -101,7 +102,7 @@ fun MenuBar(
                 },
                 modifier = Modifier
                     .weight(1f)
-                    .height(LocalDimens.current.sizing.xxlarge + LocalDimens.current.sizing.medium)
+                    .height(MaterialTheme.dimes.sizing.xxlargeAddMedium)
             )
         }
     }
@@ -145,15 +146,15 @@ fun MenuItem(
                     painter = painterResource(id = idActive),
                     contentDescription = null,
                     modifier = Modifier.size(
-                        LocalDimens.current.iconSize.md
+                        MaterialTheme.dimes.iconSize.md
                     ),
-                    tint = LocalColorScheme.current.onPrimary
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
                     text = title,
-                    fontSize = LocalDimens.current.textSize.medium,
+                    fontSize = MaterialTheme.dimes.textSize.medium,
                     fontWeight = Bold,
-                    color = LocalColorScheme.current.onPrimary
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
         }
@@ -172,9 +173,9 @@ fun MenuItem(
                 painter = painterResource(id = id),
                 contentDescription = null,
                 modifier = Modifier.size(
-                    LocalDimens.current.iconSize.md
+                    MaterialTheme.dimes.iconSize.md
                 ),
-                tint = LocalColorScheme.current.onPrimary
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

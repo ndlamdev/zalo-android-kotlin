@@ -4,18 +4,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.compose.rootchatcard.RoomChatCard
-import website.ndlam.zalo.ui.theme.LocalColorScheme
 
 @Composable
 fun ListRoomChatScreen(paddingValues: PaddingValues = PaddingValues(0.dp)) {
     LazyColumn(
         userScrollEnabled = true,
         modifier = Modifier
-            .background(LocalColorScheme.current.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(paddingValues)
     ) {
         items(20) {

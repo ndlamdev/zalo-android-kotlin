@@ -20,6 +20,7 @@ data class TextSize(
     val xxlarge: TextUnit = 23.sp,
     val h2: TextUnit = 29.sp,
     val h1: TextUnit = 37.sp,
+    val logo: TextUnit = 93.sp,
     val caption: TextUnit = 11.sp,
     val button: TextUnit = 15.sp,
 )
@@ -36,6 +37,8 @@ data class Sizing(
     val xlarge: Dp = 40.dp,
     val xlargeAddXSmall: Dp = 45.dp,
     val xxlarge: Dp = 50.dp,
+    val xxlargeAddSmall: Dp = 60.dp,
+    val xxlargeAddMedium: Dp = 70.dp,
     val textButtonVerticalPadding: Dp = 16.dp
 )
 

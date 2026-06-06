@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -17,8 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.viewmodels.PasswordTextFieldViewModel
 
 @Composable
@@ -58,7 +58,7 @@ fun PasswordTextField(
 ) {
     LocalTextField(
         isFocus = isFocus, value = password,
-        textFieldPadding = PaddingValues(start = LocalDimens.current.sizing.small),
+        textFieldPadding = PaddingValues(start = MaterialTheme.dimes.sizing.small),
         onValueChanged = { text ->
             onPasswordChange(text)
         },
@@ -74,8 +74,8 @@ fun PasswordTextField(
                     .clip(
                         RoundedCornerShape(
                             0.dp,
-                            LocalDimens.current.sizing.small,
-                            LocalDimens.current.sizing.small,
+                            MaterialTheme.dimes.sizing.small,
+                            MaterialTheme.dimes.sizing.small,
                             0.dp
                         )
                     )
@@ -83,7 +83,7 @@ fun PasswordTextField(
                 Icon(
                     painter = painterResource(if (hidden) R.drawable.ic_eye else R.drawable.ic_eye_closed),
                     contentDescription = null,
-                    tint = LocalColorScheme.current.onPrimary
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         })

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -30,8 +31,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
 import website.ndlam.zalo.compose.textfield.LocalTextField
 import website.ndlam.zalo.ui.theme.Gray200
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.regionCodeScreenColorScheme
 import website.ndlam.zalo.viewmodels.RegionCodeViewModel
 
 @Composable
@@ -43,7 +44,7 @@ fun RegionCodeScreen(
     val viewModel = viewModel<RegionCodeViewModel>()
     val context = LocalContext.current
     val regionCodes = viewModel.regionCodes.collectAsState()
-    val colorScheme = LocalColorScheme.current.regionCodeScreenColorScheme
+    val colorScheme = MaterialTheme.colorScheme.regionCodeScreenColorScheme
 
     LaunchedEffect(Unit) {
         viewModel.loadRegionCode(context)
@@ -53,7 +54,7 @@ fun RegionCodeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                LocalColorScheme.current.primary
+                MaterialTheme.colorScheme.primary
             )
             .padding(paddingValues)
     ) {
@@ -61,32 +62,32 @@ fun RegionCodeScreen(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(LocalDimens.current.sizing.xxlarge)
-                .background(LocalColorScheme.current.surface)
-                .padding(PaddingValues(horizontal = LocalDimens.current.sizing.medium)),
+                .height(MaterialTheme.dimes.sizing.xxlarge)
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(PaddingValues(horizontal = MaterialTheme.dimes.sizing.medium)),
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_cancel),
                 contentDescription = null,
-                tint = LocalColorScheme.current.onPrimary,
+                tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier
-                    .size(LocalDimens.current.sizing.large)
+                    .size(MaterialTheme.dimes.sizing.large)
                     .clickable { onBackPress() }
             )
 
             Text(
                 text = stringResource(R.string.please_choice_country),
-                fontSize = LocalDimens.current.textSize.xlarge,
-                color = LocalColorScheme.current.onPrimary
+                fontSize = MaterialTheme.dimes.textSize.xlarge,
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
 
         Column(
             modifier = Modifier.padding(
                 PaddingValues(
-                    start = LocalDimens.current.sizing.medium,
-                    end = LocalDimens.current.sizing.medium,
-                    top = LocalDimens.current.sizing.small
+                    start = MaterialTheme.dimes.sizing.medium,
+                    end = MaterialTheme.dimes.sizing.medium,
+                    top = MaterialTheme.dimes.sizing.small
                 )
             )
         ) {
@@ -96,14 +97,14 @@ fun RegionCodeScreen(
                     Icon(
                         painter = painterResource(R.drawable.ic_search),
                         contentDescription = null,
-                        tint = LocalColorScheme.current.onPrimary,
-                        modifier = Modifier.size(LocalDimens.current.sizing.medium)
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(MaterialTheme.dimes.sizing.medium)
                     )
                 },
-                textFieldPadding = PaddingValues(start = LocalDimens.current.sizing.small),
+                textFieldPadding = PaddingValues(start = MaterialTheme.dimes.sizing.small),
                 placeholder = stringResource(R.string.hint_search),
-                containerPadding = PaddingValues(LocalDimens.current.sizing.xsmall),
-                containerHeight = LocalDimens.current.sizing.xlarge,
+                containerPadding = PaddingValues(MaterialTheme.dimes.sizing.xsmall),
+                containerHeight = MaterialTheme.dimes.sizing.xlarge,
                 borderWith = 1.dp
             )
 
@@ -113,8 +114,8 @@ fun RegionCodeScreen(
                         Text(
                             text = key,
                             color = colorScheme.groupName,
-                            fontSize = LocalDimens.current.textSize.xlarge,
-                            modifier = Modifier.padding(PaddingValues(top = LocalDimens.current.sizing.small))
+                            fontSize = MaterialTheme.dimes.textSize.xlarge,
+                            modifier = Modifier.padding(PaddingValues(top = MaterialTheme.dimes.sizing.small))
                         )
                     }
 
@@ -138,8 +139,8 @@ fun RegionCodeScreen(
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = "${regionCode.name} (${regionCode.dialCode})",
-                                color = LocalColorScheme.current.onPrimary,
-                                fontSize = LocalDimens.current.textSize.large
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = MaterialTheme.dimes.textSize.large
                             )
                         }
                     }

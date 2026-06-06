@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,8 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import website.ndlam.zalo.R
 import website.ndlam.zalo.domains.dto.Introduction
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalDimens
-import website.ndlam.zalo.ui.theme.LocalColorScheme
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.introductionColorScheme
 
 @Composable
 fun IntroductionViewPagerCompose(
@@ -46,18 +47,18 @@ fun IntroductionViewPagerCompose(
             ) {
                 Text(
                     text = stringResource(R.string.app_name),
-                    fontSize = LocalDimens.current.textSize.h1,
+                    fontSize = MaterialTheme.dimes.textSize.h1,
                     textAlign = TextAlign.Center,
                     color = Blue800,
                     modifier = Modifier.fillMaxWidth(),
                     fontWeight = Bold
                 )
-                Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xxlarge))
+                Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.xxlarge))
                 HorizontalPager(subPager) { localPage ->
                     IntroductionContentCompose(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(LocalDimens.current.sizing.medium),
+                            .padding(MaterialTheme.dimes.sizing.medium),
                         data = data[localPage]
                     )
                 }
@@ -84,28 +85,28 @@ fun IntroductionContentCompose(modifier: Modifier = Modifier, data: Introduction
         Icon(
             painter = painterResource(data.image),
             contentDescription = data.title,
-            modifier = Modifier.size(LocalDimens.current.sizing.xxlarge * 3),
-            tint = LocalColorScheme.current.introductionColorScheme.tintICon
+            modifier = Modifier.size(MaterialTheme.dimes.sizing.xxlarge * 3),
+            tint = MaterialTheme.colorScheme.introductionColorScheme.tintICon
         )
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.large))
         Text(
             text = data.title,
             modifier = Modifier
                 .wrapContentWidth()
                 .align(Alignment.CenterHorizontally),
-            fontSize = LocalDimens.current.textSize.xlarge,
+            fontSize = MaterialTheme.dimes.textSize.xlarge,
             fontWeight = Bold,
-            color = LocalColorScheme.current.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary
         )
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xsmall))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.xsmall))
         Text(
             text = data.description,
             modifier = Modifier
                 .wrapContentWidth()
                 .align(Alignment.CenterHorizontally),
             fontWeight = Bold,
-            fontSize = LocalDimens.current.textSize.medium,
-            color = LocalColorScheme.current.introductionColorScheme.description,
+            fontSize = MaterialTheme.dimes.textSize.medium,
+            color = MaterialTheme.colorScheme.introductionColorScheme.description,
             textAlign = TextAlign.Center
         )
     }

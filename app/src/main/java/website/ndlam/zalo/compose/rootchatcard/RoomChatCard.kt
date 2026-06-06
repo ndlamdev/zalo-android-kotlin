@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,10 +26,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.Gray200
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.Red400
 import website.ndlam.zalo.ui.theme.SuperWhite
+import website.ndlam.zalo.ui.theme.dimes
 
 @Composable
 fun RoomChatCard(
@@ -41,22 +41,22 @@ fun RoomChatCard(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(start = LocalDimens.current.sizing.medium),
+        modifier = Modifier.padding(start = MaterialTheme.dimes.sizing.medium),
     ) {
         AsyncImage(
             model = iconUrl,
             contentDescription = null,
             modifier = Modifier
                 .clip(CircleShape)
-                .size(LocalDimens.current.iconSize.xll)
+                .size(MaterialTheme.dimes.iconSize.xll)
         )
 
-        Spacer(modifier = Modifier.width(LocalDimens.current.sizing.medium))
+        Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.medium))
 
         Row(
             modifier = Modifier
                 .weight(1f)
-                .height(LocalDimens.current.sizing.xxlarge + LocalDimens.current.sizing.small)
+                .height(MaterialTheme.dimes.sizing.xxlargeAddSmall)
                 .drawBehind {
                     drawLine(
                         color = Gray200,
@@ -65,20 +65,20 @@ fun RoomChatCard(
                         strokeWidth = 0.5.dp.toPx()
                     )
                 }
-                .padding(end = LocalDimens.current.sizing.small),
+                .padding(end = MaterialTheme.dimes.sizing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
                     maxLines = 1,
-                    color = LocalColorScheme.current.onPrimary,
-                    fontSize = LocalDimens.current.textSize.large
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = MaterialTheme.dimes.textSize.large
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = lastMessage,
-                    maxLines = 1, color = LocalColorScheme.current.onPrimary
+                    maxLines = 1, color = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
@@ -87,32 +87,32 @@ fun RoomChatCard(
                     if (isPin) {
                         Icon(
                             painter = painterResource(R.drawable.ic_push_pin),
-                            contentDescription = null, tint = LocalColorScheme.current.onPrimary,
-                            modifier = Modifier.size(LocalDimens.current.iconSize.xsm).rotate(45f)
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(MaterialTheme.dimes.iconSize.xsm).rotate(45f)
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                     }
                     Text(
                         text = lastOnline,
-                        color = LocalColorScheme.current.onPrimary,
-                        fontSize = LocalDimens.current.textSize.small,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = MaterialTheme.dimes.textSize.small,
                     )
                 }
                 if (totalMessageUnred > 0) {
-                    Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xsmall))
+                    Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.xsmall))
                     Column(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
-                            .clip(RoundedCornerShape(LocalDimens.current.sizing.small))
+                            .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
                             .background(Red400)
-                            .width(LocalDimens.current.sizing.medium)
-                            .height(LocalDimens.current.sizing.small + LocalDimens.current.sizing.xsmall)
+                            .width(MaterialTheme.dimes.sizing.medium)
+                            .height(MaterialTheme.dimes.sizing.small + MaterialTheme.dimes.sizing.xsmall)
                     ) {
                         Text(
                             text = "$totalMessageUnred",
                             color = SuperWhite,
-                            fontSize = LocalDimens.current.textSize.small,
+                            fontSize = MaterialTheme.dimes.textSize.small,
 
                             )
                     }

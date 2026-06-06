@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -30,9 +31,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
 import website.ndlam.zalo.compose.textfield.PasswordTextField
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.SuperWhite
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.disableButton
+import website.ndlam.zalo.ui.theme.onDisableButton
+import website.ndlam.zalo.ui.theme.passwordScreenColorScheme
 import website.ndlam.zalo.viewmodels.PasswordTextFieldViewModel
 
 @Composable
@@ -48,25 +51,25 @@ fun PasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(LocalColorScheme.current.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(paddingValues)
-            .padding(LocalDimens.current.sizing.medium),
+            .padding(MaterialTheme.dimes.sizing.medium),
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_white_arrow_left),
             contentDescription = null,
-            tint = LocalColorScheme.current.onPrimary,
+            tint = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
-                .size(LocalDimens.current.iconSize.md)
+                .size(MaterialTheme.dimes.iconSize.md)
                 .clickable(onClick = onBackPress)
         )
 
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
         Text(
             text = stringResource(R.string.input_password_for_this_phone_number),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
-            color = LocalColorScheme.current.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary
         )
         Text(
             text = phoneNumber,
@@ -74,32 +77,32 @@ fun PasswordScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = LocalDimens.current.sizing.small,
-                    bottom = LocalDimens.current.sizing.large
+                    top = MaterialTheme.dimes.sizing.small,
+                    bottom = MaterialTheme.dimes.sizing.large
                 ),
-            fontSize = LocalDimens.current.textSize.xxlarge,
-            color = LocalColorScheme.current.onPrimary,
+            fontSize = MaterialTheme.dimes.textSize.xxlarge,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = Bold
         )
 
         PasswordTextField(viewModel)
 
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.large))
 
         TextButton(
             enabled = viewModel.value.collectAsState().value.isNotEmpty(),
-            contentPadding = PaddingValues(vertical = LocalDimens.current.sizing.textButtonVerticalPadding),
+            contentPadding = PaddingValues(vertical = MaterialTheme.dimes.sizing.textButtonVerticalPadding),
             colors = ButtonDefaults.buttonColors().copy(
                 containerColor = Blue800,
-                disabledContainerColor = LocalColorScheme.current.disableButton,
+                disabledContainerColor = MaterialTheme.colorScheme.disableButton,
                 contentColor = SuperWhite,
-                disabledContentColor = LocalColorScheme.current.onDisableButton
+                disabledContentColor = MaterialTheme.colorScheme.onDisableButton
             ),
             onClick = onContinuePress,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
-                .background(if (password.value.isEmpty()) LocalColorScheme.current.disableButton else Blue800)
+                .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.large))
+                .background(if (password.value.isEmpty()) MaterialTheme.colorScheme.disableButton else Blue800)
         ) {
             Text(text = stringResource(R.string.text_continue))
         }
@@ -107,13 +110,13 @@ fun PasswordScreen(
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = stringResource(R.string.forget_password),
-                color = LocalColorScheme.current.passwordScreenColorScheme.forgetPassword,
+                color = MaterialTheme.colorScheme.passwordScreenColorScheme.forgetPassword,
                 fontWeight = Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.clickable(
                     onClick = {}
                 ),
-                fontSize = LocalDimens.current.textSize.large
+                fontSize = MaterialTheme.dimes.textSize.large
             )
         }
     }

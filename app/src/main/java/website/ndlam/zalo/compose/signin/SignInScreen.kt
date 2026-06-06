@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -32,9 +33,10 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.compose.textfield.PhoneNumberTextField
 import website.ndlam.zalo.ui.theme.Blue500
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
 import website.ndlam.zalo.ui.theme.SuperWhite
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.disableButton
+import website.ndlam.zalo.ui.theme.onDisableButton
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
 
@@ -55,17 +57,17 @@ fun SignInScreen(
         ) {
             Text(
                 text = stringResource(R.string.you_do_not_have_any_account),
-                color = LocalColorScheme.current.onPrimary,
-                fontSize = LocalDimens.current.textSize.medium
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontSize = MaterialTheme.dimes.textSize.medium
             )
-            Spacer(modifier = Modifier.width(LocalDimens.current.sizing.xsmall))
+            Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.xsmall))
             Text(
                 text = stringResource(R.string.create_account),
                 color = Blue500,
                 modifier = Modifier
                     .padding(0.dp)
                     .clickable(onClick = navigateSignUpScreen),
-                fontSize = LocalDimens.current.textSize.medium
+                fontSize = MaterialTheme.dimes.textSize.medium
             )
         }
     }
@@ -75,29 +77,29 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(LocalColorScheme.current.primary)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(paddingValues)
-            .padding(LocalDimens.current.sizing.medium),
+            .padding(MaterialTheme.dimes.sizing.medium),
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_white_arrow_left),
             contentDescription = null,
-            tint = LocalColorScheme.current.onPrimary,
+            tint = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
-                .size(LocalDimens.current.iconSize.md)
+                .size(MaterialTheme.dimes.iconSize.md)
                 .clickable(onClick = onBackPress)
         )
 
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
         Text(
             text = stringResource(R.string.input_phone_number),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
-            fontSize = LocalDimens.current.textSize.xxlarge,
+            fontSize = MaterialTheme.dimes.textSize.xxlarge,
             fontWeight = Bold,
-            color = LocalColorScheme.current.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary
         )
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.xlarge))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.xlarge))
 
         PhoneNumberTextField(
             viewModel = phoneNumberViewModel,
@@ -106,21 +108,21 @@ fun SignInScreen(
 
         terms()
 
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.large))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.large))
 
         TextButton(
             enabled = isValidPhoneNumber.value,
             onClick = onContinuePress,
-            contentPadding = PaddingValues(vertical = LocalDimens.current.sizing.textButtonVerticalPadding),
+            contentPadding = PaddingValues(vertical = MaterialTheme.dimes.sizing.textButtonVerticalPadding),
             colors = ButtonDefaults.buttonColors().copy(
                 containerColor = Blue800,
-                disabledContainerColor = LocalColorScheme.current.disableButton,
+                disabledContainerColor = MaterialTheme.colorScheme.disableButton,
                 contentColor = SuperWhite,
-                disabledContentColor = LocalColorScheme.current.onDisableButton
+                disabledContentColor = MaterialTheme.colorScheme.onDisableButton
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(LocalDimens.current.sizing.large))
+                .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.large))
         ) {
             Text(
                 text = stringResource(R.string.text_continue),

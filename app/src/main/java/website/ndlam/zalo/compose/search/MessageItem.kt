@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,31 +23,31 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.messageSearchItemColorScheme
 
 
 @Composable
 fun MessageItem(
     message: SearchMessage
 ) {
-    val borderColor = LocalColorScheme.current.messageSearchItemColorScheme.border
+    val borderColor = MaterialTheme.colorScheme.messageSearchItemColorScheme.border
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LocalColorScheme.current.surface)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(
-                top = LocalDimens.current.sizing.small,
-                start = LocalDimens.current.sizing.smallAddXSmall,
+                top = MaterialTheme.dimes.sizing.small,
+                start = MaterialTheme.dimes.sizing.smallAddXSmall,
             ),
-        horizontalArrangement = Arrangement.spacedBy(LocalDimens.current.sizing.small)
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimes.sizing.small)
     ) {
         Image(
             painter = ColorPainter(Color.Gray),
             contentDescription = null,
             modifier = Modifier
-                .size(LocalDimens.current.iconSize.xl)
+                .size(MaterialTheme.dimes.iconSize.xl)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )
@@ -62,26 +63,26 @@ fun MessageItem(
                     )
                 }
                 .padding(
-                    bottom = LocalDimens.current.sizing.smallAddXSmall,
-                    end = LocalDimens.current.sizing.smallAddXSmall
+                    bottom = MaterialTheme.dimes.sizing.smallAddXSmall,
+                    end = MaterialTheme.dimes.sizing.smallAddXSmall
                 )
         ) {
             Row {
                 Text(
                     text = message.senderName,
-                    color = LocalColorScheme.current.onPrimary,
-                    fontSize = LocalDimens.current.textSize.large,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = MaterialTheme.dimes.textSize.large,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = message.date,
                     color = Color.Gray,
-                    fontSize = LocalDimens.current.textSize.small,
+                    fontSize = MaterialTheme.dimes.textSize.small,
                 )
             }
 
-            Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+            Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
 
             VisitCard(
                 info = VisitCardInfo(

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -21,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.domains.dto.Introduction
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.LocalDimens
-import website.ndlam.zalo.ui.theme.LocalColorScheme
 import website.ndlam.zalo.ui.theme.White
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.introductionColorScheme
 
 fun getDataIntroduction(context: Context) = listOf(
     Introduction(
@@ -63,25 +64,25 @@ fun IntroductionScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LocalColorScheme.current.surface)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(paddingValues)
-            .padding(LocalDimens.current.sizing.medium)
+            .padding(MaterialTheme.dimes.sizing.medium)
     ) {
         IntroductionViewPagerCompose(modifier = Modifier.weight(1f), data, mainPager, subPager)
         DotsCompose(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(LocalDimens.current.sizing.xxlarge * 2),
+                .height(MaterialTheme.dimes.sizing.xxlarge * 2),
             amount = mainPager.pageCount + subPager.pageCount - 1,
-            size = LocalDimens.current.sizing.small - 2.dp,
+            size = MaterialTheme.dimes.sizing.small - 2.dp,
             dotSelected = mainPager.currentPage + subPager.currentPage
         )
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
         TextButton(
             onClick = navigateToSignInScreen,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(shape = RoundedCornerShape(LocalDimens.current.sizing.xxlarge))
+                .clip(shape = RoundedCornerShape(MaterialTheme.dimes.sizing.xxlarge))
                 .background(Blue800)
         ) {
             Text(
@@ -89,19 +90,19 @@ fun IntroductionScreen(
                 color = White
             )
         }
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.small))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.small))
         TextButton(
             onClick = navigateToSignUpScreen,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(shape = RoundedCornerShape(LocalDimens.current.sizing.xxlarge))
-                .background(LocalColorScheme.current.introductionColorScheme.secondaryButton)
+                .clip(shape = RoundedCornerShape(MaterialTheme.dimes.sizing.xxlarge))
+                .background(MaterialTheme.colorScheme.introductionColorScheme.secondaryButton)
         ) {
             Text(
                 text = stringResource(R.string.create_account),
-                color = LocalColorScheme.current.introductionColorScheme.onSecondaryButton
+                color = MaterialTheme.colorScheme.introductionColorScheme.onSecondaryButton
             )
         }
-        Spacer(modifier = Modifier.height(LocalDimens.current.sizing.medium))
+        Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))
     }
 }

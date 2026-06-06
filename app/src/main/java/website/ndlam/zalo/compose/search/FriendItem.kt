@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +28,7 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.Blue300
 import website.ndlam.zalo.ui.theme.Blue900
 import website.ndlam.zalo.ui.theme.Gray550
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
 
 
 @Composable
@@ -39,41 +40,41 @@ fun FriendItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = LocalDimens.current.sizing.mediumAddXSmall),
+            .padding(horizontal = MaterialTheme.dimes.sizing.mediumAddXSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = ColorPainter(Color.Gray),
             contentDescription = null,
             modifier = Modifier
-                .size(LocalDimens.current.iconSize.xl)
+                .size(MaterialTheme.dimes.iconSize.xl)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )
-        Spacer(modifier = Modifier.width(LocalDimens.current.sizing.mediumAddXSmall))
+        Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.mediumAddXSmall))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = name,
                 color = Color.White,
-                fontSize = LocalDimens.current.textSize.large,
+                fontSize = MaterialTheme.dimes.textSize.large,
                 fontWeight = FontWeight.Medium
             )
             Row {
                 Text(
                     text = stringResource(R.string.phone_number),
                     color = Gray550,
-                    fontSize = LocalDimens.current.textSize.medium
+                    fontSize = MaterialTheme.dimes.textSize.medium
                 )
                 Text(
                     text = phoneNumber,
                     color = Blue300,
-                    fontSize = LocalDimens.current.textSize.medium
+                    fontSize = MaterialTheme.dimes.textSize.medium
                 )
             }
         }
         Box(
             modifier = Modifier
-                .size(LocalDimens.current.iconSize.lg)
+                .size(MaterialTheme.dimes.iconSize.lg)
                 .clip(CircleShape)
                 .background(Blue900.copy(alpha = 0.3f)),
             contentAlignment = Alignment.Center
@@ -82,7 +83,7 @@ fun FriendItem(
                 painter = painterResource(id = R.drawable.ic_call),
                 contentDescription = "Call",
                 tint = Blue300,
-                modifier = Modifier.size(LocalDimens.current.iconSize.sm)
+                modifier = Modifier.size(MaterialTheme.dimes.iconSize.sm)
             )
         }
     }

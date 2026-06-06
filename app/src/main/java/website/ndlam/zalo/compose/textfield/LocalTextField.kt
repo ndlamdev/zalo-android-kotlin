@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,8 +27,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import website.ndlam.zalo.ui.theme.LocalColorScheme
-import website.ndlam.zalo.ui.theme.LocalDimens
+import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.localTextFieldColorScheme
 import website.ndlam.zalo.viewmodels.LocalTextFieldViewModel
 
 @Composable
@@ -40,10 +41,10 @@ fun LocalTextField(
     maxLines: Int = 1,
     placeholder: String = "",
     textStyle: TextStyle = TextStyle(
-        fontSize = LocalDimens.current.textSize.large,
-        color = LocalColorScheme.current.onPrimary,
+        fontSize = MaterialTheme.dimes.textSize.large,
+        color = MaterialTheme.colorScheme.onPrimary,
     ),
-    containerHeight: Dp = LocalDimens.current.sizing.xxlarge,
+    containerHeight: Dp = MaterialTheme.dimes.sizing.xxlarge,
     containerPadding: PaddingValues = PaddingValues(0.dp),
     textFieldPadding: PaddingValues = PaddingValues(0.dp),
     borderWith: Dp = 2.dp
@@ -84,15 +85,15 @@ fun LocalTextField(
     maxLines: Int = 1,
     placeholder: String = "",
     textStyle: TextStyle = TextStyle(
-        fontSize = LocalDimens.current.textSize.large,
-        color = LocalColorScheme.current.onPrimary,
+        fontSize = MaterialTheme.dimes.textSize.large,
+        color = MaterialTheme.colorScheme.onPrimary,
     ),
-    containerHeight: Dp = LocalDimens.current.sizing.xxlarge,
+    containerHeight: Dp = MaterialTheme.dimes.sizing.xxlarge,
     containerPadding: PaddingValues = PaddingValues(0.dp),
     textFieldPadding: PaddingValues = PaddingValues(0.dp),
     borderWith: Dp = 2.dp
 ) {
-    val colorScheme = LocalColorScheme.current.localTextFieldColorScheme
+    val colorScheme = MaterialTheme.colorScheme.localTextFieldColorScheme
 
     val focusRequester = remember { FocusRequester() }
 
@@ -111,7 +112,7 @@ fun LocalTextField(
             .border(
                 width = borderWith,
                 color = if (isFocus) colorScheme.borderFocus else colorScheme.border,
-                RoundedCornerShape(LocalDimens.current.sizing.small)
+                RoundedCornerShape(MaterialTheme.dimes.sizing.small)
             )
             .padding(containerPadding),
         verticalAlignment = Alignment.CenterVertically
