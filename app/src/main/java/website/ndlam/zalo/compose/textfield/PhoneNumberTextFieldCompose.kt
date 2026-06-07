@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.phoneNumberTextFieldColorScheme
+import website.ndlam.zalo.ui.theme.phoneNumberTextField
 import website.ndlam.zalo.viewmodels.PhoneNumberViewModel
 
 @Composable
@@ -64,7 +64,7 @@ fun PhoneNumberTextField(
     onFocusChanged: (Boolean) -> Unit = {},
     navigateRegionCode: () -> Unit = {}
 ) {
-    val colorScheme = MaterialTheme.colorScheme.phoneNumberTextFieldColorScheme
+    val colorScheme = MaterialTheme.colorScheme.phoneNumberTextField
 
     LocalTextField(
         isFocus = isFocus,

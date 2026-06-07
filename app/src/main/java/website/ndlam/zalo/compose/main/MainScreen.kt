@@ -1,10 +1,12 @@
 package website.ndlam.zalo.compose.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -34,7 +36,12 @@ fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp), onSearchPress
             paddingValues = PaddingValues(top = paddingValues.calculateTopPadding()),
             onSearchPress = onSearchPress
         )
-        HorizontalPager(pagerState, modifier = Modifier.weight(1f)) { page ->
+        HorizontalPager(
+            pagerState,
+            modifier = Modifier
+                .weight(1f)
+                .background(MaterialTheme.colorScheme.primary)
+        ) { page ->
             when (page) {
                 0 -> ListRoomChatScreen()
                 1 -> ContactScreen()

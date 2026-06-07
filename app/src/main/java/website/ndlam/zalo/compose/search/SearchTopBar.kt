@@ -27,7 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.headerColorScheme
+import website.ndlam.zalo.ui.theme.searchScreen
 
 
 @Composable
@@ -40,7 +40,7 @@ fun SearchTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(MaterialTheme.colorScheme.headerColorScheme.background)
+            .background(MaterialTheme.colorScheme.searchScreen.topBarBackground)
             .padding(horizontal = MaterialTheme.dimes.sizing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -61,7 +61,7 @@ fun SearchTopBar(
                 .weight(1f)
                 .height(40.dp)
                 .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
-                .background(MaterialTheme.colorScheme.headerColorScheme.inputBackground)
+                .background(MaterialTheme.colorScheme.searchScreen.topBarInputBackground)
                 .padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

@@ -27,7 +27,7 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.domains.dto.Introduction
 import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.introductionColorScheme
+import website.ndlam.zalo.ui.theme.introductionScreen
 
 @Composable
 fun IntroductionViewPagerCompose(
@@ -86,7 +86,7 @@ fun IntroductionContentCompose(modifier: Modifier = Modifier, data: Introduction
             painter = painterResource(data.image),
             contentDescription = data.title,
             modifier = Modifier.size(MaterialTheme.dimes.sizing.xxlarge * 3),
-            tint = MaterialTheme.colorScheme.introductionColorScheme.tintICon
+            tint = MaterialTheme.colorScheme.introductionScreen.tintICon
         )
         Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.large))
         Text(
@@ -106,7 +106,7 @@ fun IntroductionContentCompose(modifier: Modifier = Modifier, data: Introduction
                 .align(Alignment.CenterHorizontally),
             fontWeight = Bold,
             fontSize = MaterialTheme.dimes.textSize.medium,
-            color = MaterialTheme.colorScheme.introductionColorScheme.description,
+            color = MaterialTheme.colorScheme.introductionScreen.description,
             textAlign = TextAlign.Center
         )
     }

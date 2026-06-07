@@ -35,7 +35,7 @@ import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.disableButton
 import website.ndlam.zalo.ui.theme.onDisableButton
-import website.ndlam.zalo.ui.theme.passwordScreenColorScheme
+import website.ndlam.zalo.ui.theme.passwordScreen
 import website.ndlam.zalo.viewmodels.PasswordTextFieldViewModel
 
 @Composable
@@ -110,7 +110,7 @@ fun PasswordScreen(
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = stringResource(R.string.forget_password),
-                color = MaterialTheme.colorScheme.passwordScreenColorScheme.forgetPassword,
+                color = MaterialTheme.colorScheme.passwordScreen.forgetPassword,
                 fontWeight = Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.clickable(

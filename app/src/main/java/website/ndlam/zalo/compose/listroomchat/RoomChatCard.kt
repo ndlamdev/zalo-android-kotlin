@@ -1,4 +1,4 @@
-package website.ndlam.zalo.compose.rootchatcard
+package website.ndlam.zalo.compose.listroomchat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,9 +26,33 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.Gray200
-import website.ndlam.zalo.ui.theme.Red400
+import website.ndlam.zalo.ui.theme.Red300
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.listRoomChat
+
+data class RoomChatInfo(
+    val iconUrl: String,
+    val title: String,
+    val lastMessage: String,
+    val isPin: Boolean = false,
+    val lastOnline: String,
+    val totalMessageUnread: Int = 0
+)
+
+@Composable
+fun RoomChatCard(
+    info: RoomChatInfo
+) {
+    RoomChatCard(
+        iconUrl = info.iconUrl,
+        title = info.title,
+        lastMessage = info.lastMessage,
+        isPin = info.isPin,
+        lastOnline = info.lastOnline,
+        totalMessageUnread = info.totalMessageUnread
+    )
+}
 
 @Composable
 fun RoomChatCard(
@@ -37,11 +61,15 @@ fun RoomChatCard(
     lastMessage: String,
     isPin: Boolean,
     lastOnline: String,
-    totalMessageUnred: Int
+    totalMessageUnread: Int
 ) {
+    val colorScheme = MaterialTheme.colorScheme.listRoomChat
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(start = MaterialTheme.dimes.sizing.medium),
+        modifier = Modifier
+            .background(if (isPin) colorScheme.roomChatCardSecondary else colorScheme.roomChatCardPrimary)
+            .padding(start = MaterialTheme.dimes.sizing.smallAddXsmall),
     ) {
         AsyncImage(
             model = iconUrl,
@@ -78,7 +106,8 @@ fun RoomChatCard(
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = lastMessage,
-                    maxLines = 1, color = MaterialTheme.colorScheme.onPrimary
+                    maxLines = 1,
+                    color = if (totalMessageUnread > 0) colorScheme.roomChatCardOnPrimary else colorScheme.romChatReadedMessage,
                 )
             }
 
@@ -87,37 +116,39 @@ fun RoomChatCard(
                     if (isPin) {
                         Icon(
                             painter = painterResource(R.drawable.ic_push_pin),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.size(MaterialTheme.dimes.iconSize.xsm).rotate(45f)
+                            contentDescription = null,
+                            tint = colorScheme.romChatReadedMessage,
+                            modifier = Modifier
+                                .size(MaterialTheme.dimes.iconSize.xsm)
+                                .rotate(45f)
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                     }
                     Text(
                         text = lastOnline,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = if (totalMessageUnread > 0) colorScheme.roomChatCardOnPrimary else colorScheme.romChatReadedMessage,
                         fontSize = MaterialTheme.dimes.textSize.small,
                     )
                 }
-                if (totalMessageUnred > 0) {
+                if (totalMessageUnread > 0) {
                     Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.xsmall))
                     Column(
-                        verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
                         modifier = Modifier
-                            .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
-                            .background(Red400)
                             .width(MaterialTheme.dimes.sizing.medium)
-                            .height(MaterialTheme.dimes.sizing.small + MaterialTheme.dimes.sizing.xsmall)
+                            .height(MaterialTheme.dimes.sizing.smallAddXsmall)
+                            .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
+                            .background(Red300),
                     ) {
                         Text(
-                            text = "$totalMessageUnred",
+                            text = if(totalMessageUnread > 10) "9" else  "$totalMessageUnread",
                             color = SuperWhite,
-                            fontSize = MaterialTheme.dimes.textSize.small,
-
-                            )
+                            fontSize = MaterialTheme.dimes.textSize.xsmall,
+                            lineHeight = MaterialTheme.dimes.textSize.xsmall
+                        )
                     }
                 }
-
             }
         }
     }

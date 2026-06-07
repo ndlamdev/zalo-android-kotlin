@@ -24,14 +24,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.messageSearchItemColorScheme
+import website.ndlam.zalo.ui.theme.searchScreen
 
 
 @Composable
 fun MessageItem(
     message: SearchMessage
 ) {
-    val borderColor = MaterialTheme.colorScheme.messageSearchItemColorScheme.border
+    val borderColor = MaterialTheme.colorScheme.searchScreen.messageBorder
 
     Row(
         modifier = Modifier
@@ -39,7 +39,7 @@ fun MessageItem(
             .background(MaterialTheme.colorScheme.surface)
             .padding(
                 top = MaterialTheme.dimes.sizing.small,
-                start = MaterialTheme.dimes.sizing.smallAddXSmall,
+                start = MaterialTheme.dimes.sizing.smallAddXsmall,
             ),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimes.sizing.small)
     ) {
@@ -63,8 +63,8 @@ fun MessageItem(
                     )
                 }
                 .padding(
-                    bottom = MaterialTheme.dimes.sizing.smallAddXSmall,
-                    end = MaterialTheme.dimes.sizing.smallAddXSmall
+                    bottom = MaterialTheme.dimes.sizing.smallAddXsmall,
+                    end = MaterialTheme.dimes.sizing.smallAddXsmall
                 )
         ) {
             Row {

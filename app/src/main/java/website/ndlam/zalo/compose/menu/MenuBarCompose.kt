@@ -32,7 +32,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.menuBarColorScheme
+import website.ndlam.zalo.ui.theme.mainScreen
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen
 
 data class MenuProp(
@@ -84,7 +84,7 @@ fun MenuBar(
 ) {
     Row(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.menuBarColorScheme.background)
+            .background(MaterialTheme.colorScheme.mainScreen.menuBarBackground)
             .padding(paddingValues)
     ) {
         DATA.map { item ->

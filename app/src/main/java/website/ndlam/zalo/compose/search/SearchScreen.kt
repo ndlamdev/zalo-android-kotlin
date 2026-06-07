@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.ZolaApplicationTheme
 import website.ndlam.zalo.ui.theme.dimes
+import website.ndlam.zalo.ui.theme.searchScreen
 
 @Composable
 fun SearchScreen(
@@ -150,20 +151,21 @@ fun FilterChip(
 ) {
     Row(
         modifier = Modifier
+            .background(MaterialTheme.colorScheme.searchScreen.filterChipBackground)
             .border(
                 1.dp,
                 Color.Gray.copy(alpha = 0.5f),
                 RoundedCornerShape(MaterialTheme.dimes.sizing.medium)
             )
             .padding(
-                horizontal = MaterialTheme.dimes.sizing.smallAddXSmall,
+                horizontal = MaterialTheme.dimes.sizing.smallAddXsmall,
                 vertical = MaterialTheme.dimes.sizing.xsmall
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .size(MaterialTheme.dimes.sizing.smallAddXSmall)
+                .size(MaterialTheme.dimes.sizing.smallAddXsmall)
                 .border(1.dp, Color.Gray, CircleShape)
         )
         Spacer(modifier = Modifier.width(8.dp))

@@ -40,7 +40,7 @@ fun FriendItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = MaterialTheme.dimes.sizing.mediumAddXSmall),
+            .padding(horizontal = MaterialTheme.dimes.sizing.mediumAddXsmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -51,7 +51,7 @@ fun FriendItem(
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )
-        Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.mediumAddXSmall))
+        Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.mediumAddXsmall))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = name,

@@ -29,7 +29,7 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.Blue300
 import website.ndlam.zalo.ui.theme.Gray550
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.messageSearchItemColorScheme
+import website.ndlam.zalo.ui.theme.searchScreen
 
 
 data class VisitCardInfo(
@@ -42,20 +42,24 @@ fun VisitCard(info: VisitCardInfo) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, MaterialTheme.colorScheme.messageSearchItemColorScheme.border, RoundedCornerShape(MaterialTheme.dimes.sizing.small))
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.searchScreen.messageBorder,
+                RoundedCornerShape(MaterialTheme.dimes.sizing.small)
+            )
             .background(MaterialTheme.colorScheme.surface)
-            .padding(MaterialTheme.dimes.sizing.smallAddXSmall)
+            .padding(MaterialTheme.dimes.sizing.smallAddXsmall)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = ColorPainter(Color.Gray),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(MaterialTheme.dimes.sizing.largeAddXSmall)
+                    .size(MaterialTheme.dimes.sizing.largeAddXsmall)
                     .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.xsmall)),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.smallAddXSmall))
+            Spacer(modifier = Modifier.width(MaterialTheme.dimes.sizing.smallAddXsmall))
             Column {
                 Text(
                     text = info.name,

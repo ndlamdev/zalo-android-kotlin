@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.domains.dto.Introduction
 import website.ndlam.zalo.ui.theme.Blue800
-import website.ndlam.zalo.ui.theme.White
+import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.introductionColorScheme
+import website.ndlam.zalo.ui.theme.introductionScreen
 
 fun getDataIntroduction(context: Context) = listOf(
     Introduction(
@@ -87,7 +87,7 @@ fun IntroductionScreen(
         ) {
             Text(
                 text = stringResource(R.string.login),
-                color = White
+                color = SuperWhite
             )
         }
         Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.small))
@@ -96,11 +96,11 @@ fun IntroductionScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(MaterialTheme.dimes.sizing.xxlarge))
-                .background(MaterialTheme.colorScheme.introductionColorScheme.secondaryButton)
+                .background(MaterialTheme.colorScheme.introductionScreen.secondaryButton)
         ) {
             Text(
                 text = stringResource(R.string.create_account),
-                color = MaterialTheme.colorScheme.introductionColorScheme.onSecondaryButton
+                color = MaterialTheme.colorScheme.introductionScreen.onSecondaryButton
             )
         }
         Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.medium))

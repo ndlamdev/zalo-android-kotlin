@@ -32,8 +32,7 @@ data class PasswordScreenColorScheme(
     val forgetPassword: Color = Blue840,
 )
 
-// default for light theme
-data class IntroductionColorScheme(
+data class IntroductionScreenColorScheme(
     val secondaryButton: Color = Gray200,
     val onSecondaryButton: Color = Black850,
     val description: Color = Gray550,
@@ -45,40 +44,50 @@ data class RegionCodeScreenColorScheme(
     val groupName: Color = Blue150
 )
 
-data class HeaderBarColorScheme(val background: Brush = HeaderGradient)
-
-data class MenuBarColorScheme(val background: Color = LightBlue500)
-
-data class HeaderColorScheme(
-    val background: Brush = HeaderGradient,
-    val inputBackground: Color = SuperWhite,
+data class MainScreenColorScheme(
+    val headerBarBackground: Brush = HeaderGradient,
+    val headerBarTextSearch: Color = Blue350,
+    val menuBarBackground: Color = LightBlue500
 )
 
-data class MessageSearchItemColorScheme(
-    var border: Color = Gray300
+
+data class SearchScreenColorScheme(
+    val topBarBackground: Brush = HeaderGradient,
+    val topBarInputBackground: Color = SuperWhite,
+    val messageBorder: Color = Gray300,
+    val filterChipBackground: Color = Gray100,
 )
 
+
+data class ListRoomChatColorScheme(
+    val roomChatCardPrimary: Color = SuperWhite,
+    val roomChatCardOnPrimary: Color = Black900,
+    val roomChatCardSecondary: Color = White,
+    val romChatReadedMessage: Color = Gray450,
+)
 
 val ColorScheme.disableButton: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) BlackGray else Gray250
+    get() = if (isSystemInDarkTheme()) Gray840 else Gray250
 
 
 val ColorScheme.onDisableButton: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Gray710 else Gray450
 
-val ColorScheme.introductionColorScheme: IntroductionColorScheme
+val ColorScheme.introductionScreen: IntroductionScreenColorScheme
     @Composable
-    get() = if (isSystemInDarkTheme()) IntroductionColorScheme(
-        secondaryButton = Gray800,
-        onSecondaryButton = SuperWhite,
-        description = Gray600,
-        tintICon = Gray300
-    ) else IntroductionColorScheme()
+    get() = if (isSystemInDarkTheme())
+        IntroductionScreenColorScheme(
+            secondaryButton = Gray800,
+            onSecondaryButton = SuperWhite,
+            description = Gray600,
+            tintICon = Gray300
+        )
+    else IntroductionScreenColorScheme()
 
 
-val ColorScheme.phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme
+val ColorScheme.phoneNumberTextField: PhoneNumberTextFieldColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
         PhoneNumberTextFieldColorScheme(
@@ -95,7 +104,7 @@ val ColorScheme.phoneNumberTextFieldColorScheme: PhoneNumberTextFieldColorScheme
             )
     else PhoneNumberTextFieldColorScheme()
 
-val ColorScheme.passwordScreenColorScheme: PasswordScreenColorScheme
+val ColorScheme.passwordScreen: PasswordScreenColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
         PasswordScreenColorScheme(
@@ -104,7 +113,7 @@ val ColorScheme.passwordScreenColorScheme: PasswordScreenColorScheme
     else PasswordScreenColorScheme()
 
 
-val ColorScheme.localTextFieldColorScheme: LocalTextFieldColorScheme
+val ColorScheme.localTextField: LocalTextFieldColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
         LocalTextFieldColorScheme(
@@ -116,7 +125,7 @@ val ColorScheme.localTextFieldColorScheme: LocalTextFieldColorScheme
     else LocalTextFieldColorScheme()
 
 
-val ColorScheme.regionCodeScreenColorScheme: RegionCodeScreenColorScheme
+val ColorScheme.regionCodeScreen: RegionCodeScreenColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
         RegionCodeScreenColorScheme(
@@ -124,35 +133,35 @@ val ColorScheme.regionCodeScreenColorScheme: RegionCodeScreenColorScheme
         )
     else RegionCodeScreenColorScheme()
 
-val ColorScheme.headerBarColorScheme: HeaderBarColorScheme
+val ColorScheme.searchScreen: SearchScreenColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
-        HeaderBarColorScheme(
-            background = SolidColor(Gray900)
+        SearchScreenColorScheme(
+            topBarBackground = SolidColor(Black50),
+            topBarInputBackground = Black900,
+            messageBorder = Gray840,
+            filterChipBackground = Gray920
         )
-    else HeaderBarColorScheme()
+    else SearchScreenColorScheme()
 
-val ColorScheme.menuBarColorScheme: MenuBarColorScheme
+val ColorScheme.mainScreen: MainScreenColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
-        MenuBarColorScheme(
-            background = Gray820
+        MainScreenColorScheme(
+            headerBarBackground = SolidColor(Gray900),
+            headerBarTextSearch = Gray600,
+            menuBarBackground = Gray820,
         )
-    else MenuBarColorScheme()
+    else MainScreenColorScheme()
 
-val ColorScheme.headerColorScheme: HeaderColorScheme
-    @Composable
-    get() = if (isSystemInDarkTheme())
-        HeaderColorScheme(
-            background = SolidColor(Black50),
-            inputBackground = Black900
-        )
-    else HeaderColorScheme()
 
-val ColorScheme.messageSearchItemColorScheme: MessageSearchItemColorScheme
+val ColorScheme.listRoomChat: ListRoomChatColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
-        MessageSearchItemColorScheme(
-            border = BlackGray
+        ListRoomChatColorScheme(
+            roomChatCardPrimary = Gray960,
+            roomChatCardOnPrimary = SuperWhite,
+            roomChatCardSecondary = Gray920,
+            romChatReadedMessage = Gray710
         )
-    else MessageSearchItemColorScheme()
+    else ListRoomChatColorScheme()

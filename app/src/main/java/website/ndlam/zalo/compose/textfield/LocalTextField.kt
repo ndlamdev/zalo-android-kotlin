@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.localTextFieldColorScheme
+import website.ndlam.zalo.ui.theme.localTextField
 import website.ndlam.zalo.viewmodels.LocalTextFieldViewModel
 
 @Composable
@@ -93,7 +93,7 @@ fun LocalTextField(
     textFieldPadding: PaddingValues = PaddingValues(0.dp),
     borderWith: Dp = 2.dp
 ) {
-    val colorScheme = MaterialTheme.colorScheme.localTextFieldColorScheme
+    val colorScheme = MaterialTheme.colorScheme.localTextField
 
     val focusRequester = remember { FocusRequester() }
 

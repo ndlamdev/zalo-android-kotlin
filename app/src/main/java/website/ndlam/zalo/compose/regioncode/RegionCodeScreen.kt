@@ -32,7 +32,7 @@ import website.ndlam.zalo.R
 import website.ndlam.zalo.compose.textfield.LocalTextField
 import website.ndlam.zalo.ui.theme.Gray200
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.regionCodeScreenColorScheme
+import website.ndlam.zalo.ui.theme.regionCodeScreen
 import website.ndlam.zalo.viewmodels.RegionCodeViewModel
 
 @Composable
@@ -44,7 +44,7 @@ fun RegionCodeScreen(
     val viewModel = viewModel<RegionCodeViewModel>()
     val context = LocalContext.current
     val regionCodes = viewModel.regionCodes.collectAsState()
-    val colorScheme = MaterialTheme.colorScheme.regionCodeScreenColorScheme
+    val colorScheme = MaterialTheme.colorScheme.regionCodeScreen
 
     LaunchedEffect(Unit) {
         viewModel.loadRegionCode(context)

@@ -49,7 +49,7 @@ fun SignUpScreen(
             TermCheckBox(
                 title = stringResource(R.string.i_agree_with_these),
                 linkTitle = stringResource(R.string.terms_of_use_zola),
-                modifier = Modifier.padding(vertical = MaterialTheme.dimes.sizing.smallAddXSmall)
+                modifier = Modifier.padding(vertical = MaterialTheme.dimes.sizing.smallAddXsmall)
             )
             TermCheckBox(
                 checked = false,

@@ -56,7 +56,7 @@ val Black800 = Color(0xFF101010)
 val Black850 = Color(0xFF0D0D0D)
 val Black900 = Color(0xFF000000)
 val Dark200 = Color(0xFF121212)
-val White = Color(0xFFFAFAFA)
+val White = Color(0xFFF7F7F7)
 val SuperWhite = Color(0xFFFFFFFF)
 
 // Red
@@ -138,9 +138,10 @@ val Gray700 = Color(0xFF616161)
 val Gray710 = Color(0xFF575757)
 val Gray800 = Color(0xFF3D3D3D)
 val Gray820 = Color(0xFF333333)
+val Gray840 = Color(0xFF2E2E2E)
 val Gray900 = Color(0xFF242424)
-
-val BlackGray = Color(0xFF2E2E2E)
+val Gray920 = Color(0xFF222222)
+val Gray960 = Color(0xFF1A1A1A)
 
 // Light Blue
 val LightBlue400 = Color(0xFF29B6F6)

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.ui.theme.headerBarColorScheme
+import website.ndlam.zalo.ui.theme.mainScreen
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen.CONTACT
 import website.ndlam.zalo.utils.enums.ScreenOnMainScreen.DISCOVER
@@ -41,7 +41,7 @@ fun SearchBarCompose(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(
-                MaterialTheme.colorScheme.headerBarColorScheme.background
+                MaterialTheme.colorScheme.mainScreen.headerBarBackground
             )
             .padding(paddingValues)
     ) {
@@ -61,7 +61,7 @@ fun SearchBarCompose(
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(R.string.hint_search),
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.mainScreen.headerBarTextSearch,
                 fontSize = MaterialTheme.dimes.textSize.medium
             )
 

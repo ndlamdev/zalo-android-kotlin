@@ -24,7 +24,7 @@ private val LightColorScheme = lightColorScheme(
     primary = Gray50,
     onPrimary = Black50,
     surface = SuperWhite,
-    background = Blue50
+    background = Gray50
 
 //    secondary = Color(0xFFE6E6E8),
 //    onSecondary = Color(0xFF005ADF),
