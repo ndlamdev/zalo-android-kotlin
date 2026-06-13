@@ -11,7 +11,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import website.ndlam.zalo.core.util.formater.PhoneNumberFormater
 import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
 import website.ndlam.zalo.ui.common.textfield.viewmodel.PhoneNumberViewModel
 import website.ndlam.zalo.ui.feature.introduction.IntroductionScreen
@@ -26,11 +25,12 @@ import website.ndlam.zalo.ui.feature.splash.SplashScreen
 
 @Composable
 fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
+    val context = LocalContext.current
+    val authTokenRepository = AuthTokenRepositoryImpl(context)
     val navController = rememberNavController()
     val phoneNumberViewModel = viewModel<PhoneNumberViewModel>()
     val phoneNumber = phoneNumberViewModel.value.collectAsState()
     val regionCode = phoneNumberViewModel.regionCode.collectAsState()
-    val context = LocalContext.current
     val mainViewModel = viewModel<MainViewModel>(
         factory = viewModelFactory {
             initializer {
@@ -48,6 +48,8 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         composable(Splash::class.java.name) {
             SplashScreen(
                 navigateToMainScreen = {
+                    mainViewModel.getUserInfo()
+
                     navController.navigate(Main::class.java.name) {
                         popUpTo(Splash::class.java.name) {
                             inclusive = true
@@ -61,7 +63,8 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                         }
                     }
                 },
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                authTokenRepository = authTokenRepository
             )
         }
 
@@ -84,7 +87,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         }
 
         composable(SignIn::class.java.name) {
-         SignInScreen(
+            SignInScreen(
                 paddingValues, phoneNumberViewModel,
                 onBackPress = {
                     if (navController.previousBackStackEntry != null) {
@@ -96,12 +99,14 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                         launchSingleTop = true
                         restoreState = true
                     }
-                }, onContinuePress = {
+                },
+                onContinuePress = {
                     navController.navigate(Password::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
-                }, navigateRegionCode = {
+                },
+                navigateRegionCode = {
                     navController.navigate(RegionCode::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
@@ -110,7 +115,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         }
 
         composable(SignUp::class.java.name) {
-           SignUpScreen(
+            SignUpScreen(
                 paddingValues, phoneNumberViewModel,
                 onBackPress = {
                     if (navController.previousBackStackEntry != null) {
@@ -125,6 +130,12 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                 },
                 onContinuePress = {
 
+                },
+                navigateRegionCode = {
+                    navController.navigate(RegionCode::class.java.name) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 })
         }
 
@@ -142,25 +153,26 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         }
 
         composable(Password::class.java.name) {
-           PasswordScreen(
+            PasswordScreen(
                 paddingValues = paddingValues,
                 onBackPress = {
                     if (navController.previousBackStackEntry != null) {
                         navController.popBackStack()
                     }
                 },
-                phoneNumber = PhoneNumberFormater.nationalFormat(
-                    phoneNumber.value.toLong(),
-                    regionCode.value.replace("+", "").toInt()
-                ),
-                onContinuePress = {
+                swissNumber = phoneNumber.value,
+                regionCode = regionCode.value,
+                onLoginSuccess = {
+                    mainViewModel.getUserInfo()
+
                     navController.navigate(Main::class.java.name) {
                         popUpTo(0) {
                             inclusive = true
                         }
                         launchSingleTop = true
                     }
-                }
+                },
+                authTokenRepository = authTokenRepository
             )
         }
 
@@ -175,7 +187,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         }
 
         composable(Search::class.java.name) {
-          SearchScreen(
+            SearchScreen(
                 paddingValues = paddingValues,
                 onBackPress = {
                     if (navController.previousBackStackEntry != null) {

@@ -29,6 +29,7 @@ import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.common.textfield.viewmodel.PhoneNumberViewModel
+import website.ndlam.zalo.ui.feature.signin.SignInScreen
 
 
 @Composable
@@ -37,13 +38,15 @@ fun SignUpScreen(
     phoneNumberViewModel: PhoneNumberViewModel = viewModel(),
     onBackPress: () -> Unit = {},
     navigateSignInScreen: () -> Unit = {},
+    navigateRegionCode: () -> Unit = {},
     onContinuePress: () -> Unit = {},
 ) {
-    _root_ide_package_.website.ndlam.zalo.ui.feature.signin.SignInScreen(
+    SignInScreen(
         paddingValues = paddingValues,
         phoneNumberViewModel = phoneNumberViewModel,
         onBackPress = onBackPress,
         onContinuePress = onContinuePress,
+        navigateRegionCode = navigateRegionCode,
         terms = {
             TermCheckBox(
                 title = stringResource(R.string.i_agree_with_these),

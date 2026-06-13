@@ -81,7 +81,7 @@ fun PasswordTextField(
                     )
             ) {
                 Icon(
-                    painter = painterResource(if (hidden) R.drawable.ic_eye else R.drawable.ic_eye_closed),
+                    painter = painterResource(if (!hidden) R.drawable.ic_eye else R.drawable.ic_eye_closed),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimary
                 )

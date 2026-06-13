@@ -2,58 +2,55 @@ package website.ndlam.zalo.domain.repository
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
-import java.security.KeyPairGenerator
 import java.security.KeyStore
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
 
 interface IAuthTokenRepository {
+
     suspend fun saveAccessToken(token: String?)
     suspend fun saveRefreshToken(token: String?)
     fun isSignIn(): Flow<Boolean>
     suspend fun getAccessToken(): String?
 
+    suspend fun savePhoneNumber(number: String)
+    suspend fun saveRegion(code: String)
+    suspend fun getPhoneNumber(): String?
+    suspend fun getRegionCode(): String?
+
     companion object {
+        const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val KEY_STORE_ALIAS = "ZolaApp"
         private const val KEY_STORE_TYPE = "AndroidKeyStore"
 
         fun initKey() {
-            val ks = getPrivateKeyEntry()
+            if (getSecretKey() != null) return
 
-            if (ks != null) return
-
-            val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
-                KeyProperties.KEY_ALGORITHM_EC,
+            val kg: KeyGenerator = KeyGenerator.getInstance(
+                KeyProperties.KEY_ALGORITHM_AES,
                 KEY_STORE_TYPE
             )
             val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(
                 KEY_STORE_ALIAS,
-                KeyProperties.PURPOSE_SIGN or KeyProperties.PURPOSE_VERIFY
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
             ).run {
-                setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+                setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                setKeySize(256)
                 build()
             }
 
-            kpg.initialize(parameterSpec)
-
-            kpg.generateKeyPair()
+            kg.init(parameterSpec)
+            kg.generateKey()
         }
 
-        fun getPrivateKeyEntry(): KeyStore.PrivateKeyEntry? {
+        fun getSecretKey(): SecretKey? {
             val ks = KeyStore.getInstance(KEY_STORE_TYPE).apply {
                 load(null)
             }
 
-            if (ks == null) return null
-
-            val entry: KeyStore.Entry? = ks.getEntry(KEY_STORE_ALIAS, null)
-
-            if (entry !is KeyStore.PrivateKeyEntry) {
-                Log.w(this.javaClass.name, "Not an instance of a PrivateKeyEntry")
-                return null
-            }
-
-            return entry
+            return ks.getKey(KEY_STORE_ALIAS, null) as? SecretKey
         }
     }
 }

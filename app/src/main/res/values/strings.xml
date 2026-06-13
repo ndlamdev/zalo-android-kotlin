@@ -71,4 +71,5 @@
     <string name="filter_file">File</string>
     <string name="messages_count">Tin nhắn (%1$d)</string>
     <string name="find_friend_by_phone_number_count">Tìm bạn qua số điện thoại (%1$d)</string>
+    <string name="login_failed">Tài khoản hoặc mật khẩu không chính xác!</string>
 </resources>

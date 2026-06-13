@@ -1,16 +1,17 @@
 package website.ndlam.zalo.data.local.datastore
 
 import androidx.datastore.core.CorruptionException
-import website.ndlam.zalo.domain.model.AuthToken
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import website.ndlam.zalo.data.local.datastore.AuthToken.getDefaultInstance
+import website.ndlam.zalo.data.local.datastore.AuthToken.parseFrom
 import java.io.InputStream
 import java.io.OutputStream
 
 object AuthTokenSerializer : Serializer<AuthToken> {
     override suspend fun readFrom(input: InputStream): AuthToken {
         try {
-            return AuthToken.parseFrom(input)
+            return parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
@@ -24,5 +25,5 @@ object AuthTokenSerializer : Serializer<AuthToken> {
     }
 
     override val defaultValue: AuthToken
-        get() = AuthToken.getDefaultInstance()
+        get() = getDefaultInstance()
 }

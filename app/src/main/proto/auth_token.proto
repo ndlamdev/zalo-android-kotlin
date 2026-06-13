@@ -1,10 +1,12 @@
 syntax = "proto3";
 
-option java_package = "website.ndlam.zalo.domains.dto";
+option java_package = "website.ndlam.zalo.data.local.datastore";
 option java_multiple_files = true;
 import "google/protobuf/wrappers.proto";
 
 message AuthToken {
   google.protobuf.StringValue access_token = 1;
   google.protobuf.StringValue refresh_token = 2;
+  google.protobuf.StringValue last_input_swiss_number = 3;
+  google.protobuf.StringValue last_input_region_code = 4;
 }

@@ -1,5 +1,6 @@
 package website.ndlam.zalo.ui.feature.password
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,37 +20,68 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import website.ndlam.zalo.R
+import website.ndlam.zalo.core.util.formater.PhoneNumberFormater
+import website.ndlam.zalo.data.remote.api.ApiState
+import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
+import website.ndlam.zalo.domain.repository.IAuthTokenRepository
 import website.ndlam.zalo.ui.common.textfield.PasswordTextField
+import website.ndlam.zalo.ui.common.textfield.viewmodel.PasswordTextFieldViewModel
 import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.disableButton
 import website.ndlam.zalo.ui.theme.onDisableButton
 import website.ndlam.zalo.ui.theme.passwordScreen
-import website.ndlam.zalo.ui.common.textfield.viewmodel.PasswordTextFieldViewModel
 
 @Composable
 fun PasswordScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
     onBackPress: () -> Unit = {},
-    phoneNumber: String,
-    onContinuePress: () -> Unit = {}
+    swissNumber: String,
+    regionCode: String,
+    onLoginSuccess: () -> Unit = {},
+    authTokenRepository: IAuthTokenRepository
 ) {
-    val viewModel = viewModel<PasswordTextFieldViewModel>()
-    val password = viewModel.value.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
+    val textFiledViewModel = viewModel<PasswordTextFieldViewModel>()
+    val context = LocalContext.current
+    val loginFailedMessage = stringResource(R.string.login_failed)
+    val viewModel = viewModel<PasswordViewModel>(
+        factory = viewModelFactory {
+            initializer {
+                PasswordViewModel(authTokenRepository)
+            }
+        }
+    )
+
+    val password = textFiledViewModel.value.collectAsState()
+    val loginStatus = viewModel.loginStatus.collectAsState()
+
+    LaunchedEffect(loginStatus.value) {
+        when (val value = loginStatus.value) {
+            is ApiState.Error<*> ->
+                Toast.makeText(context, value.message, Toast.LENGTH_SHORT).show()
+
+            is ApiState.Loading<*> -> {
+                // TODO("Handler ui when loading")
+            }
+
+            else -> onLoginSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -75,7 +107,10 @@ fun PasswordScreen(
             color = MaterialTheme.colorScheme.onPrimary
         )
         Text(
-            text = phoneNumber,
+            text = PhoneNumberFormater.nationalFormat(
+                swissNumber.toLong(),
+                regionCode.replace("+", "").toInt()
+            ),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,12 +123,12 @@ fun PasswordScreen(
             fontWeight = Bold
         )
 
-        PasswordTextField(viewModel)
+        PasswordTextField(textFiledViewModel)
 
         Spacer(modifier = Modifier.height(MaterialTheme.dimes.sizing.large))
 
         TextButton(
-            enabled = viewModel.value.collectAsState().value.isNotEmpty(),
+            enabled = password.value.isNotEmpty(),
             contentPadding = PaddingValues(vertical = MaterialTheme.dimes.sizing.textButtonVerticalPadding),
             colors = ButtonDefaults.buttonColors().copy(
                 containerColor = Blue800,
@@ -102,11 +137,12 @@ fun PasswordScreen(
                 disabledContentColor = MaterialTheme.colorScheme.onDisableButton
             ),
             onClick = {
-                coroutineScope.launch {
-
-                }
-
-                onContinuePress()
+                viewModel.login(
+                    PhoneNumberFormater.e164Format(
+                        swissNumber.toLong(),
+                        regionCode.replace("+", "").toInt()
+                    ), password.value, loginFailedMessage
+                )
             },
             modifier = Modifier
                 .fillMaxWidth()

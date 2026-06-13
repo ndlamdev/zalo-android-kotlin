@@ -2,11 +2,11 @@ package website.ndlam.zalo.core.service
 
 import retrofit2.http.GET
 import website.ndlam.zalo.data.remote.api.UserInfo
-import website.ndlam.zalo.data.remote.api.ApiResponse
+import website.ndlam.zalo.data.remote.api.ApiResponseSucess
 
 interface UserService {
-    @GET("v1/me")
-    suspend fun getInfo(): ApiResponse<UserInfo>
+    @GET("user/v1/me")
+    suspend fun getInfo(): ApiResponseSucess<UserInfo>
 
 
 }

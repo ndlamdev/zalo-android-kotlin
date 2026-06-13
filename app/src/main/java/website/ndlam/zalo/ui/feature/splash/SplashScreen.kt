@@ -1,6 +1,5 @@
 package website.ndlam.zalo.ui.feature.splash
 
-//import website.ndlam.zalo.data.repository.AuthTokenRepository
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,46 +21,34 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import website.ndlam.zalo.R
+import website.ndlam.zalo.core.util.enums.ApiCallingStatus
 import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
+import website.ndlam.zalo.domain.repository.IAuthTokenRepository
 import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
-import website.ndlam.zalo.core.util.enums.ApiCallingStatus
 import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun SplashScreen(
     navigateToMainScreen: () -> Unit = {},
     navigateToIntroductionScreen: () -> Unit = {},
-    viewModel: SplashViewModel = viewModel(),
-    paddingValues: PaddingValues = PaddingValues(0.dp)
+    paddingValues: PaddingValues = PaddingValues(0.dp),
+    authTokenRepository: IAuthTokenRepository
 ) {
-    val loadUserInfoState = viewModel.loadInfoUserState.collectAsState()
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-    val authTokenDataStore = remember(context) {
-        AuthTokenRepositoryImpl(context)
-    }
-    val isSignIn =
-        authTokenDataStore.isSignIn().collectAsState(false, coroutineScope.coroutineContext)
-
     LaunchedEffect(Unit) {
-        delay(500.milliseconds)
-        if (isSignIn.value) {
-            viewModel.loadInfo()
-            return@LaunchedEffect
+        val isSignIn = authTokenRepository.isSignIn().firstOrNull()
+
+        if (isSignIn == true) {
+            navigateToMainScreen()
+        } else {
+            delay(500.milliseconds)
+
+            navigateToIntroductionScreen()
         }
-
-        navigateToIntroductionScreen()
     }
-
-    when (loadUserInfoState.value) {
-        is ApiCallingStatus.Loading -> {}
-        is ApiCallingStatus.Success -> navigateToMainScreen()
-        is ApiCallingStatus.Error -> {}
-    }
-
 
     Column(
         modifier = Modifier
