@@ -33,7 +33,6 @@ class MainViewModel(val authTokenRepository: IAuthTokenRepository) :
                 val response = e.getResponseError()
                 _user.value =
                     ApiState.Error(response?.detail ?: response?.error ?: "Lỗi hệ thống!")
-
             }
         }
     }

@@ -24,8 +24,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import website.ndlam.zalo.R
 import website.ndlam.zalo.core.util.enums.ApiCallingStatus
+import website.ndlam.zalo.data.remote.api.ApiState
 import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
 import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.ui.common.auth.AuthViewModel
+import website.ndlam.zalo.ui.common.dialog.LoadingDialog
 import website.ndlam.zalo.ui.theme.Blue800
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
@@ -36,19 +39,25 @@ fun SplashScreen(
     navigateToMainScreen: () -> Unit = {},
     navigateToIntroductionScreen: () -> Unit = {},
     paddingValues: PaddingValues = PaddingValues(0.dp),
-    authTokenRepository: IAuthTokenRepository
+    authViewModel: AuthViewModel
 ) {
-    LaunchedEffect(Unit) {
-        val isSignIn = authTokenRepository.isSignIn().firstOrNull()
+    val loginStatus = authViewModel.loginStatus.collectAsState()
 
-        if (isSignIn == true) {
-            navigateToMainScreen()
-        } else {
-            delay(500.milliseconds)
+    LaunchedEffect(loginStatus.value) {
+        if (loginStatus.value == null) {
+            authViewModel.info()
+            return@LaunchedEffect
+        }
 
-            navigateToIntroductionScreen()
+        when (loginStatus.value) {
+            is ApiState.SuccessNotResponse -> navigateToMainScreen()
+            is ApiState.Error -> navigateToIntroductionScreen()
+            else -> {}
         }
     }
+
+    LoadingDialog(loginStatus.value is ApiState.Loading<*>)
+
 
     Column(
         modifier = Modifier

@@ -30,12 +30,13 @@ import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen.DISCOVER
 import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen.MESSAGE
 import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen.NEWSFEED
 import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen.SETTING
+import website.ndlam.zalo.domain.repository.IAuthTokenRepository
 
 @Composable
 fun SearchBarCompose(
     paddingValues: PaddingValues = PaddingValues(0.dp),
     currentScreen: ScreenOnMainScreen = MESSAGE,
-    onSearchPress: () -> Unit = {},
+    onSearchPress: () -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

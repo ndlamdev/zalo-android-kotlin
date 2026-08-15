@@ -19,9 +19,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -32,11 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import website.ndlam.zalo.R
-import website.ndlam.zalo.ui.theme.ZolaApplicationTheme
+import website.ndlam.zalo.domain.repository.IAuthTokenRepository
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.searchScreen
 
@@ -44,9 +46,19 @@ import website.ndlam.zalo.ui.theme.searchScreen
 fun SearchScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
     onBackPress: () -> Unit = {},
+    authTokenRepository: IAuthTokenRepository
 ) {
     var searchText by remember { mutableStateOf("0949253545") }
     var selectedTab by remember { mutableIntStateOf(0) }
+    val viewModel = viewModel<SearchViewModel>(
+        factory =
+            viewModelFactory {
+                initializer {
+                    SearchViewModel(authTokenRepository)
+                }
+            }
+    )
+    val user = viewModel.user.collectAsState()
 
     Column(
         modifier = Modifier
@@ -56,7 +68,10 @@ fun SearchScreen(
     ) {
         SearchTopBar(
             searchText = searchText,
-            onSearchTextChange = { searchText = it },
+            onSearchTextChange = {
+                searchText = it
+                viewModel.search(it)
+            },
             onBackClick = onBackPress
         )
 
@@ -75,11 +90,11 @@ fun SearchScreen(
                 )
             }
 
-            items(2) { index ->
+            items(items = listOf(user.value)) { item ->
                 Box(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
                     FriendItem(
-                        name = "Tuấn Vt Tuy Phong $index",
-                        phoneNumber = "0949253545",
+                        name = item?.displayName ?: "",
+                        phoneNumber = item?.phoneNumber ?: "",
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
@@ -206,15 +221,3 @@ val sampleMessages = listOf(
         quotedPhone = "0949253545"
     )
 )
-
-@Preview
-@Composable
-fun SearchScreenPreview() {
-    ZolaApplicationTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            SearchScreen(
-                innerPadding
-            )
-        }
-    }
-}

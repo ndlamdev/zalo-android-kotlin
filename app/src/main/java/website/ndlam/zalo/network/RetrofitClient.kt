@@ -7,6 +7,7 @@ import okhttp3.ResponseBody.Companion.asResponseBody
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import website.ndlam.zalo.BuildConfig
 import website.ndlam.zalo.core.service.AuthService
 import website.ndlam.zalo.core.service.UserService
 import website.ndlam.zalo.data.remote.api.ApiResponseError
@@ -18,7 +19,7 @@ private val gson = GsonBuilder()
     .create()
 
 object RetrofitClient {
-    const val MAIN_BASE_UTL = "https://zola.ndlam.online"
+    const val MAIN_BASE_UTL = BuildConfig.MAIN_BASE_UTL
 
     private val converter = GsonConverterFactory.create(gson)
 
@@ -29,6 +30,19 @@ object RetrofitClient {
             .client(
                 OkHttpClient.Builder()
                     .addInterceptor(LogInterceptor)
+                    .build()
+            )
+            .addConverterFactory(converter)
+            .build()
+            .create(AuthService::class.java)
+    }
+
+    fun authService(token: String?): AuthService {
+        return Retrofit.Builder()
+            .baseUrl(MAIN_BASE_UTL)
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(AuthInterceptor(token))
                     .build()
             )
             .addConverterFactory(converter)

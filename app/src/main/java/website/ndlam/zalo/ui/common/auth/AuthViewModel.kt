@@ -1,4 +1,4 @@
-package website.ndlam.zalo.ui.feature.password
+package website.ndlam.zalo.ui.common.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,15 +9,16 @@ import okhttp3.Cookie
 import retrofit2.HttpException
 import retrofit2.Response
 import website.ndlam.zalo.core.service.AuthService
-import website.ndlam.zalo.data.remote.api.ApiResponseSucess
+import website.ndlam.zalo.data.remote.api.ApiResponseSuccess
 import website.ndlam.zalo.data.remote.api.LoginInfoRequest
 import website.ndlam.zalo.data.remote.api.ApiState
 import website.ndlam.zalo.data.remote.api.LoginInfoResponse
 import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.network.RetrofitClient
 import website.ndlam.zalo.network.getResponseError
 
-class PasswordViewModel(private val authTokenRepository: IAuthTokenRepository) : ViewModel() {
-    private val _loginStatus = MutableStateFlow<ApiState<Nothing>>(ApiState.Loading())
+class AuthViewModel(private val authTokenRepository: IAuthTokenRepository) : ViewModel() {
+    private val _loginStatus = MutableStateFlow<ApiState<Nothing>?>(null)
     val loginStatus = _loginStatus.asStateFlow()
 
     fun login(phoneNumber: String, password: String, loginFailedMessage: String = "") {
@@ -29,8 +30,6 @@ class PasswordViewModel(private val authTokenRepository: IAuthTokenRepository) :
                 val loginResponse = authService.login(LoginInfoRequest(phoneNumber, password))
 
                 saveToken(loginResponse, loginFailedMessage)
-
-
             } catch (e: HttpException) {
                 val response = e.getResponseError()
                 _loginStatus.value =
@@ -40,8 +39,27 @@ class PasswordViewModel(private val authTokenRepository: IAuthTokenRepository) :
         }
     }
 
+    fun info() {
+        viewModelScope.launch {
+            try {
+                _loginStatus.value = ApiState.Loading()
+                val token = authTokenRepository.getAccessToken()
+                val authService = RetrofitClient.authService(token)
+
+                authService.info()
+                _loginStatus.value = ApiState.SuccessNotResponse()
+            } catch (e: HttpException) {
+                // TODO: handle when token expired
+                val response = e.getResponseError()
+                _loginStatus.value =
+                    ApiState.Error(response?.detail ?: response?.error ?: "Something wrong!")
+
+            }
+        }
+    }
+
     private suspend fun saveToken(
-        loginResponse: Response<ApiResponseSucess<LoginInfoResponse>>,
+        loginResponse: Response<ApiResponseSuccess<LoginInfoResponse>>,
         loginFailedMessage: String
     ) {
         val cookies = loginResponse.headers().values("set-cookie")
@@ -54,21 +72,17 @@ class PasswordViewModel(private val authTokenRepository: IAuthTokenRepository) :
                 )
 
                 authTokenRepository.saveRefreshToken(ck?.value)
-
-
             }
         }
         val body = loginResponse.body()
 
         if (body == null) {
-            _loginStatus.value =
-                ApiState.Error(loginFailedMessage)
-
+            _loginStatus.value = ApiState.Error(loginFailedMessage)
             return
         }
 
 
-        authTokenRepository.saveAccessToken(body.data.accessToken)
+        authTokenRepository.saveAccessToken(body.data.token)
         authTokenRepository.saveRegion(body.data.phoneNumberCode)
         authTokenRepository.savePhoneNumber(body.data.phoneNumber)
         _loginStatus.value = ApiState.SuccessNotResponse()

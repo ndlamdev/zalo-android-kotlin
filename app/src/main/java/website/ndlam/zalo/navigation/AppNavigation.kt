@@ -11,11 +11,14 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import website.ndlam.zalo.BuildConfig
 import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
+import website.ndlam.zalo.ui.common.auth.AuthViewModel
 import website.ndlam.zalo.ui.common.textfield.viewmodel.PhoneNumberViewModel
 import website.ndlam.zalo.ui.feature.introduction.IntroductionScreen
 import website.ndlam.zalo.ui.feature.main.MainScreen
 import website.ndlam.zalo.ui.feature.main.MainViewModel
+import website.ndlam.zalo.ui.feature.main.StompMessageViewModel
 import website.ndlam.zalo.ui.feature.password.PasswordScreen
 import website.ndlam.zalo.ui.feature.regioncode.RegionCodeScreen
 import website.ndlam.zalo.ui.feature.search.SearchScreen
@@ -34,12 +37,36 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
     val mainViewModel = viewModel<MainViewModel>(
         factory = viewModelFactory {
             initializer {
-                MainViewModel(
-                    AuthTokenRepositoryImpl(context)
-                )
+                MainViewModel(authTokenRepository)
             }
         }
     )
+    val authViewModel = viewModel<AuthViewModel>(
+        factory = viewModelFactory {
+            initializer {
+                AuthViewModel(authTokenRepository)
+            }
+        }
+    )
+    val stompMessageViewModel = viewModel<StompMessageViewModel>(
+        factory = viewModelFactory {
+            initializer {
+                StompMessageViewModel(authTokenRepository)
+            }
+        }
+    )
+
+    val onLoginSuccess: () -> Unit = {
+        mainViewModel.getUserInfo()
+        stompMessageViewModel.connect(BuildConfig.API_CHATWS_URL)
+
+        navController.navigate(Main::class.java.name) {
+            popUpTo(0) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
 
     NavHost(
         navController = navController,
@@ -47,15 +74,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
     ) {
         composable(Splash::class.java.name) {
             SplashScreen(
-                navigateToMainScreen = {
-                    mainViewModel.getUserInfo()
-
-                    navController.navigate(Main::class.java.name) {
-                        popUpTo(Splash::class.java.name) {
-                            inclusive = true
-                        }
-                    }
-                },
+                navigateToMainScreen = onLoginSuccess,
                 navigateToIntroductionScreen = {
                     navController.navigate(Introduction::class.java.name) {
                         popUpTo(Splash::class.java.name) {
@@ -64,7 +83,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     }
                 },
                 paddingValues = paddingValues,
-                authTokenRepository = authTokenRepository
+                authViewModel = authViewModel
             )
         }
 
@@ -162,28 +181,21 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                 },
                 swissNumber = phoneNumber.value,
                 regionCode = regionCode.value,
-                onLoginSuccess = {
-                    mainViewModel.getUserInfo()
-
-                    navController.navigate(Main::class.java.name) {
-                        popUpTo(0) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
-                },
-                authTokenRepository = authTokenRepository
+                onLoginSuccess = onLoginSuccess,
+                authViewModel = authViewModel
             )
         }
 
         composable(Main::class.java.name) {
             MainScreen(
                 paddingValues = paddingValues,
+                stompMessageViewModel = stompMessageViewModel,
                 onSearchPress = {
                     navController.navigate(Search::class.java.name) {
                         launchSingleTop = true
                     }
-                })
+                }
+            )
         }
 
         composable(Search::class.java.name) {
@@ -193,7 +205,9 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     if (navController.previousBackStackEntry != null) {
                         navController.popBackStack()
                     }
-                })
+                },
+                authTokenRepository
+            )
         }
     }
 }

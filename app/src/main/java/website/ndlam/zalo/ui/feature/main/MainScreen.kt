@@ -12,13 +12,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
+import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen
 import website.ndlam.zalo.ui.common.header.SearchBarCompose
 import website.ndlam.zalo.ui.common.menu.MenuBar
-import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen
+import website.ndlam.zalo.ui.feature.contact.ContactScreen
+import website.ndlam.zalo.ui.feature.discovery.DiscoveryScreen
+import website.ndlam.zalo.ui.feature.listroomchat.ListRoomChatScreen
+import website.ndlam.zalo.ui.feature.newsfeed.NewsFeedScreen
+import website.ndlam.zalo.ui.feature.setting.SettingScreen
 
 @Composable
-fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp), onSearchPress: () -> Unit = {}) {
+fun MainScreen(
+    paddingValues: PaddingValues = PaddingValues(0.dp),
+    stompMessageViewModel: StompMessageViewModel = viewModel(),
+    onSearchPress: () -> Unit = {}
+) {
     val pagerState = rememberPagerState { 5 }
     val coroutineScope = rememberCoroutineScope()
 
@@ -38,11 +48,11 @@ fun MainScreen(paddingValues: PaddingValues = PaddingValues(0.dp), onSearchPress
                 .background(MaterialTheme.colorScheme.primary)
         ) { page ->
             when (page) {
-                0 -> _root_ide_package_.website.ndlam.zalo.ui.feature.listroomchat.ListRoomChatScreen()
-                1 -> _root_ide_package_.website.ndlam.zalo.ui.feature.contact.ContactScreen()
-                2 -> _root_ide_package_.website.ndlam.zalo.ui.feature.discovery.DiscoveryScreen()
-                3 -> _root_ide_package_.website.ndlam.zalo.ui.feature.newsfeed.NewsFeedScreen()
-                else -> _root_ide_package_.website.ndlam.zalo.ui.feature.setting.SettingScreen()
+                0 -> ListRoomChatScreen()
+                1 -> ContactScreen()
+                2 -> DiscoveryScreen()
+                3 -> NewsFeedScreen()
+                else -> SettingScreen()
             }
         }
         MenuBar(

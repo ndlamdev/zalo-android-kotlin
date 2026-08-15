@@ -17,6 +17,21 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "API_CHATWS_URL",
+            "\"wss://zola.ndlam.online/chat-ws/chat-websocket\""
+        )
+        buildConfigField(
+            "String",
+            "MAIN_BASE_UTL",
+            "\"https://zola.ndlam.online\""
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true // Required in newer Android Studio versions
     }
 
     buildTypes {
@@ -27,6 +42,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        getByName("debug") {
+            isMinifyEnabled = false
+
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -34,6 +54,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = freeCompilerArgs + "-Xdebug"
     }
     buildFeatures {
         compose = true
@@ -53,7 +74,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
@@ -66,6 +86,8 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+//    implementation(platform(libs.firebase.bom))
+//    implementation(libs.firebase.auth)
 }
 
 protobuf {
