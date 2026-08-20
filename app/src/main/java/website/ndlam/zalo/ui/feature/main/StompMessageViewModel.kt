@@ -6,14 +6,15 @@ import kotlinx.coroutines.launch
 import website.ndlam.zalo.core.stomp.Stomp
 import website.ndlam.zalo.core.stomp.StompClient
 import website.ndlam.zalo.core.stomp.dto.StompMessage
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.domain.repository.IAuthRepository
+import website.ndlam.zalo.domain.repository.ITokenManager
 
-class StompMessageViewModel(val authTokenResponse: IAuthTokenRepository) : ViewModel() {
+class StompMessageViewModel(val tokenManager: ITokenManager) : ViewModel() {
     private var stomp: StompClient? = null
 
     fun connect(uri: String, headers: Map<String, String>? = mapOf()) {
         viewModelScope.launch {
-            val token = authTokenResponse.getAccessToken()
+            val token = tokenManager.getAccessToken()
             val currentHeaders = mutableMapOf<String, String>()
             if (headers != null) currentHeaders.putAll(currentHeaders)
             currentHeaders["authorization"] = "Bearer $token"

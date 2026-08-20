@@ -3,6 +3,7 @@ package website.ndlam.zalo.core.service
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import website.ndlam.zalo.network.RetrofitClient
 import website.ndlam.zalo.data.remote.api.LoginInfoRequest
@@ -14,9 +15,8 @@ interface AuthService {
     suspend fun login(@Body body: LoginInfoRequest): Response<ApiResponseSuccess<LoginInfoResponse>>
 
     @GET("auth/v1/info")
-    suspend fun info(): Response<ApiResponseSuccess<Nothing>>
+    suspend fun info(): ApiResponseSuccess<Nothing>
 
-    companion object {
-        val Instant = RetrofitClient.authService
-    }
+    @POST("auth/v1/refresh")
+    suspend fun refresh(@Header("Cookie") cookie: String): Response<ApiResponseSuccess<LoginInfoResponse>>
 }

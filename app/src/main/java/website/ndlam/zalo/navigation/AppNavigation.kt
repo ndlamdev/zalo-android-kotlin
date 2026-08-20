@@ -2,17 +2,20 @@ package website.ndlam.zalo.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import website.ndlam.zalo.BuildConfig
-import website.ndlam.zalo.data.repository.AuthTokenRepositoryImpl
+import website.ndlam.zalo.core.util.viewmodel.initViewModelWithDependencies
+import website.ndlam.zalo.data.repository.AuthRepositoryImpl
+import website.ndlam.zalo.data.repository.TokenMangerImpl
+import website.ndlam.zalo.domain.repository.ITokenManager
+import website.ndlam.zalo.network.RetrofitClientSecured
 import website.ndlam.zalo.ui.common.auth.AuthViewModel
 import website.ndlam.zalo.ui.common.textfield.viewmodel.PhoneNumberViewModel
 import website.ndlam.zalo.ui.feature.introduction.IntroductionScreen
@@ -29,32 +32,15 @@ import website.ndlam.zalo.ui.feature.splash.SplashScreen
 @Composable
 fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
     val context = LocalContext.current
-    val authTokenRepository = AuthTokenRepositoryImpl(context)
+    val authRepository = AuthRepositoryImpl(context)
+    val tokenManager = TokenMangerImpl(authRepository)
     val navController = rememberNavController()
     val phoneNumberViewModel = viewModel<PhoneNumberViewModel>()
     val phoneNumber = phoneNumberViewModel.value.collectAsState()
     val regionCode = phoneNumberViewModel.regionCode.collectAsState()
-    val mainViewModel = viewModel<MainViewModel>(
-        factory = viewModelFactory {
-            initializer {
-                MainViewModel(authTokenRepository)
-            }
-        }
-    )
-    val authViewModel = viewModel<AuthViewModel>(
-        factory = viewModelFactory {
-            initializer {
-                AuthViewModel(authTokenRepository)
-            }
-        }
-    )
-    val stompMessageViewModel = viewModel<StompMessageViewModel>(
-        factory = viewModelFactory {
-            initializer {
-                StompMessageViewModel(authTokenRepository)
-            }
-        }
-    )
+    val mainViewModel = viewModel<MainViewModel>()
+    val authViewModel = initViewModelWithDependencies<AuthViewModel>(tokenManager)
+    val stompMessageViewModel = initViewModelWithDependencies<StompMessageViewModel>(tokenManager)
 
     val onLoginSuccess: () -> Unit = {
         mainViewModel.getUserInfo()
@@ -66,6 +52,10 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             }
             launchSingleTop = true
         }
+    }
+
+    LaunchedEffect(Unit) {
+        RetrofitClientSecured.tokenManager = tokenManager
     }
 
     NavHost(
@@ -91,12 +81,14 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             IntroductionScreen(
                 paddingValues,
                 navigateToSignInScreen = {
+                    authViewModel.clearLoginStatus()
                     navController.navigate(SignIn::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
                 navigateToSignUpScreen = {
+                    authViewModel.clearLoginStatus()
                     navController.navigate(SignUp::class.java.name) {
                         launchSingleTop = true
                         restoreState = true
@@ -205,8 +197,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     if (navController.previousBackStackEntry != null) {
                         navController.popBackStack()
                     }
-                },
-                authTokenRepository
+                }
             )
         }
     }

@@ -7,6 +7,7 @@ import "google/protobuf/wrappers.proto";
 message AuthToken {
   google.protobuf.StringValue access_token = 1;
   google.protobuf.StringValue refresh_token = 2;
-  google.protobuf.StringValue last_input_swiss_number = 3;
-  google.protobuf.StringValue last_input_region_code = 4;
+	google.protobuf.StringValue cookie_refresh_token = 3;
+	google.protobuf.StringValue last_input_swiss_number = 4;
+	google.protobuf.StringValue last_input_region_code = 5;
 }

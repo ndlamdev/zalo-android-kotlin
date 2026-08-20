@@ -9,20 +9,17 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import website.ndlam.zalo.data.remote.api.ApiState
 import website.ndlam.zalo.data.remote.api.UserInfo
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
-import website.ndlam.zalo.network.RetrofitClient
-import website.ndlam.zalo.network.getResponseError
+import website.ndlam.zalo.network.RetrofitClientSecured
+import website.ndlam.zalo.network.helper.getResponseError
 
-class MainViewModel(val authTokenRepository: IAuthTokenRepository) :
+class MainViewModel :
     ViewModel() {
     private val _user = MutableStateFlow<ApiState<UserInfo>>(ApiState.Loading())
     val user: StateFlow<ApiState<UserInfo>> = _user.asStateFlow()
 
     fun getUserInfo() {
         viewModelScope.launch {
-            val token = authTokenRepository.getAccessToken()
-
-            val service = RetrofitClient.userService(token)
+            val service = RetrofitClientSecured.userService
 
             try {
                 _user.value = ApiState.Loading()

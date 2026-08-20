@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import com.google.protobuf.StringValue
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import retrofit2.Response
 import website.ndlam.zalo.data.local.datastore.AuthToken
 import website.ndlam.zalo.data.local.datastore.AuthTokenSerializer
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.data.remote.api.ApiResponseSuccess
+import website.ndlam.zalo.data.remote.api.LoginInfoResponse
+import website.ndlam.zalo.domain.repository.IAuthRepository
+import website.ndlam.zalo.network.helper.detectRefreshTokenFromCookie
+import website.ndlam.zalo.network.helper.getCookieRefreshToken
 import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
@@ -20,12 +24,14 @@ private val Context.dataStore: DataStore<AuthToken> by dataStore(
     serializer = AuthTokenSerializer,
 )
 
-class AuthTokenRepositoryImpl(private val context: Context) : IAuthTokenRepository {
-    private val secretKey: SecretKey? = IAuthTokenRepository.getSecretKey()
-    private val cipher: Cipher = Cipher.getInstance(IAuthTokenRepository.TRANSFORMATION)
+class AuthRepositoryImpl(
+    private val context: Context
+) : IAuthRepository {
+    private val secretKey: SecretKey? = IAuthRepository.getSecretKey()
+    private val cipher: Cipher = Cipher.getInstance(IAuthRepository.TRANSFORMATION)
 
     override suspend fun saveAccessToken(token: String?) {
-        if (token == null) return
+        if (token.isNullOrBlank()) return
 
         val encryptedToken = encrypt(token)
 
@@ -35,7 +41,7 @@ class AuthTokenRepositoryImpl(private val context: Context) : IAuthTokenReposito
     }
 
     override suspend fun saveRefreshToken(token: String?) {
-        if (token == null) return
+        if (token.isNullOrBlank()) return
 
         val encryptedToken = encrypt(token)
 
@@ -44,16 +50,22 @@ class AuthTokenRepositoryImpl(private val context: Context) : IAuthTokenReposito
         }
     }
 
-    override fun isSignIn(): Flow<Boolean> {
-        return context.dataStore.data.map { authToken ->
-            !authToken.accessToken.value.isEmpty() && !authToken.refreshToken.value.isEmpty()
-        }
-    }
-
     override suspend fun getAccessToken(): String? {
         val token = context.dataStore.data.map { it.accessToken.value }.firstOrNull()
 
         return if (token.isNullOrEmpty()) null else decrypt(token)
+    }
+
+    override suspend fun getRefreshToken(): String? {
+        val token = context.dataStore.data.map { it.refreshToken.value }.firstOrNull()
+
+        return if (token.isNullOrEmpty()) null else decrypt(token)
+    }
+
+    override suspend fun getCookieRefreshToken(): String? {
+        val cookie = context.dataStore.data.map { it.cookieRefreshToken.value }.firstOrNull()
+
+        return if (cookie.isNullOrEmpty()) null else decrypt(cookie)
     }
 
     private fun encrypt(data: String): String {
@@ -102,5 +114,37 @@ class AuthTokenRepositoryImpl(private val context: Context) : IAuthTokenReposito
 
     override suspend fun getRegionCode(): String? {
         return context.dataStore.data.map { it.lastInputRegionCode.value }.firstOrNull()
+    }
+
+    override suspend fun clear() {
+        this.context.dataStore.updateData { auth ->
+            auth.toBuilder().clear().build()
+            auth.toBuilder().clear().build()
+        }
+    }
+
+    override suspend fun saveAuthInfo(info: LoginInfoResponse, cookie: String): Boolean {
+        val refreshToken = detectRefreshTokenFromCookie(cookie) ?: return false
+        val accessTokenEncrypted = encrypt(info.token)
+        val refreshTokenEncrypted = encrypt(refreshToken)
+        val cookieEncrypted = encrypt(cookie)
+
+        this.context.dataStore.updateData { auth ->
+            auth.toBuilder()
+                .setRefreshToken(StringValue.of(refreshTokenEncrypted))
+                .setAccessToken(StringValue.of(accessTokenEncrypted))
+                .setCookieRefreshToken(StringValue.of(cookieEncrypted))
+                .setLastInputRegionCode(StringValue.of(info.phoneNumberCode))
+                .setLastInputSwissNumber(StringValue.of(info.phoneNumber))
+                .build()
+        }
+
+        return true
+    }
+
+    override suspend fun saveLoginInfo(loginResponse: Response<ApiResponseSuccess<LoginInfoResponse>>): Boolean {
+        val cookie: String = loginResponse.getCookieRefreshToken() ?: return false
+        val body = loginResponse.body() ?: return false
+        return saveAuthInfo(body.data, cookie)
     }
 }

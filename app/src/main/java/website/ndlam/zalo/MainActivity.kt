@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.domain.repository.IAuthRepository
 import website.ndlam.zalo.navigation.AppNavigation
 import website.ndlam.zalo.ui.theme.ZolaApplicationTheme
 
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        IAuthTokenRepository.initKey()
+        IAuthRepository.initKey()
 
         setContent {
             ZolaApplicationTheme {

@@ -7,23 +7,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import website.ndlam.zalo.data.remote.api.UserInfo
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.domain.repository.IAuthRepository
 import website.ndlam.zalo.network.RetrofitClient
+import website.ndlam.zalo.network.RetrofitClientSecured
 
-class SearchViewModel() : ViewModel() {
+class SearchViewModel : ViewModel {
     private val _user = MutableStateFlow<UserInfo?>(null)
     val user = _user.asStateFlow()
     private val _textSearch = MutableStateFlow("")
 
-    constructor(authTokenRepository: IAuthTokenRepository) : this() {
+    constructor() {
         viewModelScope.launch {
-            val token = authTokenRepository.getAccessToken()
-
             _textSearch.debounce(200)
                 .collect { data ->
                     try {
-                        val response = RetrofitClient.userService(token)
-                            .search(data)
+                        val response = RetrofitClientSecured.userService.search(data)
                         _user.value = response.data
                     } catch (_: Exception) {
                     }

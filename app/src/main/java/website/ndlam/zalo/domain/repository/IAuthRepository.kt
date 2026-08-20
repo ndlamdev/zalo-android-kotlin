@@ -2,22 +2,29 @@ package website.ndlam.zalo.domain.repository
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
+import website.ndlam.zalo.data.remote.api.ApiResponseSuccess
+import website.ndlam.zalo.data.remote.api.LoginInfoResponse
 import java.security.KeyStore
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
-interface IAuthTokenRepository {
+interface IAuthRepository {
+    suspend fun getAccessToken(): String?
+    suspend fun getRefreshToken(): String?
+    suspend fun getCookieRefreshToken(): String?
+    suspend fun getPhoneNumber(): String?
+    suspend fun getRegionCode(): String?
 
     suspend fun saveAccessToken(token: String?)
     suspend fun saveRefreshToken(token: String?)
-    fun isSignIn(): Flow<Boolean>
-    suspend fun getAccessToken(): String?
-
     suspend fun savePhoneNumber(number: String)
     suspend fun saveRegion(code: String)
-    suspend fun getPhoneNumber(): String?
-    suspend fun getRegionCode(): String?
+
+    suspend fun clear()
+    suspend fun saveAuthInfo(info: LoginInfoResponse, cookie: String): Boolean
+    suspend fun saveLoginInfo(loginResponse: Response<ApiResponseSuccess<LoginInfoResponse>>): Boolean
+
 
     companion object {
         const val TRANSFORMATION = "AES/GCM/NoPadding"

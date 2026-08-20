@@ -1,23 +1,24 @@
 package website.ndlam.zalo.core.stomp.provider
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import okhttp3.Headers
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
 import website.ndlam.zalo.core.stomp.dto.LifecycleEvent
+import website.ndlam.zalo.network.RetrofitClientSecured
 import java.util.TreeMap
 
 
 class OkHttpConnectionProvider(
     val uri: String,
     val headers: Map<String, String>?,
-    val okHttpClient: OkHttpClient?,
-    scope: CoroutineScope
+    scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 ) : AConnectionProvider(scope) {
     private var openSocket: WebSocket? = null
 
@@ -32,7 +33,7 @@ class OkHttpConnectionProvider(
         if (headers != null)
             addConnectionHeadersToBuilder(requestBuilder, headers)
 
-        openSocket = okHttpClient?.newWebSocket(
+        openSocket = RetrofitClientSecured.client.newWebSocket(
             requestBuilder.build(),
             object : WebSocketListener() {
                 override fun onOpen(webSocket: WebSocket, response: Response) {

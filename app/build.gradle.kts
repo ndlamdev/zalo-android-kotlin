@@ -28,6 +28,11 @@ android {
             "MAIN_BASE_UTL",
             "\"https://zola.ndlam.online\""
         )
+        buildConfigField(
+            "String",
+            "REFRESH_TOKEN_COOKIE",
+            "\"REFRESH_TOKEN=\""
+        )
     }
 
     buildFeatures {

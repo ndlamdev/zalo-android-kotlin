@@ -35,10 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import website.ndlam.zalo.R
-import website.ndlam.zalo.domain.repository.IAuthTokenRepository
+import website.ndlam.zalo.domain.repository.IAuthRepository
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.searchScreen
 
@@ -46,18 +44,10 @@ import website.ndlam.zalo.ui.theme.searchScreen
 fun SearchScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
     onBackPress: () -> Unit = {},
-    authTokenRepository: IAuthTokenRepository
 ) {
     var searchText by remember { mutableStateOf("0949253545") }
     var selectedTab by remember { mutableIntStateOf(0) }
-    val viewModel = viewModel<SearchViewModel>(
-        factory =
-            viewModelFactory {
-                initializer {
-                    SearchViewModel(authTokenRepository)
-                }
-            }
-    )
+    val viewModel = viewModel<SearchViewModel>()
     val user = viewModel.user.collectAsState()
 
     Column(
