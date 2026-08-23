@@ -4,8 +4,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import website.ndlam.zalo.BuildConfig
 import website.ndlam.zalo.core.service.AuthService
+import website.ndlam.zalo.core.service.ChatService
 import website.ndlam.zalo.core.service.UserService
-import website.ndlam.zalo.core.util.formater.GsonConverter
+import website.ndlam.zalo.core.util.converter.GsonConverter
 import website.ndlam.zalo.domain.repository.ITokenManager
 import website.ndlam.zalo.network.interceptor.AuthInterceptor
 import website.ndlam.zalo.network.interceptor.LogInterceptor
@@ -24,21 +25,23 @@ object RetrofitClientSecured {
         defaultOkHttpClientBuilder.build()
     }
 
-    val authService: AuthService by lazy {
+    val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BuildConfig.MAIN_BASE_UTL)
             .client(client)
             .addConverterFactory(GsonConverter.converter)
             .build()
-            .create(AuthService::class.java)
+    }
+
+    val authService: AuthService by lazy {
+        retrofit.create(AuthService::class.java)
     }
 
     val userService: UserService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.MAIN_BASE_UTL)
-            .client(client)
-            .addConverterFactory(GsonConverter.converter)
-            .build()
-            .create(UserService::class.java)
+        retrofit.create(UserService::class.java)
+    }
+
+    val chatService: ChatService by lazy {
+        retrofit.create(ChatService::class.java)
     }
 }

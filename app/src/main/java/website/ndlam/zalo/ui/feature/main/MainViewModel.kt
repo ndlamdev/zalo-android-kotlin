@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import website.ndlam.zalo.data.remote.api.ApiState
-import website.ndlam.zalo.data.remote.api.UserInfo
+import website.ndlam.zalo.data.remote.api.UserInRelationShip
 import website.ndlam.zalo.network.RetrofitClientSecured
 import website.ndlam.zalo.network.helper.getResponseError
 
 class MainViewModel :
     ViewModel() {
-    private val _user = MutableStateFlow<ApiState<UserInfo>>(ApiState.Loading())
-    val user: StateFlow<ApiState<UserInfo>> = _user.asStateFlow()
+    private val _user = MutableStateFlow<ApiState<UserInRelationShip>>(ApiState.Loading())
+    val user: StateFlow<ApiState<UserInRelationShip>> = _user.asStateFlow()
 
     fun getUserInfo() {
         viewModelScope.launch {

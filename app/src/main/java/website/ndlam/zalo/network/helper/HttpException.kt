@@ -1,7 +1,7 @@
 package website.ndlam.zalo.network.helper
 
 import retrofit2.HttpException
-import website.ndlam.zalo.core.util.formater.GsonConverter
+import website.ndlam.zalo.core.util.converter.GsonConverter
 import website.ndlam.zalo.data.remote.api.ApiResponseError
 
 fun HttpException.getResponseError(): ApiResponseError? {

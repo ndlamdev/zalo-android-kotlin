@@ -1,6 +1,7 @@
-package website.ndlam.zalo.ui.feature.listroomchat
+package website.ndlam.zalo.ui.feature.conversation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,13 +26,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import website.ndlam.zalo.R
+import website.ndlam.zalo.data.remote.api.ConversationDto
+import website.ndlam.zalo.data.remote.api.Message
 import website.ndlam.zalo.ui.theme.Gray200
 import website.ndlam.zalo.ui.theme.Red300
 import website.ndlam.zalo.ui.theme.SuperWhite
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.listRoomChat
 
-data class RoomChatInfo(
+data class ConversationInfo(
     val iconUrl: String,
     val title: String,
     val lastMessage: String,
@@ -41,38 +44,44 @@ data class RoomChatInfo(
 )
 
 @Composable
-fun RoomChatCard(
-    info: RoomChatInfo
+fun ConversationCard(
+    info: ConversationDto,
+    onClick: (dto: ConversationDto) -> Unit = {},
 ) {
-    RoomChatCard(
-        iconUrl = info.iconUrl,
-        title = info.title,
+    ConversationCard(
+        avatarUrl = info.avatarUrl ?: "",
+        title = info.getTitle(),
         lastMessage = info.lastMessage,
-        isPin = info.isPin,
-        lastOnline = info.lastOnline,
-        totalMessageUnread = info.totalMessageUnread
+        isPin = info.pinned,
+        lastOnline = "XXX",
+        totalMessageUnread = info.totalMessageUnread,
+        onClick = {
+            onClick(info)
+        },
     )
 }
 
 @Composable
-fun RoomChatCard(
-    iconUrl: String,
+private fun ConversationCard(
+    avatarUrl: String,
     title: String,
-    lastMessage: String,
+    lastMessage: Message?,
     isPin: Boolean,
     lastOnline: String,
-    totalMessageUnread: Int
+    totalMessageUnread: Int,
+    onClick: () -> Unit = {},
 ) {
     val colorScheme = MaterialTheme.colorScheme.listRoomChat
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .background(if (isPin) colorScheme.roomChatCardSecondary else colorScheme.roomChatCardPrimary)
-            .padding(start = MaterialTheme.dimes.sizing.smallAddXsmall),
+            .background(if (isPin) colorScheme.cardSecondary else colorScheme.cardPrimary)
+            .padding(start = MaterialTheme.dimes.sizing.smallAddXsmall)
+            .clickable(onClick = onClick),
     ) {
         AsyncImage(
-            model = iconUrl,
+            model = avatarUrl,
             contentDescription = null,
             modifier = Modifier
                 .clip(CircleShape)
@@ -105,9 +114,9 @@ fun RoomChatCard(
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = lastMessage,
+                    text = lastMessage?.content ?: "",
                     maxLines = 1,
-                    color = if (totalMessageUnread > 0) colorScheme.roomChatCardOnPrimary else colorScheme.romChatReadedMessage,
+                    color = if (totalMessageUnread > 0) colorScheme.cardOnPrimary else colorScheme.readMessage,
                 )
             }
 
@@ -117,7 +126,7 @@ fun RoomChatCard(
                         Icon(
                             painter = painterResource(R.drawable.ic_push_pin),
                             contentDescription = null,
-                            tint = colorScheme.romChatReadedMessage,
+                            tint = colorScheme.readMessage,
                             modifier = Modifier
                                 .size(MaterialTheme.dimes.iconSize.xsm)
                                 .rotate(45f)
@@ -126,7 +135,7 @@ fun RoomChatCard(
                     }
                     Text(
                         text = lastOnline,
-                        color = if (totalMessageUnread > 0) colorScheme.roomChatCardOnPrimary else colorScheme.romChatReadedMessage,
+                        color = if (totalMessageUnread > 0) colorScheme.cardOnPrimary else colorScheme.readMessage,
                         fontSize = MaterialTheme.dimes.textSize.small,
                     )
                 }
@@ -142,7 +151,7 @@ fun RoomChatCard(
                             .background(Red300),
                     ) {
                         Text(
-                            text = if(totalMessageUnread > 10) "9" else  "$totalMessageUnread",
+                            text = if (totalMessageUnread > 10) "9" else "$totalMessageUnread",
                             color = SuperWhite,
                             fontSize = MaterialTheme.dimes.textSize.xsmall,
                             lineHeight = MaterialTheme.dimes.textSize.xsmall

@@ -1,15 +1,17 @@
-package website.ndlam.zalo.core.util.formater
+package website.ndlam.zalo.core.util.converter
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.converter.gson.GsonConverterFactory
-import java.nio.charset.Charset
+import website.ndlam.zalo.core.util.converter.adapter.LocalDateTimeAdapter
 import java.nio.charset.StandardCharsets.UTF_8
+import java.time.LocalDateTime
 
 object GsonConverter {
     val gson: Gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter())
         .create()
 
     val converter: GsonConverterFactory = GsonConverterFactory.create(gson)

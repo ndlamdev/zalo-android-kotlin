@@ -1,6 +1,5 @@
 package website.ndlam.zalo.network
 
-import android.webkit.HttpAuthHandler
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -8,12 +7,10 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import website.ndlam.zalo.core.util.formater.GsonConverter
-import website.ndlam.zalo.core.util.formater.convert
+import website.ndlam.zalo.core.util.converter.GsonConverter
+import website.ndlam.zalo.core.util.converter.convert
 import website.ndlam.zalo.data.remote.api.ApiResponseError
 import website.ndlam.zalo.domain.repository.ITokenManager
-import website.ndlam.zalo.network.helper.getCookieRefreshToken
-import website.ndlam.zalo.network.helper.getRefreshToken
 
 class TokenAuthenticator(val tokenManager: ITokenManager?) : Authenticator {
     val mutex = Mutex()

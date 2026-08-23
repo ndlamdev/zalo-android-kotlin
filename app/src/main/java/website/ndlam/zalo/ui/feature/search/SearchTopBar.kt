@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import website.ndlam.zalo.R
+import website.ndlam.zalo.ui.common.header.BackTopBar
 import website.ndlam.zalo.ui.theme.dimes
 import website.ndlam.zalo.ui.theme.searchScreen
 
@@ -36,35 +37,10 @@ fun SearchTopBar(
     onSearchTextChange: (String) -> Unit = {},
     onBackClick: () -> Unit = {}
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(64.dp)
-            .background(MaterialTheme.colorScheme.searchScreen.topBarBackground)
-            .padding(horizontal = MaterialTheme.dimes.sizing.small),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        IconButton(
-            onClick = onBackClick,
-            colors = IconButtonDefaults.iconButtonColors().copy(contentColor = Color.Transparent)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_white_arrow_left),
-                contentDescription = "Back",
-                tint = Color.White,
-                modifier = Modifier.size(24.dp)
-            )
-        }
 
-        Row(
-            modifier = Modifier
-                .weight(1f)
-                .height(40.dp)
-                .clip(RoundedCornerShape(MaterialTheme.dimes.sizing.small))
-                .background(MaterialTheme.colorScheme.searchScreen.topBarInputBackground)
-                .padding(horizontal = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+    BackTopBar(
+        onBack = onBackClick,
+        center = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = null,
@@ -100,15 +76,16 @@ fun SearchTopBar(
                     )
                 }
             }
+        },
+        right = {
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_white_qr),
+                    contentDescription = "QR Code",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         }
-
-        IconButton(onClick = {}) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_white_qr),
-                contentDescription = "QR Code",
-                tint = Color.White,
-                modifier = Modifier.size(24.dp)
-            )
-        }
-    }
+    )
 }

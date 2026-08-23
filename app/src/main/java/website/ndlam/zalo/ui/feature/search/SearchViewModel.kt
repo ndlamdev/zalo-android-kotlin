@@ -6,13 +6,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-import website.ndlam.zalo.data.remote.api.UserInfo
-import website.ndlam.zalo.domain.repository.IAuthRepository
-import website.ndlam.zalo.network.RetrofitClient
+import website.ndlam.zalo.data.remote.api.UserInRelationShip
 import website.ndlam.zalo.network.RetrofitClientSecured
 
 class SearchViewModel : ViewModel {
-    private val _user = MutableStateFlow<UserInfo?>(null)
+    private val _user = MutableStateFlow<UserInRelationShip?>(null)
     val user = _user.asStateFlow()
     private val _textSearch = MutableStateFlow("")
 

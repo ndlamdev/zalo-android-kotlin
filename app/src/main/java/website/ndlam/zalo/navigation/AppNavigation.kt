@@ -10,11 +10,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import website.ndlam.zalo.BuildConfig
+import website.ndlam.zalo.core.util.converter.GsonConverter
+import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen
 import website.ndlam.zalo.core.util.viewmodel.initViewModelWithDependencies
+import website.ndlam.zalo.data.remote.api.ConversationDto
 import website.ndlam.zalo.data.repository.AuthRepositoryImpl
 import website.ndlam.zalo.data.repository.TokenMangerImpl
-import website.ndlam.zalo.domain.repository.ITokenManager
+import website.ndlam.zalo.navigation.type.LocalNavType
 import website.ndlam.zalo.network.RetrofitClientSecured
 import website.ndlam.zalo.ui.common.auth.AuthViewModel
 import website.ndlam.zalo.ui.common.textfield.viewmodel.PhoneNumberViewModel
@@ -24,6 +28,7 @@ import website.ndlam.zalo.ui.feature.main.MainViewModel
 import website.ndlam.zalo.ui.feature.main.StompMessageViewModel
 import website.ndlam.zalo.ui.feature.password.PasswordScreen
 import website.ndlam.zalo.ui.feature.regioncode.RegionCodeScreen
+import website.ndlam.zalo.ui.feature.roomchat.RoomChatScreen
 import website.ndlam.zalo.ui.feature.search.SearchScreen
 import website.ndlam.zalo.ui.feature.signin.SignInScreen
 import website.ndlam.zalo.ui.feature.signup.SignUpScreen
@@ -46,7 +51,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
         mainViewModel.getUserInfo()
         stompMessageViewModel.connect(BuildConfig.API_CHATWS_URL)
 
-        navController.navigate(Main::class.java.name) {
+        navController.navigate(NavDestinations.Main.name) {
             popUpTo(0) {
                 inclusive = true
             }
@@ -60,14 +65,14 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
 
     NavHost(
         navController = navController,
-        startDestination = Splash::class.java.name,
+        startDestination = NavDestinations.Splash.name,
     ) {
-        composable(Splash::class.java.name) {
+        composable(NavDestinations.Splash.name) {
             SplashScreen(
                 navigateToMainScreen = onLoginSuccess,
                 navigateToIntroductionScreen = {
-                    navController.navigate(Introduction::class.java.name) {
-                        popUpTo(Splash::class.java.name) {
+                    navController.navigate(NavDestinations.Introduction.name) {
+                        popUpTo(NavDestinations.Splash.name) {
                             inclusive = true
                         }
                     }
@@ -77,19 +82,19 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             )
         }
 
-        composable(Introduction::class.java.name) {
+        composable(NavDestinations.Introduction.name) {
             IntroductionScreen(
                 paddingValues,
                 navigateToSignInScreen = {
                     authViewModel.clearLoginStatus()
-                    navController.navigate(SignIn::class.java.name) {
+                    navController.navigate(NavDestinations.SignIn.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
                 navigateToSignUpScreen = {
                     authViewModel.clearLoginStatus()
-                    navController.navigate(SignUp::class.java.name) {
+                    navController.navigate(NavDestinations.SignUp.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
@@ -97,7 +102,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             )
         }
 
-        composable(SignIn::class.java.name) {
+        composable(NavDestinations.SignIn.name) {
             SignInScreen(
                 paddingValues, phoneNumberViewModel,
                 onBackPress = {
@@ -106,26 +111,26 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     }
                 },
                 navigateSignUpScreen = {
-                    navController.navigate(SignUp::class.java.name) {
+                    navController.navigate(NavDestinations.SignUp.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
                 onContinuePress = {
-                    navController.navigate(Password::class.java.name) {
+                    navController.navigate(NavDestinations.Password.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
                 navigateRegionCode = {
-                    navController.navigate(RegionCode::class.java.name) {
+                    navController.navigate(NavDestinations.RegionCode.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 })
         }
 
-        composable(SignUp::class.java.name) {
+        composable(NavDestinations.SignUp.name) {
             SignUpScreen(
                 paddingValues, phoneNumberViewModel,
                 onBackPress = {
@@ -134,7 +139,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     }
                 },
                 navigateSignInScreen = {
-                    navController.navigate(SignIn::class.java.name) {
+                    navController.navigate(NavDestinations.SignIn.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
@@ -143,14 +148,14 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
 
                 },
                 navigateRegionCode = {
-                    navController.navigate(RegionCode::class.java.name) {
+                    navController.navigate(NavDestinations.RegionCode.name) {
                         launchSingleTop = true
                         restoreState = true
                     }
                 })
         }
 
-        composable(RegionCode::class.java.name) {
+        composable(NavDestinations.RegionCode.name) {
             RegionCodeScreen(
                 paddingValues = paddingValues,
                 onBackPress = {
@@ -163,7 +168,7 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             )
         }
 
-        composable(Password::class.java.name) {
+        composable(NavDestinations.Password.name) {
             PasswordScreen(
                 paddingValues = paddingValues,
                 onBackPress = {
@@ -178,19 +183,15 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
             )
         }
 
-        composable(Main::class.java.name) {
+        composable(NavDestinations.Main.name) {
             MainScreen(
                 paddingValues = paddingValues,
-                stompMessageViewModel = stompMessageViewModel,
-                onSearchPress = {
-                    navController.navigate(Search::class.java.name) {
-                        launchSingleTop = true
-                    }
-                }
+                navController = navController,
+                stompMessageViewModel = stompMessageViewModel
             )
         }
 
-        composable(Search::class.java.name) {
+        composable(NavDestinations.Search.name) {
             SearchScreen(
                 paddingValues = paddingValues,
                 onBackPress = {
@@ -199,6 +200,24 @@ fun AppNavigation(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                     }
                 }
             )
+        }
+
+        composable(
+            "${NavDestinations.ROOMCHAT.name}/{data}",
+            arguments = listOf(navArgument("data") {
+                type = LocalNavType(true, ConversationDto::class.java)
+            })
+        ) { backStackEntry ->
+            val json = backStackEntry.arguments?.getString("data") ?: return@composable
+            val data = GsonConverter.gson.fromJson(
+                json,
+                ConversationDto::class.java
+            )
+            RoomChatScreen(data, onBack = {
+                if (navController.previousBackStackEntry != null) {
+                    navController.popBackStack()
+                }
+            })
         }
     }
 }

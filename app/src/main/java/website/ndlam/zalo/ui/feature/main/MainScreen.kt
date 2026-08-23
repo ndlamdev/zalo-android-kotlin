@@ -10,24 +10,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import website.ndlam.zalo.core.util.enums.ScreenOnMainScreen
+import website.ndlam.zalo.navigation.NavDestinations
 import website.ndlam.zalo.ui.common.header.SearchBarCompose
 import website.ndlam.zalo.ui.common.menu.MenuBar
 import website.ndlam.zalo.ui.feature.contact.ContactScreen
+import website.ndlam.zalo.ui.feature.conversation.ListConversationScreen
 import website.ndlam.zalo.ui.feature.discovery.DiscoveryScreen
-import website.ndlam.zalo.ui.feature.listroomchat.ListRoomChatScreen
 import website.ndlam.zalo.ui.feature.newsfeed.NewsFeedScreen
 import website.ndlam.zalo.ui.feature.setting.SettingScreen
 
 @Composable
 fun MainScreen(
     paddingValues: PaddingValues = PaddingValues(0.dp),
+    navController: NavHostController,
     stompMessageViewModel: StompMessageViewModel = viewModel(),
-    onSearchPress: () -> Unit = {}
 ) {
     val pagerState = rememberPagerState { 5 }
     val coroutineScope = rememberCoroutineScope()
@@ -39,7 +40,11 @@ fun MainScreen(
         SearchBarCompose(
             currentScreen = ScreenOnMainScreen.entries[pagerState.currentPage],
             paddingValues = PaddingValues(top = paddingValues.calculateTopPadding()),
-            onSearchPress = onSearchPress
+            onSearchPress = {
+                navController.navigate(NavDestinations.Search.name) {
+                    launchSingleTop = true
+                }
+            }
         )
         HorizontalPager(
             pagerState,
@@ -48,7 +53,11 @@ fun MainScreen(
                 .background(MaterialTheme.colorScheme.primary)
         ) { page ->
             when (page) {
-                0 -> ListRoomChatScreen()
+                0 -> ListConversationScreen(
+                    navController = navController,
+                    stompMessageViewModel = stompMessageViewModel
+                )
+
                 1 -> ContactScreen()
                 2 -> DiscoveryScreen()
                 3 -> NewsFeedScreen()
@@ -56,7 +65,8 @@ fun MainScreen(
             }
         }
         MenuBar(
-            state = ScreenOnMainScreen.entries[pagerState.currentPage], onClick = { key ->
+            state = ScreenOnMainScreen.entries[pagerState.currentPage],
+            onClick = { key ->
                 coroutineScope.launch {
                     pagerState.scrollToPage(ScreenOnMainScreen.entries.indexOf(key))
                 }
@@ -64,10 +74,4 @@ fun MainScreen(
             paddingValues = PaddingValues(bottom = paddingValues.calculateBottomPadding())
         )
     }
-}
-
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
 }

@@ -59,11 +59,11 @@ data class SearchScreenColorScheme(
 )
 
 
-data class ListRoomChatColorScheme(
-    val roomChatCardPrimary: Color = SuperWhite,
-    val roomChatCardOnPrimary: Color = Black900,
-    val roomChatCardSecondary: Color = White,
-    val romChatReadedMessage: Color = Gray450,
+data class ListConversationColorScheme(
+    val cardPrimary: Color = SuperWhite,
+    val cardOnPrimary: Color = Black900,
+    val cardSecondary: Color = White,
+    val readMessage: Color = Gray450,
 )
 
 val ColorScheme.disableButton: Color
@@ -155,13 +155,13 @@ val ColorScheme.mainScreen: MainScreenColorScheme
     else MainScreenColorScheme()
 
 
-val ColorScheme.listRoomChat: ListRoomChatColorScheme
+val ColorScheme.listRoomChat: ListConversationColorScheme
     @Composable
     get() = if (isSystemInDarkTheme())
-        ListRoomChatColorScheme(
-            roomChatCardPrimary = Gray960,
-            roomChatCardOnPrimary = SuperWhite,
-            roomChatCardSecondary = Gray920,
-            romChatReadedMessage = Gray710
+        ListConversationColorScheme(
+            cardPrimary = Gray960,
+            cardOnPrimary = SuperWhite,
+            cardSecondary = Gray920,
+            readMessage = Gray710
         )
-    else ListRoomChatColorScheme()
+    else ListConversationColorScheme()

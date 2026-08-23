@@ -1,8 +1,7 @@
 package website.ndlam.zalo.core.util.formater
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
-
+import com.google.i18n.phonenumbers.Phonenumber
 
 object PhoneNumberFormater {
     private val phoneNumberUtil = PhoneNumberUtil.getInstance()
@@ -73,11 +72,11 @@ object PhoneNumberFormater {
         )
     }
 
-    fun parse(swissNumberStr: String, region: String): PhoneNumber {
+    fun parse(swissNumberStr: String, region: String): Phonenumber.PhoneNumber {
         return phoneNumberUtil.parse(swissNumberStr, region)
     }
 
-    fun parse(swissNumber: Long, countryCode: Int): PhoneNumber {
-        return PhoneNumber().setCountryCode(countryCode).setNationalNumber(swissNumber)
+    fun parse(swissNumber: Long, countryCode: Int): Phonenumber.PhoneNumber {
+        return Phonenumber.PhoneNumber().setCountryCode(countryCode).setNationalNumber(swissNumber)
     }
 }
